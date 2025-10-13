@@ -44,7 +44,7 @@
  * - Coordinate system: origin at the top-left; +X to the right, +Y down.
  * - Values are finite floats; no special semantics for NaN/Inf.
  */
-struct FPoint {
+struct Vec2F {
 	float x, y;
 };
 
@@ -61,7 +61,7 @@ struct FPoint {
  *   intersect()).
  * - Rects are expressed in the local space of their owner unless stated otherwise.
  */
-struct FRect {
+struct Rect2F {
 	float x, y, w, h;
 };
 
@@ -87,24 +87,24 @@ struct State;
  */
 struct DispatcherCtx {
 	/** Mouse position in the current widget's local space. */
-	FPoint mouse_rel;
+	Vec2F  mouse_rel;
 	/** Mouse position in absolute coordinates. */
-	FPoint mouse_abs;
+	Vec2F  mouse_abs;
 	/** Active clip rectangle in the current local space. */
-	FRect  viewport;
+	Rect2F viewport;
 	/** Target window for rendering. May be null for non-render events. */
 	Window *window;
 
 	/**
 	 * @brief Intersect the current viewport with @p frame.
 	 */
-	void clip(FRect frame);
+	void clip(Rect2F frame);
 
 	/**
 	 * @return Offset to transform local coordinates to absolute ones, i.e.
 	 * `abs = rel + offset()`.
 	 */
-	FPoint offset();
+	Vec2F offset();
 
 	/**
 	 * @brief Create a child context translated by @p frame's top-left.
@@ -112,7 +112,7 @@ struct DispatcherCtx {
 	 * Useful when descending into a child whose frame is expressed relative to
 	 * the current widget.
 	 */
-	DispatcherCtx with_offset(FRect frame) const;
+	DispatcherCtx with_offset(Rect2F frame) const;
 
 	/**
 	 * @brief Build a root context from absolute mouse and initial clip.
@@ -120,7 +120,7 @@ struct DispatcherCtx {
 	 * @param clip Initial clip rectangle in root-local coordinates.
 	 * @param window Window to render into (may be null during layout).
 	 */
-	static DispatcherCtx from_absolute(FPoint abs, FRect clip, Window *window);
+	static DispatcherCtx from_absolute(Vec2F abs, Rect2F clip, Window *window);
 };
 
 /**
@@ -173,16 +173,16 @@ struct QuitRequestEvent : Event {
 
 /** @brief Mouse moved. */
 struct MouseMoveEvent : Event {
-	FPoint mouse_abs;
-	MouseMoveEvent(FPoint mouse_abs_);
+	Vec2F mouse_abs;
+	MouseMoveEvent(Vec2F mouse_abs_);
 
 	DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /** @brief Mouse button pressed. */
 struct MouseDownEvent : Event {
-	FPoint mouse_abs;
-	MouseDownEvent(FPoint mouse_abs_) : mouse_abs(mouse_abs_) {}
+	Vec2F mouse_abs;
+	MouseDownEvent(Vec2F mouse_abs_) : mouse_abs(mouse_abs_) {}
 
 	DispatchResult deliver(DispatcherCtx, Widget *);
 };
@@ -232,18 +232,18 @@ class Widget {
 public:
 	Widget *parent;  //!< Parent widget.
 	State  *state;   //!< Shared UI state.
-	FRect   frame;   //!< Local frame; `x` and `y` are relative to `parent`.
+	Rect2F  frame;   //!< Local frame; `x` and `y` are relative to `parent`.
 
-	Widget(FRect frame_, Widget *parent_, State *state_) {}
+	Widget(Rect2F frame_, Widget *parent_, State *state_) {}
 	virtual ~Widget();
 
 	/** @return Short, human-readable name used for tooling/debugging. */
 	virtual const char *title() const = 0;
 
 	/** @return The current viewport used for clipping/hit-testing. */
-	virtual FRect get_viewport() const;
+	virtual Rect2F get_viewport() const;
 	/** @brief Update the widget's frame. */
-	virtual void  set_frame(FRect new_frame);
+	virtual void  set_frame(Rect2F new_frame);
 	/**
 	 * @brief Basic hit-test against current viewport in local space.
 	 * @return True if `ctx.mouse_rel` lies within `ctx.viewport`.
@@ -298,9 +298,9 @@ protected:
 	std::vector<Widget*> children;
 
 public:
-	WidgetContainer(FRect, Widget *, State *);
+	WidgetContainer(Rect2F, Widget *, State *);
 	/** Construct a container pre-populated with @p children_. */
-	WidgetContainer(FRect, Widget *, std::vector<Widget*> children_, State *);
+	WidgetContainer(Rect2F, Widget *, std::vector<Widget*> children_, State *);
 
 	/**
 	 * @brief Append children and adopt them (set their `parent = this`).
@@ -335,7 +335,7 @@ protected:
 	bool is_dragging;
 
 public:
-	DraggableWidget(FRect, Widget *, State *);
+	DraggableWidget(Rect2F, Widget *, State *);
 
 	/**
 	 * @brief Pointer moved; update position if a drag is active.
@@ -371,7 +371,7 @@ class ControlledWidget;  // forward-declare
  */
 class Control : public virtual Widget {
 public:
-	Control(FRect, Widget *, State *);
+	Control(Rect2F, Widget *, State *);
 
 	/** Attach this control to a host widget. */
 	virtual void attach_to(ControlledWidget *host) = 0;
@@ -385,7 +385,7 @@ protected:
 	std::vector<Control*> controls;
 
 public:
-	ControlledWidget(FRect, Widget *, State *);
+	ControlledWidget(Rect2F, Widget *, State *);
 
 	/**
 	 * @brief Attach a control and adopt it as a child.
@@ -408,23 +408,23 @@ public:
 class ScrollableWidget : public virtual Widget {
 public:
 	/** Visible region in parent-local coordinates (clip for content). */
-	FRect viewport;
+	Rect2F viewport;
 
 	/**
 	 * @param content_frame_ The total logical content bounds.
 	 * @param viewport_frame_ The visible region (clip) where content is shown.
 	 */
-	ScrollableWidget(FRect content_frame_, FRect viewport_frame_, Widget *, State *);
+	ScrollableWidget(Rect2F content_frame_, Rect2F viewport_frame_, Widget *, State *);
 
 	/** @return The active viewport used for clipping. */
-	FRect get_viewport() const;
+	Rect2F get_viewport() const;
 
 	/** @return Current scroll progress in pixels along Y. */
 	float content_progress() const;
 	/**
 	 * @brief Update content frame while preserving current scroll offsets.
 	 */
-	void  set_frame(FRect);
+	void  set_frame(Rect2F);
 	/**
 	 * @brief Scroll vertically by @p dy, clamped to content bounds.
 	 */
