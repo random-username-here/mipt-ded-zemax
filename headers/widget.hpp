@@ -125,7 +125,7 @@ struct DispatcherCtx {
 
 /**
  * @brief Result of dispatch.
- * - PROPAGATE:	event was not consumed; continue bubbling.
+ * - PROPAGATE:	event was not consumed; continue propagation.
  * - CONSUME:	event handled; stop propagation.
  */
 enum DispatchResult { PROPAGATE, CONSUME };
