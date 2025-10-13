@@ -229,11 +229,14 @@ struct KeyUpEvent : KeyEvent {
  * expressed relative to its parent.
  */
 class Widget {
-public:
-	Widget *parent;  //!< Parent widget.
+private:
 	State  *state;   //!< Shared UI state.
+
+protected:
+	Widget *parent;  //!< Parent widget.
 	Rect2F  frame;   //!< Local frame; `x` and `y` are relative to `parent`.
 
+public:
 	Widget(Rect2F frame_, Widget *parent_, State *state_) {}
 	virtual ~Widget();
 
@@ -242,13 +245,22 @@ public:
 
 	/** @return The current viewport used for clipping/hit-testing. */
 	virtual Rect2F get_viewport() const;
+
+	/** @brief Get the widget's frame. */
+	virtual Rect2F get_frame();
 	/** @brief Update the widget's frame. */
-	virtual void  set_frame(Rect2F new_frame);
+	virtual void   set_frame(Rect2F new_frame);
+
+	/** @brief Get the widget's parent. */
+	virtual Widget *get_parent();
+	/** @brief Update the widget's parent. */
+	virtual void    set_parent(Widget *parent);
+
 	/**
 	 * @brief Basic hit-test against current viewport in local space.
 	 * @return True if `ctx.mouse_rel` lies within `ctx.viewport`.
 	 */
-	virtual bool  contains_mouse(DispatcherCtx ctx) const;
+	virtual bool contains_mouse(DispatcherCtx ctx) const;
 
 	/**
 	 * @brief Draw the widget at an absolute offset.
