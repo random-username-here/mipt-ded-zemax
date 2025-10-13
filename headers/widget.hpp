@@ -271,15 +271,15 @@ public:
 	virtual void render(Window *window, float off_x, float off_y) = 0;
 
 	// Input & lifecycle hooks (default: PROPAGATE)
-	virtual DispatchResult on_render      (DispatcherCtx, const RenderEvent      *);
-	virtual DispatchResult on_mouse_move  (DispatcherCtx, const MouseMoveEvent   *);
-	virtual DispatchResult on_mouse_down  (DispatcherCtx, const MouseDownEvent   *);
-	virtual DispatchResult on_mouse_up    (DispatcherCtx, const MouseUpEvent     *);
-	virtual DispatchResult on_key_down    (DispatcherCtx, const KeyDownEvent     *);
-	virtual DispatchResult on_key_up      (DispatcherCtx, const KeyUpEvent       *);
-	virtual DispatchResult on_idle        (DispatcherCtx, const IdleEvent        *);
-	virtual DispatchResult on_quit_request(DispatcherCtx, const QuitRequestEvent *);
-	virtual DispatchResult on_layout      (DispatcherCtx, const LayoutEvent      *);
+	virtual DispatchResult on_render      (DispatcherCtx, const RenderEvent      &);
+	virtual DispatchResult on_mouse_move  (DispatcherCtx, const MouseMoveEvent   &);
+	virtual DispatchResult on_mouse_down  (DispatcherCtx, const MouseDownEvent   &);
+	virtual DispatchResult on_mouse_up    (DispatcherCtx, const MouseUpEvent     &);
+	virtual DispatchResult on_key_down    (DispatcherCtx, const KeyDownEvent     &);
+	virtual DispatchResult on_key_up      (DispatcherCtx, const KeyUpEvent       &);
+	virtual DispatchResult on_idle        (DispatcherCtx, const IdleEvent        &);
+	virtual DispatchResult on_quit_request(DispatcherCtx, const QuitRequestEvent &);
+	virtual DispatchResult on_layout      (DispatcherCtx, const LayoutEvent      &);
 
 	/**
 	 * @brief Deliver @p e to this widget (and optionally children).
@@ -352,17 +352,17 @@ public:
 	/**
 	 * @brief Pointer moved; update position if a drag is active.
 	 */
-	DispatchResult on_mouse_move(DispatcherCtx, const MouseMoveEvent *);
+	DispatchResult on_mouse_move(DispatcherCtx, const MouseMoveEvent &);
 
 	/**
 	 * @brief Begin dragging when the pointer is pressed inside this widget.
 	 */
-	DispatchResult on_mouse_down(DispatcherCtx, const MouseDownEvent *);
+	DispatchResult on_mouse_down(DispatcherCtx, const MouseDownEvent &);
 
 	/**
 	 * @brief End a drag interaction.
 	 */
-	DispatchResult on_mouse_up  (DispatcherCtx, const MouseUpEvent   *);
+	DispatchResult on_mouse_up  (DispatcherCtx, const MouseUpEvent   &);
 };
 
 /**
