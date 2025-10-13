@@ -339,10 +339,8 @@ public:
  */
 class DraggableWidget : public virtual Widget {
 protected:
-	/** X position of the widget's parent-space origin at drag start. */
-	float start_drag_x;
-	/** Y position of the widget's parent-space origin at drag start. */
-	float start_drag_y;
+	/** Position of the widget's parent-space origin at drag start. */
+	Vec2F start_drag;
 	/** True while a drag interaction is active. */
 	bool is_dragging;
 
