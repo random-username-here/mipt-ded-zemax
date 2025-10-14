@@ -222,6 +222,9 @@ struct KeyUpEvent : KeyEvent {
 	DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
+// forward-declare
+class Surface;
+
 /**
  * @brief Base class for all UI elements.
  *
@@ -230,7 +233,9 @@ struct KeyUpEvent : KeyEvent {
  */
 class Widget {
 private:
-	State  *state;   //!< Shared UI state.
+	State   *state;        //!< Shared UI state.
+	Surface *surface;      //!< Rendering surface.
+	bool     will_redraw;  //!< Whether a widget changed visually.
 
 protected:
 	Widget *parent;  //!< Parent widget.
@@ -262,16 +267,14 @@ public:
 	 */
 	virtual bool contains_mouse(DispatcherCtx ctx) const;
 
-	/**
-	 * @brief Draw the widget at an absolute offset.
-	 * @param window The render target.
-	 * @param off_x Absolute X offset.
-	 * @param off_y Absolute Y offset.
-	 */
-	virtual void render(Window *window, float off_x, float off_y) = 0;
+	/** @brief Draw the widget to a surface. */
+	virtual void draw() = 0;
+
+	const Surface *request_surface();
+
+	void request_redraw();
 
 	// Input & lifecycle hooks (default: PROPAGATE)
-	virtual DispatchResult on_render      (DispatcherCtx, const RenderEvent      &);
 	virtual DispatchResult on_mouse_move  (DispatcherCtx, const MouseMoveEvent   &);
 	virtual DispatchResult on_mouse_down  (DispatcherCtx, const MouseDownEvent   &);
 	virtual DispatchResult on_mouse_up    (DispatcherCtx, const MouseUpEvent     &);
@@ -283,11 +286,8 @@ public:
 
 	/**
 	 * @brief Deliver @p e to this widget (and optionally children).
-	 *
-	 * @param reverse When true, derived classes may change the order of child
-	 * dispatch (e.g., front-to-back).
 	 */
-	virtual DispatchResult broadcast(DispatcherCtx ctx, Event *e, bool reverse=false);
+	virtual DispatchResult broadcast(DispatcherCtx ctx, Event *e);
 
 	/**
 	 * @brief Request a synchronous layout pass starting at this widget.
