@@ -315,10 +315,10 @@ public:
 	WidgetContainer(Rect2F, Widget *, std::vector<Widget*> children_, State *);
 
 	/**
-	 * @brief Append children and adopt them (set their `parent = this`).
+	 * @brief Append a child and adopt it (set its `parent` to `this`).
 	 * @note Transfers ownership.
 	 */
-	void append_children(const std::vector<Widget*> &);
+	void append_child(Widget*);
 
 	/**
 	 * @brief Dispatch to children, then this widget.
