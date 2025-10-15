@@ -22,8 +22,8 @@
  * scrollable content.
  *
  * Coordinates & clipping:
- * - `DispatcherCtx::mouse_abs` is in window/screen coordinates.
- * - `DispatcherCtx::mouse_rel` is relative to the current widget's local
+ * - `DispatcherCtx::mouseAbs` is in window/screen coordinates.
+ * - `DispatcherCtx::mouseRel` is relative to the current widget's local
  * origin (top-left of its frame).
  * - `DispatcherCtx::viewport` is a clip rectangle in the *current* local space
  * that constrains drawing and hit-tests.
@@ -33,7 +33,6 @@
  */
 
 #include <cstdint>
-#include <stdexcept>
 #include <vector>
 
 /**
@@ -45,7 +44,7 @@
  * - Values are finite floats; no special semantics for NaN/Inf.
  */
 struct Vec2F {
-	float x, y;
+    float x, y;
 };
 
 /**
@@ -62,13 +61,13 @@ struct Vec2F {
  * - Rects are expressed in the local space of their owner unless stated otherwise.
  */
 struct Rect2F {
-	float x, y, w, h;
+    float x, y, w, h;
 };
 
 /**
  * @brief Time in seconds (double precision).
  *
- * Used for deltas (e.g., IdleEvent::dt_s), budgets, and absolute deadlines.
+ * Used for deltas (e.g., IdleEvent::dt), budgets, and absolute deadlines.
  * Assumed to be monotonic when used as a timestamp source.
  */
 typedef double Time;
@@ -86,41 +85,41 @@ struct State;
  * create derived contexts when adjusting offsets/clipping.
  */
 struct DispatcherCtx {
-	/** Mouse position in the current widget's local space. */
-	Vec2F  mouse_rel;
-	/** Mouse position in absolute coordinates. */
-	Vec2F  mouse_abs;
-	/** Active clip rectangle in the current local space. */
-	Rect2F viewport;
-	/** Target window for rendering. May be null for non-render events. */
-	Window *window;
+    /** Mouse position in the current widget's local space. */
+    Vec2F  mouseRel;
+    /** Mouse position in absolute coordinates. */
+    Vec2F  mouseAbs;
+    /** Active clip rectangle in the current local space. */
+    Rect2F viewport;
+    /** Target window for rendering. May be null for non-render events. */
+    Window *window;
 
-	/**
-	 * @brief Intersect the current viewport with @p frame.
-	 */
-	void clip(Rect2F frame);
+    /**
+     * @brief Intersect the current viewport with @p frame.
+     */
+    void clip(Rect2F frame);
 
-	/**
-	 * @return Offset to transform local coordinates to absolute ones, i.e.
-	 * `abs = rel + offset()`.
-	 */
-	Vec2F offset();
+    /**
+     * @return Offset to transform local coordinates to absolute ones, i.e.
+     * `abs = rel + offset()`.
+     */
+    Vec2F offset();
 
-	/**
-	 * @brief Create a child context translated by @p frame's top-left.
-	 *
-	 * Useful when descending into a child whose frame is expressed relative to
-	 * the current widget.
-	 */
-	DispatcherCtx with_offset(Rect2F frame) const;
+    /**
+     * @brief Create a child context translated by @p frame's top-left.
+     *
+     * Useful when descending into a child whose frame is expressed relative to
+     * the current widget.
+     */
+    DispatcherCtx withOffset(Rect2F frame) const;
 
-	/**
-	 * @brief Build a root context from absolute mouse and initial clip.
-	 * @param abs Mouse position in absolute coordinates.
-	 * @param clip Initial clip rectangle in root-local coordinates.
-	 * @param window Window to render into (may be null during layout).
-	 */
-	static DispatcherCtx from_absolute(Vec2F abs, Rect2F clip, Window *window);
+    /**
+     * @brief Build a root context from absolute mouse and initial clip.
+     * @param abs Mouse position in absolute coordinates.
+     * @param clip Initial clip rectangle in root-local coordinates.
+     * @param window Window to render into (may be null during layout).
+     */
+    static DispatcherCtx fromAbsolute(Vec2F abs, Rect2F clip, Window *window);
 };
 
 /**
@@ -137,61 +136,61 @@ enum DispatchResult { PROPAGATE, CONSUME };
  * handler on @p widget.
  */
 struct Event {
-	virtual ~Event();
-	virtual DispatchResult deliver(DispatcherCtx, Widget *) = 0;
+    virtual ~Event();
+    virtual DispatchResult deliver(DispatcherCtx, Widget *) = 0;
 };
 
 /** @brief Rendering pass (draw the widget). */
 struct RenderEvent : Event {
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /** @brief Layout pass (arrange children, update frames). */
 struct LayoutEvent : Event {
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /**
  * @brief Idle time slice for background work/animations.
- * @param dt_s Time elapsed since last idle tick (seconds).
- * @param budget_s Recommended maximum processing time (seconds).
+ * @param dt Time elapsed since last idle tick (seconds).
+ * @param budget Recommended maximum processing time (seconds).
  * @param deadline Absolute deadline timestamp (seconds).
  */
 struct IdleEvent : public Event {
-	Time dt_s;
-	Time budget_s;
-	Time deadline;
-	IdleEvent(Time dt_s_, Time budget_s_, Time deadline_);
+    Time dt;
+    Time budget;
+    Time deadline;
+    IdleEvent(Time dt_, Time budget_, Time deadline_);
 
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /** @brief Request to close the application/window. */
 struct QuitRequestEvent : Event {
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /** @brief Mouse moved. */
 struct MouseMoveEvent : Event {
-	Vec2F mouse_abs;
-	MouseMoveEvent(Vec2F mouse_abs_);
+    Vec2F mouseAbs;
+    MouseMoveEvent(Vec2F mouseAbs_);
 
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /** @brief Mouse button pressed. */
 struct MouseDownEvent : Event {
-	Vec2F mouse_abs;
-	MouseDownEvent(Vec2F mouse_abs_) : mouse_abs(mouse_abs_) {}
+    Vec2F mouseAbs;
+    MouseDownEvent(Vec2F mouseAbs_) : mouseAbs(mouseAbs_) {}
 
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /** @brief Mouse button released. */
 struct MouseUpEvent : Event {
-	MouseUpEvent() {}
+    MouseUpEvent() {}
 
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /**
@@ -200,26 +199,26 @@ struct MouseUpEvent : Event {
  * from the platform layer. `mods` is a bitmask (e.g., Ctrl/Alt/Shift).
  */
 struct KeyEvent : Event {
-	int scancode;   //!< Platform-neutral scan code.
-	int keycode;    //!< Logical key code.
-	uint16_t mods;  //!< Modifier bitmask.
+    int scancode;   //!< Platform-neutral scan code.
+    int keycode;    //!< Logical key code.
+    uint16_t mods;  //!< Modifier bitmask.
 
-	KeyEvent(int scancode_, int keycode_, uint32_t mods_);
+    KeyEvent(int scancode_, int keycode_, uint32_t mods_);
 };
 
 /** @brief Key down. */
 struct KeyDownEvent : KeyEvent {
-	bool repeat;  //!< True if generated by key auto-repeat.
-	KeyDownEvent(int scancode_, int keycode_, uint32_t mods_, bool repeat_);
+    bool repeat;  //!< True if generated by key auto-repeat.
+    KeyDownEvent(int scancode_, int keycode_, uint32_t mods_, bool repeat_);
 
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 /** @brief Key released. */
 struct KeyUpEvent : KeyEvent {
-	KeyUpEvent(int scancode_, int keycode_, uint32_t mods_);
+    KeyUpEvent(int scancode_, int keycode_, uint32_t mods_);
 
-	DispatchResult deliver(DispatcherCtx, Widget *);
+    DispatchResult deliver(DispatcherCtx, Widget *);
 };
 
 // forward-declare
@@ -233,72 +232,72 @@ class Surface;
  */
 class Widget {
 private:
-	State   *state;        //!< Shared UI state.
-	Surface *surface;      //!< Rendering surface.
-	bool     will_redraw;  //!< Whether a widget changed visually.
+    State   *state_;        //!< Shared UI state.
+    Surface *surface_;      //!< Rendering surface.
+    bool     needsRedraw_;  //!< Whether a widget changed visually.
 
 protected:
-	Widget *parent;  //!< Parent widget.
-	Rect2F  frame;   //!< Local frame; `x` and `y` are relative to `parent`.
+    Widget *parent_;  //!< Parent widget.
+    Rect2F  frame_;   //!< Local frame; `x` and `y` are relative to `parent`.
 
 public:
-	Widget(Rect2F frame_, Widget *parent_, State *state_) {}
-	virtual ~Widget();
+    Widget(Rect2F frame, Widget *parent, State *state) {}
+    virtual ~Widget();
 
-	/** @return Short, human-readable name used for tooling/debugging. */
-	virtual const char *title() const = 0;
+    /** @return Short, human-readable name used for tooling/debugging. */
+    virtual const char *title() const = 0;
 
-	/** @return The current viewport used for clipping/hit-testing. */
-	virtual Rect2F get_viewport() const;
+    /** @return The current viewport used for clipping/hit-testing. */
+    virtual Rect2F getViewport() const;
 
-	/** @brief Get the widget's frame. */
-	virtual Rect2F get_frame();
-	/** @brief Update the widget's frame. */
-	virtual void   set_frame(Rect2F new_frame);
+    /** @brief Get the widget's frame. */
+    virtual Rect2F getFrame();
+    /** @brief Update the widget's frame. */
+    virtual void   setFrame(Rect2F newFrame);
 
-	/** @brief Get the widget's parent. */
-	virtual Widget *get_parent();
-	/** @brief Update the widget's parent. */
-	virtual void    set_parent(Widget *parent);
+    /** @brief Get the widget's parent. */
+    virtual Widget *getParent();
+    /** @brief Update the widget's parent. */
+    virtual void    setParent(Widget *parent);
 
-	/**
-	 * @brief Basic hit-test against current viewport in local space.
-	 * @return True if `ctx.mouse_rel` lies within `ctx.viewport`.
-	 */
-	virtual bool contains_mouse(DispatcherCtx ctx) const;
+    /**
+     * @brief Basic hit-test against current viewport in local space.
+     * @return True if `ctx.mouseRel` lies within `ctx.viewport`.
+     */
+    virtual bool containsMouse(DispatcherCtx ctx) const;
 
-	/** @brief Draw the widget to a surface. */
-	virtual void draw() = 0;
+    /** @brief Draw the widget to a surface. */
+    virtual void draw() = 0;
 
-	const Surface *request_surface();
+    const Surface *requestSurface();
 
-	void request_redraw();
+    void requestRedraw();
 
-	// Input & lifecycle hooks (default: PROPAGATE)
-	virtual DispatchResult on_mouse_move  (DispatcherCtx, const MouseMoveEvent   &);
-	virtual DispatchResult on_mouse_down  (DispatcherCtx, const MouseDownEvent   &);
-	virtual DispatchResult on_mouse_up    (DispatcherCtx, const MouseUpEvent     &);
-	virtual DispatchResult on_key_down    (DispatcherCtx, const KeyDownEvent     &);
-	virtual DispatchResult on_key_up      (DispatcherCtx, const KeyUpEvent       &);
-	virtual DispatchResult on_idle        (DispatcherCtx, const IdleEvent        &);
-	virtual DispatchResult on_quit_request(DispatcherCtx, const QuitRequestEvent &);
-	virtual DispatchResult on_layout      (DispatcherCtx, const LayoutEvent      &);
+    // Input & lifecycle hooks (default: PROPAGATE)
+    virtual DispatchResult onMouseMove  (DispatcherCtx, const MouseMoveEvent   &);
+    virtual DispatchResult onMouseDown  (DispatcherCtx, const MouseDownEvent   &);
+    virtual DispatchResult onMouseUp    (DispatcherCtx, const MouseUpEvent     &);
+    virtual DispatchResult onKeyDown    (DispatcherCtx, const KeyDownEvent     &);
+    virtual DispatchResult onKeyUp      (DispatcherCtx, const KeyUpEvent       &);
+    virtual DispatchResult onIdle        (DispatcherCtx, const IdleEvent        &);
+    virtual DispatchResult onQuitRequest(DispatcherCtx, const QuitRequestEvent &);
+    virtual DispatchResult onLayout      (DispatcherCtx, const LayoutEvent      &);
 
-	/**
-	 * @brief Deliver @p e to this widget (and optionally children).
-	 */
-	virtual DispatchResult broadcast(DispatcherCtx ctx, Event *e);
+    /**
+     * @brief Deliver @p e to this widget (and optionally children).
+     */
+    virtual DispatchResult broadcast(DispatcherCtx ctx, Event *e);
 
-	/**
-	 * @brief Request a synchronous layout pass starting at this widget.
-	 */
-	void refresh_layout();
+    /**
+     * @brief Request a synchronous layout pass starting at this widget.
+     */
+    void refreshLayout();
 
-	/**
-	 * @brief Compose a context that is correct for this widget as the root of a
-	 * dispatch (e.g., starting a layout pass from here).
-	 */
-	DispatcherCtx resolve_context(Window *) const;
+    /**
+     * @brief Compose a context that is correct for this widget as the root of a
+     * dispatch (e.g., starting a layout pass from here).
+     */
+    DispatcherCtx resolveContext(Window *) const;
 };
 
 /**
@@ -306,27 +305,24 @@ public:
  */
 class WidgetContainer : public virtual Widget {
 protected:
-	/** Child widgets in dispatch order. */
-	std::vector<Widget*> children;
+    /** Child widgets in dispatch order. */
+    std::vector<Widget*> children_;
 
 public:
-	WidgetContainer(Rect2F, Widget *, State *);
-	/** Construct a container pre-populated with @p children_. */
-	WidgetContainer(Rect2F, Widget *, std::vector<Widget*> children_, State *);
+    WidgetContainer(Rect2F, Widget *, State *);
+    /** Construct a container pre-populated with @p children. */
+    WidgetContainer(Rect2F, Widget *, std::vector<Widget*> children, State *);
 
-	/**
-	 * @brief Append a child and adopt it (set its `parent` to `this`).
-	 * @note Transfers ownership.
-	 */
-	void append_child(Widget*);
+    /**
+     * @brief Append a child and adopt it (set its `parent` to `this`).
+     * @note Transfers ownership.
+     */
+    void appendChild(Widget*);
 
-	/**
-	 * @brief Dispatch to children, then this widget.
-	 *
-	 * When `reversed` is true, delivery order is reversed and this widget
-	 * receives the event before its children.
-	 */
-	DispatchResult broadcast(DispatcherCtx ctx, Event *e, bool reversed=false);
+    /**
+     * @brief Dispatch to children, then this widget.
+     */
+    DispatchResult broadcast(DispatcherCtx ctx, Event *e);
 };
 
 /**
@@ -339,36 +335,28 @@ public:
  */
 class DraggableWidget : public virtual Widget {
 protected:
-	/** Position of the widget's parent-space origin at drag start. */
-	Vec2F start_drag;
-	/** True while a drag interaction is active. */
-	bool is_dragging;
+    /** Position of the widget's parent-space origin at drag start. */
+    Vec2F startDrag_;
+    /** True while a drag interaction is active. */
+    bool isDragging_;
 
 public:
-	DraggableWidget(Rect2F, Widget *, State *);
+    DraggableWidget(Rect2F, Widget *, State *);
 
-	/**
-	 * @brief Pointer moved; update position if a drag is active.
-	 */
-	DispatchResult on_mouse_move(DispatcherCtx, const MouseMoveEvent &);
+    /**
+     * @brief Pointer moved; update position if a drag is active.
+     */
+    DispatchResult onMouseMove(DispatcherCtx, const MouseMoveEvent &);
 
-	/**
-	 * @brief Begin dragging when the pointer is pressed inside this widget.
-	 */
-	DispatchResult on_mouse_down(DispatcherCtx, const MouseDownEvent &);
+    /**
+     * @brief Begin dragging when the pointer is pressed inside this widget.
+     */
+    DispatchResult onMouseDown(DispatcherCtx, const MouseDownEvent &);
 
-	/**
-	 * @brief End a drag interaction.
-	 */
-	DispatchResult on_mouse_up  (DispatcherCtx, const MouseUpEvent   &);
-};
-
-/**
- * @brief Exception thrown when a trait-style cast fails.
- */
-class TraitCastError : public std::runtime_error {
-public:
-	explicit TraitCastError(const std::string &message) : std::runtime_error(message) {}
+    /**
+     * @brief End a drag interaction.
+     */
+    DispatchResult onMouseUp  (DispatcherCtx, const MouseUpEvent   &);
 };
 
 class ControlledWidget;  // forward-declare
@@ -381,10 +369,10 @@ class ControlledWidget;  // forward-declare
  */
 class Control : public virtual Widget {
 public:
-	Control(Rect2F, Widget *, State *);
+    Control(Rect2F, Widget *, State *);
 
-	/** Attach this control to a host widget. */
-	virtual void attach_to(ControlledWidget *host) = 0;
+    /** Attach this control to a host widget. */
+    virtual void attachTo(ControlledWidget *host) = 0;
 };
 
 /**
@@ -392,24 +380,21 @@ public:
  */
 class ControlledWidget : public virtual Widget {
 protected:
-	std::vector<Control*> controls;
+    std::vector<Control*> controls;
 
 public:
-	ControlledWidget(Rect2F, Widget *, State *);
+    ControlledWidget(Rect2F, Widget *, State *);
 
-	/**
-	 * @brief Attach a control and adopt it as a child.
-	 * @note Ownership is transferred
-	 */
-	void attach(Control *control);
+    /**
+     * @brief Attach a control and adopt it as a child.
+     * @note Ownership is transferred
+     */
+    void attach(Control *control);
 
-	/**
-	 * @brief Dispatch to controls, then this widget.
-	 *
-	 * When `reversed` is true, delivery order is reversed and this widget
-	 * receives the event before its controls.
-	 */
-	DispatchResult broadcast(DispatcherCtx ctx, Event *e, bool reversed=false);
+    /**
+     * @brief Dispatch to controls, then this widget.
+     */
+    DispatchResult broadcast(DispatcherCtx ctx, Event *e);
 };
 
 /**
@@ -417,26 +402,26 @@ public:
  */
 class ScrollableWidget : public virtual Widget {
 public:
-	/** Visible region in parent-local coordinates (clip for content). */
-	Rect2F viewport;
+    /** Visible region in parent-local coordinates (clip for content). */
+    Rect2F viewport;
 
-	/**
-	 * @param content_frame_ The total logical content bounds.
-	 * @param viewport_frame_ The visible region (clip) where content is shown.
-	 */
-	ScrollableWidget(Rect2F content_frame_, Rect2F viewport_frame_, Widget *, State *);
+    /**
+     * @param contentFrame The total logical content bounds.
+     * @param viewportFrame The visible region (clip) where content is shown.
+     */
+    ScrollableWidget(Rect2F contentFrame, Rect2F viewportFrame, Widget *, State *);
 
-	/** @return The active viewport used for clipping. */
-	Rect2F get_viewport() const;
+    /** @return The active viewport used for clipping. */
+    Rect2F getViewport() const;
 
-	/** @return Current scroll progress in pixels along Y. */
-	float content_progress() const;
-	/**
-	 * @brief Update content frame while preserving current scroll offsets.
-	 */
-	void  set_frame(Rect2F);
-	/**
-	 * @brief Scroll vertically by @p dy, clamped to content bounds.
-	 */
-	void  scroll_y(float dy);
+    /** @return Current scroll progress in pixels along Y. */
+    float contentProgress() const;
+    /**
+     * @brief Update content frame while preserving current scroll offsets.
+     */
+    void  setFrame(Rect2F);
+    /**
+     * @brief Scroll vertically by @p dy, clamped to content bounds.
+     */
+    void  scrollY(float dy);
 };
