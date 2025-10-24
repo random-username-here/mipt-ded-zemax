@@ -1,0 +1,28 @@
+
+Plugin <-- hpp
+    name, version, ...
+
+ThemePlugin : Plugin <-- hpp
+
+    virtual color GetColor(name) = 0;
+
+WidgetsPlugin : Plugin <-- hpp
+
+    virtual Scrollbar CreateScrollbar() = 0;
+
+
+TokyoNightPlugin : public ThemePlugin
+    ...
+
+.so
+    Plugin CreatePluginObject()
+        new TokyoNightPlugin
+
+
+for path in plugins_dir
+    Plugin plugin = dlopen(path).CreatePluginObject()
+    if theme = dynamic_cast<ThemePlugin*>(plugin)
+        ...
+        theme.GetColor()
+
+
