@@ -30,7 +30,11 @@ public:
     virtual void Draw(const Texture &texture, Vec2f pos) = 0;
     virtual void Display() = 0;
 
+    virtual dr4::Texture *CreateTexture() = 0;
+
     virtual std::optional<Event> PollEvent() = 0;
+
+    inline virtual ~Window() {};
 };
 
 }; // namespace dr4
