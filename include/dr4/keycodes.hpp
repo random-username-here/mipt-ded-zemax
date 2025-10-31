@@ -1,81 +1,19 @@
 #ifndef I_DR4_KEY_CODE
 #define I_DR4_KEY_CODE
 
+
+
+
 namespace dr4 {
 
+constexpr int SCANCODE_MASK = (1<<30);
+inline constexpr int SCANCODE_TO_KEYCODE(int x) { return (x | SCANCODE_MASK); };
+
 enum KeySyms {
-    SYM_UNKNOWN = 0,
-
-    SYM_RETURN = '\r',
-    SYM_ESCAPE = '\x1B',
-    SYM_BACKSPACE = '\b',
-    SYM_TAB = '\t',
-    SYM_SPACE = ' ',
-    SYM_EXCLAIM = '!',
-    SYM_QUOTEDBL = '"',
-    SYM_HASH = '#',
-    SYM_PERCENT = '%',
-    SYM_DOLLAR = '$',
-    SYM_AMPERSAND = '&',
-    SYM_QUOTE = '\'',
-    SYM_LEFTPAREN = '(',
-    SYM_RIGHTPAREN = ')',
-    SYM_ASTERISK = '*',
-    SYM_PLUS = '+',
-    SYM_COMMA = ',',
-    SYM_MINUS = '-',
-    SYM_PERIOD = '.',
-    SYM_SLASH = '/',
-    SYM_0 = '0',
-    SYM_1 = '1',
-    SYM_2 = '2',
-    SYM_3 = '3',
-    SYM_4 = '4',
-    SYM_5 = '5',
-    SYM_6 = '6',
-    SYM_7 = '7',
-    SYM_8 = '8',
-    SYM_9 = '9',
-    SYM_COLON = ':',
-    SYM_SEMICOLON = ';',
-    SYM_LESS = '<',
-    SYM_EQUALS = '=',
-    SYM_GREATER = '>',
-    SYM_QUESTION = '?',
-    SYM_AT = '@',
-
-    SYM_LEFTBRACKET = '[',
-    SYM_BACKSLASH = '\\',
-    SYM_RIGHTBRACKET = ']',
-    SYM_CARET = '^',
-    SYM_UNDERSCORE = '_',
-    SYM_BACKQUOTE = '`',
-    SYM_a = 'a',
-    SYM_b = 'b',
-    SYM_c = 'c',
-    SYM_d = 'd',
-    SYM_e = 'e',
-    SYM_f = 'f',
-    SYM_g = 'g',
-    SYM_h = 'h',
-    SYM_i = 'i',
-    SYM_j = 'j',
-    SYM_k = 'k',
-    SYM_l = 'l',
-    SYM_m = 'm',
-    SYM_n = 'n',
-    SYM_o = 'o',
-    SYM_p = 'p',
-    SYM_q = 'q',
-    SYM_r = 'r',
-    SYM_s = 's',
-    SYM_t = 't',
-    SYM_u = 'u',
-    SYM_v = 'v',
-    SYM_w = 'w',
-    SYM_x = 'x',
-    SYM_y = 'y',
-    SYM_z = 'z',
+    SDLK_RIGHT = SCANCODE_TO_KEYCODE(SCANCODE_RIGHT),
+    SDLK_LEFT = SCANCODE_TO_KEYCODE(SCANCODE_LEFT),
+    SDLK_DOWN = SCANCODE_TO_KEYCODE(SCANCODE_DOWN),
+    SDLK_UP   = SCANCODE_TO_KEYCODE(SCANCODE_UP),
 };
 
 enum ScanCodes {
