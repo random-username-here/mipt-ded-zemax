@@ -14,11 +14,13 @@ struct Event {
         MOUSE_UP,
         MOUSE_WHEEL,
         KEY_DOWN,
-        KEY_UP
+        KEY_UP,
+        QUIT
     };
 
     struct MouseMove {
         Vec2f pos;
+        Vec2f rel;
     };
 
     struct MouseButton {
@@ -33,8 +35,6 @@ struct Event {
     };
 
     struct KeyEvent {
-        uint32_t type;
-        uint8_t state;
         int32_t sym;
         uint16_t mod;
     };
@@ -46,6 +46,8 @@ struct Event {
         MouseButton mouseDown;
         MouseButton mouseUp;
         MouseWheel  mouseWheel;
+        KeyEvent    keyDown;
+        KeyEvent    keyUp;
     };
 };
 
