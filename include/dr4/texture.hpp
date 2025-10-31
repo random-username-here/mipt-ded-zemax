@@ -44,9 +44,9 @@ class Texture {
 public:
 
     virtual void SetSize(Vec2f size) = 0;
-    virtual Vec2f GetSize() = 0;
-    virtual float Width() = 0;
-    virtual float Height() = 0;
+    virtual Vec2f GetSize() const = 0;
+    virtual float GetWidth() const = 0;
+    virtual float GetHeight() const = 0;
 
     virtual void Draw(const Rectangle &rect) = 0;
     virtual void Draw(const Text &text) = 0;
