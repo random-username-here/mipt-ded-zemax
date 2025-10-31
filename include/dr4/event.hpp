@@ -1,6 +1,7 @@
 #ifndef I_DR4_EVENT
 #define I_DR4_EVENT
 
+#include <cstdint>
 #include "dr4/math/vec2.hpp"
 
 namespace dr4 {
@@ -31,7 +32,12 @@ struct Event {
         Vec2f pos;
     };
 
-    // TODO: keys
+    struct KeyEvent {
+        uint32_t type;
+        uint8_t state;
+        int32_t sym;
+        uint16_t mod;
+    };
 
     Type type;
 
@@ -41,9 +47,8 @@ struct Event {
         MouseButton mouseUp;
         MouseWheel  mouseWheel;
     };
-
 };
 
 };
 
-#endif
+#endif // I_DR4_EVENT
