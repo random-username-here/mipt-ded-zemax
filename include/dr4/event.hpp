@@ -35,8 +35,8 @@ struct Event {
     };
 
     struct KeyEvent {
-        int32_t sym;
-        uint16_t mod;
+        int sym;
+        int mod;
     };
 
     Type type;
