@@ -10,6 +10,8 @@ namespace dr4 {
 struct Event {
 
     enum class Type {
+        KEY_DOWN,
+        KEY_UP,
         MOUSE_MOVE,
         MOUSE_DOWN,
         MOUSE_UP,
@@ -47,8 +49,8 @@ struct Event {
         MouseButton mouseDown;
         MouseButton mouseUp;
         MouseWheel  mouseWheel;
-        KeyEvent    SYMDown;
-        KeyEvent    SYMUp;
+        KeyEvent    keyDown;
+        KeyEvent    KeyUp;
     };
 };
 
