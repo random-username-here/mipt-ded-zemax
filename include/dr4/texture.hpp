@@ -48,9 +48,9 @@ public:
     virtual float Width() = 0;
     virtual float Height() = 0;
 
-    virtual void Draw(Rectangle &rect) = 0;
-    virtual void Draw(Text &text) = 0;
-    virtual void Draw(Texture &texture, const Vec2f &pos) = 0;
+    virtual void Draw(const Rectangle &rect) = 0;
+    virtual void Draw(const Text &text) = 0;
+    virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
 };
 
 }; // namespace dr4
