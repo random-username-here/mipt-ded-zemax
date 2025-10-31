@@ -13,7 +13,8 @@ struct Event {
         MOUSE_UP,
         MOUSE_WHEEL,
         KEY_DOWN,
-        KEY_UP
+        KEY_UP,
+        QUIT
     };
 
     struct MouseMove {
