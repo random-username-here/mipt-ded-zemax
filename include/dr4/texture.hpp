@@ -39,6 +39,14 @@ struct Text {
 
 };
 
+class Image
+{
+    Image(unsigned width, unsigned height);
+
+    virtual void SetPixel(unsigned x, unsigned y, dr4::Color col) = 0;
+    virtual dr4::Color GetPixel(unsigned x, unsigned y) const = 0;
+};
+
 class Texture {
 
 public:
@@ -50,6 +58,7 @@ public:
 
     virtual void Draw(const Rectangle &rect) = 0;
     virtual void Draw(const Text &text) = 0;
+    virtual void Draw(const Image &img) = 0;
     virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
 
     inline virtual ~Texture() {};
