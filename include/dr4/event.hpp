@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include "dr4/math/vec2.hpp"
+#include "dr4/keycodes.hpp"
 
 namespace dr4 {
 
@@ -13,8 +14,8 @@ struct Event {
         MOUSE_DOWN,
         MOUSE_UP,
         MOUSE_WHEEL,
-        KEY_DOWN,
-        KEY_UP,
+        SYM_DOWN,
+        SYM_UP,
         QUIT
     };
 
@@ -35,8 +36,8 @@ struct Event {
     };
 
     struct KeyEvent {
-        int sym;
-        int mod;
+        dr4::KeySyms sym;
+        dr4::KeyModes mod;
     };
 
     Type type;
@@ -46,8 +47,8 @@ struct Event {
         MouseButton mouseDown;
         MouseButton mouseUp;
         MouseWheel  mouseWheel;
-        KeyEvent    keyDown;
-        KeyEvent    keyUp;
+        KeyEvent    SYMDown;
+        KeyEvent    SYMUp;
     };
 };
 
