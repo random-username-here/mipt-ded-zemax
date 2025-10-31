@@ -1,5 +1,5 @@
-#ifndef I_HUI_MATH_COLOR
-#define I_HUI_MATH_COLOR
+#ifndef I_DR4_MATH_COLOR
+#define I_DR4_MATH_COLOR
 
 #include <cstdint>
 
@@ -13,6 +13,6 @@ struct Color {
         :r(r), g(g), b(b), a(a) {}
 };
 
-}; // namespace hui
+}; // namespace dr4
 
-#endif // I_HUI_COLOR
+#endif // I_DR4_COLOR

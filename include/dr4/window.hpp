@@ -1,5 +1,5 @@
-#ifndef I_HUI_WINDOW
-#define I_HUI_WINDOW
+#ifndef I_DR4_WINDOW
+#define I_DR4_WINDOW
 
 #include <string>
 #include <optional>
@@ -27,10 +27,7 @@ public:
     virtual void Close() = 0;
 
     virtual void Clear(const Color &color) = 0;
-
-    virtual void Draw(const Drawable &object) = 0;
     virtual void Draw(const Texture &texture, Vec2f pos) = 0;
-
     virtual void Display() = 0;
 
     virtual std::optional<Event> PollEvent() = 0;
@@ -38,4 +35,4 @@ public:
 
 }; // namespace dr4
 
-#endif // I_HUI_WINDOW
+#endif // I_DR4_WINDOW

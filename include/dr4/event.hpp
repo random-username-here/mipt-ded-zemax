@@ -2,6 +2,7 @@
 #define I_DR4_EVENT
 
 #include "dr4/math/vec2.hpp"
+
 namespace dr4 {
 
 struct Event {
@@ -25,13 +26,20 @@ struct Event {
         Vec2f pos;
     };
 
-    // TODO: other events
+    struct MouseWheel {
+        Vec2f delta;
+        Vec2f pos;
+    };
+
+    // TODO: keys
 
     Type type;
 
     union {
-        MouseMove mouseMove;
-        MouseButton mouseKey;
+        MouseMove   mouseMove;
+        MouseButton mouseDown;
+        MouseButton mouseUp;
+        MouseWheel  mouseWheel;
     };
 
 };
