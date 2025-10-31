@@ -1,5 +1,5 @@
-#ifndef I_HUI_TEXTURE
-#define I_HUI_TEXTURE
+#ifndef I_DR4_TEXTURE
+#define I_DR4_TEXTURE
 
 #include <string>
 
@@ -9,31 +9,16 @@
 
 namespace dr4 {
 
-class Texture;
-
-struct Drawable {
-    virtual void DrawOn(Texture &texture) = 0;
-};
-
-struct Pixel : public Drawable {
-
-    Vec2f pos;
-    Color color;
-
-    virtual void DrawOn(Texture &texture) = 0;
-};
-
-struct Rectangle : public Drawable {
+struct Rectangle {
 
     Rect2f rect;
     Color fill;
     float borderThickness;
     Color borderColor;
 
-    virtual void DrawOn(Texture &texture) = 0;
 };
 
-struct Text : public Drawable {
+struct Text {
 
     enum class VAlign {
         UNKNOWN = -1,
@@ -49,9 +34,9 @@ struct Text : public Drawable {
     float fontSize;
     VAlign valign = VAlign::TOP;
 
-    virtual Rect2f GetBounds() const = 0;
+    // TODO: return of GetBounds()?
+    // virtual Rect2f GetBounds() const = 0;
 
-    virtual void DrawOn(Texture &texture) const = 0;
 };
 
 class Texture {
@@ -63,10 +48,11 @@ public:
     virtual float Width() = 0;
     virtual float Height() = 0;
 
-    inline void Draw(Drawable &object) { object.DrawOn(*this); }
+    virtual void Draw(Rectangle &rect) = 0;
+    virtual void Draw(Text &text) = 0;
     virtual void Draw(Texture &texture, const Vec2f &pos) = 0;
 };
 
-}; // namespace hui
+}; // namespace dr4
 
-#endif // I_HUI_TEXTURE
+#endif // I_DR4_TEXTURE
