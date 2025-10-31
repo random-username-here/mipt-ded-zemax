@@ -1,7 +1,7 @@
-#ifndef I_DR4_MATH_RECT
-#define I_DR4_MATH_RECT
+#ifndef I_HUI_MATH_RECT
+#define I_HUI_MATH_RECT
 
-#include "dr4/math/vec2.hpp"
+#include "vec2.hpp"
 
 namespace dr4 {
 
@@ -15,9 +15,9 @@ struct Rect2f {
     inline Rect2f(float x, float y, float width, float height)
         :pos(Vec2f(x, y)), size(Vec2f(width, height)) {}
 
-    bool Contains(Vec2f point) const;
+    bool Contains(const Vec2f &point) const;
 };
 
-}; // namespace dr4 
+}; // namespace hui
 
-#endif // I_DR4_RECT
+#endif // I_HUI_RECT

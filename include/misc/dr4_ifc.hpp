@@ -1,7 +1,7 @@
 #ifndef I_DR4_IFC
 #define I_DR4_IFC
 
-#include "dr4/window.hpp"
+#include "window.hpp"
 
 namespace dr4 {
 

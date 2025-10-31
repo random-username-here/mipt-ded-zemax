@@ -1,13 +1,16 @@
-#ifndef I_DR4_WINDOW
-#define I_DR4_WINDOW
+#ifndef I_HUI_WINDOW
+#define I_HUI_WINDOW
 
 #include <string>
 #include <optional>
 
-#include "dr4/event.hpp"
-#include "dr4/math/color.hpp"
-#include "dr4/math/vec2.hpp"
-#include "dr4/texture.hpp"
+// #include "event.hpp"
+#include "color.hpp"
+#include "vec2.hpp"
+#include "texture.hpp"
+#include "widget.hpp"
+
+#include "SDL3/SDL.h"
 
 namespace dr4 {
 
@@ -28,15 +31,12 @@ public:
 
     virtual void Clear(const Color &color) = 0;
     virtual void Draw(const Texture &texture, Vec2f pos) = 0;
+
     virtual void Display() = 0;
 
-    virtual dr4::Texture *CreateTexture() = 0;
-
     virtual std::optional<Event> PollEvent() = 0;
-
-    inline virtual ~Window() {};
 };
 
 }; // namespace dr4
 
-#endif // I_DR4_WINDOW
+#endif // I_HUI_WINDOW

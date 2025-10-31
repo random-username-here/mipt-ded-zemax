@@ -1,7 +1,7 @@
 #ifndef I_HUI_EVENT
 #define I_HUI_EVENT
 
-#include "dr4/math/vec2.hpp"
+#include "vec2.hpp"
 
 namespace hui {
 

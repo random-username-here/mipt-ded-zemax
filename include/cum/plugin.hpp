@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-#include "cum/version.hpp"
+#include "version.hpp"
 
 namespace cum {
 
