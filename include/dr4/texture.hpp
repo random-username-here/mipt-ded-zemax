@@ -13,8 +13,8 @@ struct Rectangle {
 
     Rect2f rect;
     Color fill;
-    float borderThickness;
-    Color borderColor;
+    float borderThickness = 0;
+    Color borderColor = Color(255, 0, 0, 255);
 
 };
 
@@ -30,8 +30,8 @@ struct Text {
 
     const std::string text;
     Vec2f pos;
-    Color color;
-    float fontSize;
+    Color color = Color(255, 0, 0, 255);
+    float fontSize = 20;
     VAlign valign = VAlign::TOP;
 
     // TODO: return of GetBounds()?
@@ -51,6 +51,8 @@ public:
     virtual void Draw(const Rectangle &rect) = 0;
     virtual void Draw(const Text &text) = 0;
     virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
+
+    inline virtual ~Texture() {};
 };
 
 }; // namespace dr4
