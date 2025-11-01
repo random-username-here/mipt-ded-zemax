@@ -9,7 +9,7 @@ namespace hui {
 
 class State;
 
-class Widget : public dr4::Drawable {
+class Widget {
 
 protected:
 
@@ -27,7 +27,9 @@ protected:
 
 public:
 
-    Widget(State *state);
+    Widget(State *const state);
+    Widget(const std::size_t width, const std::size_t height, 
+           State *state, Widget *parent);
 
     // REVIEW : move implementations to cpp files?
     
@@ -39,14 +41,6 @@ public:
 
     virtual Widget *GetParent() const { return parent; };
     virtual void SetParent(Widget *parent_) { parent = parent_; }
-
-    void DrawOn(dr4::Texture &texture) override {
-        if (textureIsInvalid) {
-            Redraw();
-            textureIsInvalid = false;
-        }
-        texture.Draw(texture, relPos);
-    }
 };
 
 }; // namespace hui

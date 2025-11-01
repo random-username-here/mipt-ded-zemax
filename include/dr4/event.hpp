@@ -1,13 +1,17 @@
 #ifndef I_DR4_EVENT
 #define I_DR4_EVENT
 
+#include <cstdint>
 #include "dr4/math/vec2.hpp"
+#include "dr4/keycodes.hpp"
 
 namespace dr4 {
 
 struct Event {
 
     enum class Type {
+        KEY_DOWN,
+        KEY_UP,
         MOUSE_MOVE,
         MOUSE_DOWN,
         MOUSE_UP,
@@ -19,6 +23,7 @@ struct Event {
 
     struct MouseMove {
         Vec2f pos;
+        Vec2f rel;
     };
 
     struct MouseButton {
@@ -32,7 +37,10 @@ struct Event {
         Vec2f pos;
     };
 
-    // TODO: keys
+    struct KeyEvent {
+        dr4::KeySyms sym;
+        dr4::KeyModes mod;
+    };
 
     Type type;
 
@@ -41,10 +49,11 @@ struct Event {
         MouseButton mouseDown;
         MouseButton mouseUp;
         MouseWheel  mouseWheel;
+        KeyEvent    keyDown;
+        KeyEvent    KeyUp;
     };
-
 };
 
 };
 
-#endif
+#endif // I_DR4_EVENT

@@ -1,0 +1,43 @@
+#ifndef I_DR4_KEY_CODE
+#define I_DR4_KEY_CODE
+
+
+
+
+namespace dr4 {
+
+constexpr int SCANCODE_MASK = (1<<30);
+inline constexpr int SCANCODE_TO_KEYCODE(int x) { return (x | SCANCODE_MASK); };
+
+enum ScanCodes {
+    SCANCODE_RIGHT = 79,
+    SCANCODE_LEFT = 80,
+    SCANCODE_DOWN = 81,
+    SCANCODE_UP = 82,
+};
+
+enum KeySyms {
+    SYM_RIGHT = SCANCODE_TO_KEYCODE(SCANCODE_RIGHT),
+    SYM_LEFT  = SCANCODE_TO_KEYCODE(SCANCODE_LEFT),
+    SYM_DOWN  = SCANCODE_TO_KEYCODE(SCANCODE_DOWN),
+    SYM_UP    = SCANCODE_TO_KEYCODE(SCANCODE_UP),
+};
+
+enum KeyModes {
+    MOD_NONE = 0x0000,
+    MOD_LSHIFT = 0x0001,
+    MOD_RSHIFT = 0x0002,
+    MOD_LCTRL = 0x0040,
+    MOD_RCTRL = 0x0080,
+    MOD_LALT = 0x0100,
+    MOD_RALT = 0x0200,
+    MOD_CAPS = 0x2000,
+
+    MOD_CTRL = MOD_LCTRL | MOD_RCTRL,
+    MOD_SHIFT = MOD_LSHIFT | MOD_RSHIFT,
+    MOD_ALT = MOD_LALT | MOD_RALT,
+};
+
+}
+
+#endif // I_DR4_KEY_CODE
