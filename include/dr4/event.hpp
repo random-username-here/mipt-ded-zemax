@@ -36,8 +36,8 @@ struct Event {
     };
 
     struct KeyEvent {
-        dr4::KeySyms sym;
-        dr4::KeyModes mod;
+        dr4::KeySym sym;
+        uint16_t mods;
     };
 
     Type type;
@@ -47,7 +47,7 @@ struct Event {
         MouseButton mouseButton;
         MouseWheel  mouseWheel;
         KeyEvent    keyDown;
-        KeyEvent    KeyUp;
+        KeyEvent    keyUp;
     };
 };
 
