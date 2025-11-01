@@ -1,4 +1,6 @@
-# gui-standard
+# dr4hui-interface
+
+Draw for herovy user interface
 
 Стандарт GUI для написания совместимых плагинов.
 
