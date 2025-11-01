@@ -3,6 +3,7 @@
 
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
+#include "dr4/mousecodes.hpp"
 
 namespace dr4 {
 
@@ -25,8 +26,7 @@ struct Event {
     };
 
     struct MouseButton {
-        int button;
-        bool pressed;
+        MouseCode button;
         Vec2f pos;
     };
 
@@ -35,9 +35,9 @@ struct Event {
         Vec2f pos;
     };
 
-    struct KeyEvent {
-        dr4::KeySyms sym;
-        dr4::KeyModes mod;
+    struct KeyButton {
+        KeyCode sym;
+        KeyMode mod;
     };
 
     Type type;
@@ -46,8 +46,8 @@ struct Event {
         MouseMove   mouseMove;
         MouseButton mouseButton;
         MouseWheel  mouseWheel;
-        KeyEvent    keyDown;
-        KeyEvent    KeyUp;
+        KeyButton   keyDown;
+        KeyButton   keyUp;
     };
 };
 
