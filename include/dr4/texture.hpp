@@ -42,8 +42,7 @@ struct Text {
     VAlign valign = VAlign::TOP;
     const Font *font;
 
-    virtual Rect2f GetBounds() const = 0;
-
+    Rect2f GetBounds() const;
 };
 
 class Texture {
