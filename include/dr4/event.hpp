@@ -31,7 +31,7 @@ struct Event {
     };
 
     struct MouseWheel {
-        Vec2f delta;
+        int delta;
         Vec2f pos;
     };
 
