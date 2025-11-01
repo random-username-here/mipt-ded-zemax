@@ -9,8 +9,8 @@ struct Color {
 
     uint8_t r, g, b, a;
 
-    inline Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-        :r(r), g(g), b(b), a(a) {}
+    inline Color(uint8_t r_, uint8_t g_, uint8_t b_, uint8_t a_)
+        :r(r_), g(g_), b(b_), a(a_) {}
 };
 
 }; // namespace dr4
