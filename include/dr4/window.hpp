@@ -21,6 +21,7 @@ public:
     virtual const std::string &GetTitle() const = 0;
 
     virtual Vec2f GetSize() const = 0;
+    virtual void SetSize(const ::dr4::Vec2f& size) = 0;
 
     virtual void Open() = 0;
     virtual bool IsOpen() const = 0;

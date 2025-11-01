@@ -2,8 +2,6 @@
 #define I_DR4_KEY_CODE
 
 
-
-
 namespace dr4 {
 
 constexpr int SCANCODE_MASK = (1<<30);

@@ -1,7 +1,6 @@
 #ifndef I_DR4_EVENT
 #define I_DR4_EVENT
 
-#include <cstdint>
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
 
@@ -10,14 +9,13 @@ namespace dr4 {
 struct Event {
 
     enum class Type {
+        UNKNOWN = -1,
         KEY_DOWN,
         KEY_UP,
         MOUSE_MOVE,
         MOUSE_DOWN,
         MOUSE_UP,
         MOUSE_WHEEL,
-        KEY_DOWN,
-        KEY_UP,
         QUIT
     };
 
@@ -46,8 +44,7 @@ struct Event {
 
     union {
         MouseMove   mouseMove;
-        MouseButton mouseDown;
-        MouseButton mouseUp;
+        MouseButton mouseButton;
         MouseWheel  mouseWheel;
         KeyEvent    keyDown;
         KeyEvent    KeyUp;
