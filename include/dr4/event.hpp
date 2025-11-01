@@ -49,6 +49,8 @@ struct Event {
         KeyEvent    keyDown;
         KeyEvent    KeyUp;
     };
+
+    Event() {}
 };
 
 };
