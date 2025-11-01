@@ -18,6 +18,13 @@ struct Rectangle {
 
 };
 
+class Font {
+
+public:
+
+    virtual void loadFromFile(const std::string& path) = 0;
+};
+
 struct Text {
 
     enum class VAlign {
@@ -33,9 +40,9 @@ struct Text {
     Color color = Color(255, 0, 0, 255);
     float fontSize = 20;
     VAlign valign = VAlign::TOP;
+    const Font *font;
 
-    // TODO: return of GetBounds()?
-    // virtual Rect2f GetBounds() const = 0;
+    virtual Rect2f GetBounds() const = 0;
 
 };
 
@@ -52,7 +59,7 @@ public:
     virtual void Draw(const Text &text) = 0;
     virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
 
-    inline virtual ~Texture() {};
+    virtual ~Texture() = default;
 };
 
 }; // namespace dr4
