@@ -46,8 +46,7 @@ struct Event {
         MouseMove   mouseMove;
         MouseButton mouseButton;
         MouseWheel  mouseWheel;
-        KeyButton   keyDown;
-        KeyButton   keyUp;
+        KeyButton   key;
     };
 };
 
