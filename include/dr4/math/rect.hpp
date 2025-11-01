@@ -18,6 +18,6 @@ struct Rect2f {
     bool Contains(Vec2f point) const;
 };
 
-}; // namespace dr4 
+}; // namespace dr4
 
 #endif // I_DR4_RECT

@@ -7,7 +7,7 @@ struct Vec2f {
 
     float x, y;
 
-    Vec2f() 
+    Vec2f()
         :x(0), y(0) {}
 
     Vec2f(float x, float y) 
