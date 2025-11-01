@@ -10,7 +10,7 @@ namespace dr4 {
 struct Event {
 
     enum class Type {
-        UNKNOWN = -1,
+        UNKNOWN = 0,
         KEY_DOWN,
         KEY_UP,
         MOUSE_MOVE,
