@@ -4,7 +4,7 @@
 namespace dr4 {
 
 enum MouseCode {
-    MOUSECODE_UNKNOWN = -1,
+    MOUSECODE_UNKNOWN = 0,
     MOUSECODE_LEFT,
     MOUSECODE_MIDDLE,
     MOUSECODE_RIGHT
