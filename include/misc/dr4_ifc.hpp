@@ -32,7 +32,7 @@ public:
  * needed anymore.
  *
  */
-static const char *DR4BackendFunctionName = "CreateDR4Backend";
+inline const char *DR4BackendFunctionName = "CreateDR4Backend";
 
 #define DR4_BACKEND_FUNCTION CreateDR4Backend
 
