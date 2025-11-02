@@ -48,6 +48,8 @@ struct Event {
         MouseWheel  mouseWheel;
         KeyButton   key;
     };
+
+    Event() {}
 };
 
 };

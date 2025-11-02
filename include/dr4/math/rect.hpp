@@ -9,8 +9,8 @@ struct Rect2f {
 
     Vec2f pos, size;
 
-    inline Rect2f(Vec2f pos, Vec2f size) 
-        :pos(pos), size(size) {}
+    inline Rect2f(Vec2f pos_, Vec2f size_)
+        :pos(pos_), size(size_) {}
 
     inline Rect2f(float x, float y, float width, float height)
         :pos(Vec2f(x, y)), size(Vec2f(width, height)) {}
