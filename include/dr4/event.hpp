@@ -4,6 +4,7 @@
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
 #include "dr4/mousecodes.hpp"
+#include <cstdint>
 
 namespace dr4 {
 
@@ -17,7 +18,13 @@ struct Event {
         MOUSE_DOWN,
         MOUSE_UP,
         MOUSE_WHEEL,
+        TEXT_EVENT,
         QUIT
+    };
+
+    struct TextEvent
+    {
+        uint32_t unicode;
     };
 
     struct MouseMove {

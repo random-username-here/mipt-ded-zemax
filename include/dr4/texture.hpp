@@ -6,6 +6,7 @@
 #include "dr4/math/color.hpp"
 #include "dr4/math/rect.hpp"
 #include "dr4/math/vec2.hpp"
+#include "math/color.hpp"
 
 namespace dr4 {
 
@@ -47,11 +48,11 @@ struct Text {
 
 
 class Image {
-public:
-    Image(unsigned width, unsigned height);
-    virtual ~Image();
 
-    virtual void SetPixel(unsigned x, unsigned y, Vec2f color) = 0;
+public:
+    virtual ~Image() = default;
+
+    virtual void SetPixel(unsigned x, unsigned y, Color color) = 0;
     virtual Color GetPixel(unsigned x, unsigned y) const = 0;
 
     virtual void SetSize(Vec2f size) = 0;
@@ -63,6 +64,7 @@ public:
 class Texture {
 
 public:
+    virtual ~Texture() = default;
 
     virtual void SetSize(Vec2f size) = 0;
     virtual Vec2f GetSize() const = 0;
@@ -73,8 +75,6 @@ public:
     virtual void Draw(const Text &text) = 0;
     virtual void Draw(const Image &img, const Vec2f &pos) = 0;
     virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
-
-    virtual ~Texture() = default;
 };
 
 }; // namespace dr4
