@@ -6,6 +6,7 @@
 #include "dr4/math/color.hpp"
 #include "dr4/math/rect.hpp"
 #include "dr4/math/vec2.hpp"
+#include "math/color.hpp"
 
 namespace dr4 {
 
@@ -51,7 +52,7 @@ class Image {
 public:
     virtual ~Image() = default;
 
-    virtual void SetPixel(unsigned x, unsigned y, Vec2f color) = 0;
+    virtual void SetPixel(unsigned x, unsigned y, Color color) = 0;
     virtual Color GetPixel(unsigned x, unsigned y) const = 0;
 
     virtual void SetSize(Vec2f size) = 0;
