@@ -48,7 +48,6 @@ struct Text {
 
 class Image {
 public:
-    Image(unsigned width, unsigned height);
     virtual ~Image();
 
     virtual void SetPixel(unsigned x, unsigned y, Vec2f color) = 0;
