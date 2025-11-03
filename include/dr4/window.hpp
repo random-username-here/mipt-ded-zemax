@@ -17,6 +17,8 @@ class Window {
 
 public:
 
+	virtual ~Window() = default;
+
     virtual void SetTitle(const std::string &title) = 0;
     virtual const std::string &GetTitle() const = 0;
 
@@ -35,8 +37,6 @@ public:
     virtual dr4::Image *CreateImage() = 0;
 
     virtual std::optional<Event> PollEvent() = 0;
-
-    inline virtual ~Window() {};
 };
 
 }; // namespace dr4

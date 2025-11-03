@@ -47,8 +47,9 @@ struct Text {
 
 
 class Image {
+
 public:
-    virtual ~Image();
+    virtual ~Image() = default;
 
     virtual void SetPixel(unsigned x, unsigned y, Vec2f color) = 0;
     virtual Color GetPixel(unsigned x, unsigned y) const = 0;
@@ -62,6 +63,7 @@ public:
 class Texture {
 
 public:
+    virtual ~Texture() = default;
 
     virtual void SetSize(Vec2f size) = 0;
     virtual Vec2f GetSize() const = 0;
@@ -72,8 +74,6 @@ public:
     virtual void Draw(const Text &text) = 0;
     virtual void Draw(const Image &img, const Vec2f &pos) = 0;
     virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
-
-    virtual ~Texture() = default;
 };
 
 }; // namespace dr4
