@@ -37,7 +37,7 @@ struct Text {
         BOTTOM
     };
 
-    const std::string text;
+    std::string text;
     Vec2f pos;
     Color color = Color(255, 0, 0, 255);
     float fontSize = 20;
