@@ -27,6 +27,8 @@ protected:
 
 public:
 
+    virtual ~Widget() = default;
+
     Widget(State *const state);
     Widget(const std::size_t width, const std::size_t height, 
            State *state, Widget *parent);
