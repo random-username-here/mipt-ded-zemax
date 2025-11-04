@@ -21,9 +21,11 @@ struct Rectangle {
 
 class Font {
 
-public:
+  public:
+    virtual ~Font() = default;
 
-    virtual void loadFromFile(const std::string& path) = 0;
+    virtual void
+    loadFromFile( const std::string& path ) = 0;
 };
 
 struct Text {

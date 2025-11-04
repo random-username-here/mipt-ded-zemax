@@ -34,7 +34,8 @@ public:
     virtual void Display() = 0;
 
     virtual dr4::Texture *CreateTexture() = 0;
-    virtual dr4::Image *CreateImage() = 0;
+    virtual dr4::Image   *CreateImage()   = 0;
+    virtual dr4::Font    *CreateFont()    = 0;
 
     virtual std::optional<Event> PollEvent() = 0;
 };
