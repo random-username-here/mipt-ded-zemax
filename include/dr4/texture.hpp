@@ -19,6 +19,15 @@ struct Rectangle {
 
 };
 
+struct Line {
+
+    Vec2f start;
+    Vec2f end;
+    Color stroke;
+    float width = 1;
+
+};
+
 class Font {
 
   public:
@@ -75,8 +84,11 @@ public:
     virtual void Clear(dr4::Color color) = 0;
 
     virtual void Draw(const Rectangle &rect) = 0;
+    virtual void Draw(const Line      &line) = 0;
+
     virtual void Draw(const Text &text) = 0;
-    virtual void Draw(const Image &img, const Vec2f &pos) = 0;
+
+    virtual void Draw(const Image   &img,     const Vec2f &pos) = 0;
     virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
 };
 
