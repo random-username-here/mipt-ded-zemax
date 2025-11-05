@@ -50,6 +50,7 @@ struct Event {
     Type type;
 
     union {
+        TextEvent   text;
         MouseMove   mouseMove;
         MouseButton mouseButton;
         MouseWheel  mouseWheel;

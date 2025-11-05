@@ -21,9 +21,10 @@ struct Rectangle {
 
 class Font {
 
-public:
+  public:
+    virtual ~Font() = default;
 
-    virtual void loadFromFile(const std::string& path) = 0;
+    virtual void loadFromFile( const std::string& path ) = 0;
 };
 
 struct Text {
@@ -36,7 +37,7 @@ struct Text {
         BOTTOM
     };
 
-    const std::string text;
+    std::string text;
     Vec2f pos;
     Color color = Color(255, 0, 0, 255);
     float fontSize = 20;
