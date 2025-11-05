@@ -49,7 +49,7 @@ struct Text {
 class Image {
 public:
     Image(unsigned width, unsigned height);
-    virtual ~Image() = 0;
+    virtual ~Image() = default;
 
     virtual void SetPixel(unsigned x, unsigned y, Vec2f color) = 0;
     virtual Color GetPixel(unsigned x, unsigned y) const = 0;
@@ -59,8 +59,6 @@ public:
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
 };
-
-inline Image::~Image() = default;
 
 class Texture {
 
