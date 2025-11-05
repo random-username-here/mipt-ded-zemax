@@ -72,7 +72,7 @@ public:
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
 
-    virtual void Clear() = 0;
+    virtual void Clear(dr4::Color color) = 0;
 
     virtual void Draw(const Rectangle &rect) = 0;
     virtual void Draw(const Text &text) = 0;
