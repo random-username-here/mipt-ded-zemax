@@ -28,6 +28,16 @@ struct Line {
 
 };
 
+struct Circle {
+
+    Vec2f center;
+    float radius;
+    Color fill;
+    float borderThickness = 0;
+    Color borderColor = Color(255, 0, 0, 255);
+
+};
+
 class Font {
 
   public:
@@ -83,8 +93,9 @@ public:
 
     virtual void Clear(dr4::Color color) = 0;
 
-    virtual void Draw(const Rectangle &rect) = 0;
-    virtual void Draw(const Line      &line) = 0;
+    virtual void Draw(const Rectangle &rect)   = 0;
+    virtual void Draw(const Circle    &circle) = 0;
+    virtual void Draw(const Line      &line)   = 0;
 
     virtual void Draw(const Text &text) = 0;
 
