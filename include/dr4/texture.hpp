@@ -12,22 +12,47 @@ namespace dr4 {
 
 struct Rectangle {
 
-    Rect2f rect;
-    Color fill;
-    float borderThickness = 0;
-    Color borderColor = Color(255, 0, 0, 255);
+public:
 
+    virtual ~Rectangle() = default;
+
+    virtual void SetRect(const Rect2f &rect) = 0;
+    virtual void SetFill(const Color &color) = 0;
+    virtual void SetBorderThickness(float thickness) = 0;
+    virtual void SetBorderColor(const Color &color) = 0;
+
+    // NOTE(i-s-d): this probbably should not have getters,
+    //              this thing should only be used for drawing things.
 };
 
 class Font {
 
   public:
+
     virtual ~Font() = default;
 
-    virtual void loadFromFile( const std::string& path ) = 0;
+    virtual void LoadFromFile(const std::string &path) = 0;
+    virtual void LoadFromBuffer(const void *buffer, size_t size) = 0;
+
+    /** 
+     * Get distance from the baseline (line on top of which letters are placed)
+     * to the tops of the capital letters.
+     */
+    virtual float GetAscent(float fontSize) = 0;
+
+    /**
+     * Get distance from baseline to bottoms of the hanging letters, like `y`.
+     * This value is **negative** for most fonts (because letters descend
+     * below baseline).
+     */
+    virtual float GetDescent(float fontSize) = 0;
 };
 
-struct Text {
+class Text {
+
+public:
+
+    virtual ~Text() = default;
 
     enum class VAlign {
         UNKNOWN = -1,
@@ -37,14 +62,14 @@ struct Text {
         BOTTOM
     };
 
-    std::string text;
-    Vec2f pos;
-    Color color = Color(255, 0, 0, 255);
-    float fontSize = 20;
-    VAlign valign = VAlign::TOP;
-    const Font *font;
+    virtual void SetPos(Vec2f pos) = 0;
+    virtual void SetText(const std::string &text) = 0;
+    virtual void SetColor(const Color &color) = 0;
+    virtual void SetFontSize(float size) = 0;
+    virtual void SetVAlign(VAlign align) = 0;
+    virtual void SetFont(const Font *font) = 0;
 
-    Rect2f GetBounds() const;
+    virtual float GetWidth() const = 0;
 };
 
 
@@ -72,7 +97,7 @@ public:
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
 
-    virtual void Clear(dr4::Color color) = 0;
+    virtual void Clear(Color color) = 0;
 
     virtual void Draw(const Rectangle &rect) = 0;
     virtual void Draw(const Text &text) = 0;
