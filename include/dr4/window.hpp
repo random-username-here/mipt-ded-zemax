@@ -13,9 +13,9 @@ namespace dr4 {
 
 class Window {
 
-    // Texture field
-
 public:
+
+	virtual ~Window() = default;
 
     virtual void SetTitle(const std::string &title) = 0;
     virtual const std::string &GetTitle() const = 0;
@@ -31,12 +31,13 @@ public:
     virtual void Draw(const Texture &texture, Vec2f pos) = 0;
     virtual void Display() = 0;
 
-    virtual dr4::Texture *CreateTexture() = 0;
-    virtual dr4::Image *CreateImage() = 0;
+    virtual Texture   *CreateTexture()   = 0;
+    virtual Image     *CreateImage()     = 0;
+    virtual Font      *CreateFont()      = 0;
+    virtual Rectangle *CreateRectangle() = 0;
+    virtual Text      *CreateText()      = 0;
 
     virtual std::optional<Event> PollEvent() = 0;
-
-    inline virtual ~Window() {};
 };
 
 }; // namespace dr4
