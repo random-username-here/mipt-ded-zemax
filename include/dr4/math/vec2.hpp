@@ -1,6 +1,8 @@
 #ifndef I_DR4_MATH_VEC2
 #define I_DR4_MATH_VEC2
 
+#include <algorithm>
+
 namespace dr4 {
 
 struct Vec2f {
@@ -24,7 +26,9 @@ struct Vec2f {
     inline Vec2f& operator*=(float k) { x *= k; y *= k; return *this; }
     inline Vec2f& operator/=(float k) { x /= k; y /= k; return *this; }
 
-    Vec2f Clamped(Vec2f min, Vec2f max) const;
+    Vec2f Clamped(Vec2f min, Vec2f max) const {
+        return {std::clamp(this->x, min.x, max.x), std::clamp(this->y, min.y, max.y)};
+    }
 };
 
 inline Vec2f operator*(float k, const Vec2f& vec) {
