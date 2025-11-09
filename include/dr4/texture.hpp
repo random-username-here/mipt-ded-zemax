@@ -4,7 +4,6 @@
 #include <string>
 
 #include "dr4/math/color.hpp"
-#include "dr4/math/rect.hpp"
 #include "dr4/math/vec2.hpp"
 #include "math/color.hpp"
 
@@ -25,21 +24,54 @@ public:
     virtual Vec2f GetPos() const = 0;
 };
 
+
+class Line: public Drawable {
+
+public:
+
+    virtual void SetStart(Vec2f start) = 0;
+    virtual void SetEnd(Vec2f end) = 0;
+    virtual void SetColor(Color color) = 0;
+    virtual void SetThiсkness(float thiсkness) = 0;
+
+    virtual Vec2f GetStart() const = 0;
+    virtual Vec2f GetEnd() const = 0;
+    virtual Color GetColor() const = 0;
+    virtual float GetThiсkness() const = 0;
+};
+
+class Circle: public Drawable {
+
+public: 
+
+    virtual void SetCenter(Vec2f cetner) = 0;
+    virtual void SetRadius(float radius) = 0;
+    virtual void SetFillColor(Color color) = 0;
+    virtual void SetBorderColor(Color color) = 0;
+    virtual void SetBorderThiсkness(float thiсkness) = 0;
+
+    virtual Vec2f GetCenter() const = 0;
+    virtual float GetRadius() const = 0;
+    virtual Color GetFillColor() const = 0;
+    virtual Color GetBorderColor() const = 0;
+    virtual float GetBorderThiсkness() const = 0;
+};
+
 class Rectangle: public Drawable {
 
 public:
 
     virtual ~Rectangle() = default;
 
-    virtual void SetRect(const Rect2f &rect) = 0;
-    virtual void SetFillColor(const Color &color) = 0;
+    virtual void SetSize(Vec2f size) = 0;
+    virtual void SetFillColor(Color color) = 0;
     virtual void SetBorderThickness(float thickness) = 0;
-    virtual void SetBorderColor(const Color &color) = 0;
+    virtual void SetBorderColor(Color color) = 0;
 
-    virtual const Rect2f &GetRect() const = 0;
-    virtual Color         GetFillColor() const = 0;
-    virtual float         GetBorderThickness() const = 0;
-    virtual Color         GetBorderColor() const = 0;
+    virtual Vec2f GetSize() const = 0;
+    virtual Color GetFillColor() const = 0;
+    virtual float GetBorderThickness() const = 0;
+    virtual Color GetBorderColor() const = 0;
 };
 
 class Font {
@@ -79,15 +111,13 @@ public:
         BOTTOM
     };
 
-    virtual void SetPos(Vec2f pos) = 0;
     virtual void SetText(const std::string &text) = 0;
     virtual void SetColor(const Color &color) = 0;
     virtual void SetFontSize(float size) = 0;
     virtual void SetVAlign(VAlign align) = 0;
     virtual void SetFont(const Font *font) = 0;
 
-    virtual const Rect2f      &GetBounds() const = 0;
-    virtual Vec2f              GetPos() const = 0;
+    virtual Vec2f              GetBounds() const = 0;
     virtual const std::string &GetText() const = 0;
     virtual Color              GetColor() const = 0;
     virtual float              GetFontSize() const = 0;
