@@ -112,7 +112,7 @@ public:
     };
 
     virtual void SetText(const std::string &text) = 0;
-    virtual void SetColor(const Color &color) = 0;
+    virtual void SetColor(Color color) = 0;
     virtual void SetFontSize(float size) = 0;
     virtual void SetVAlign(VAlign align) = 0;
     virtual void SetFont(const Font *font) = 0;
@@ -131,10 +131,10 @@ class Image: public Drawable {
 public:
     virtual ~Image() = default;
 
-    virtual void SetPixel(size_t x, size_t y, const Color &color) = 0;
+    virtual void SetPixel(size_t x, size_t y, Color color) = 0;
     virtual Color GetPixel(size_t x, size_t y) const = 0;
 
-    virtual void SetSize(const Vec2f &size) = 0;
+    virtual void SetSize(Vec2f size) = 0;
 
     virtual Vec2f GetSize() const = 0;
     virtual float GetWidth() const = 0;
