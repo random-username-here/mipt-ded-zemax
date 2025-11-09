@@ -39,6 +39,20 @@ public:
     virtual Rectangle *CreateRectangle() = 0;
     virtual Text      *CreateText()      = 0;
 
+    /**
+     * Start receiving utf8-encoded input.
+     * This is for optimization purposes: if implementation doesn't support
+     * enabling/disabling text input capturing, leave it a no-op.
+     */
+    virtual void StartTextInput() = 0;
+
+    /**
+     * Stop receiving utf8-encoded input.
+     * This is for optimization purposes: if implementation doesn't support
+     * enabling/disabling text input capturing, leave it a no-op.
+     */
+    virtual void StopTextInput() = 0;
+
     virtual std::optional<Event> PollEvent() = 0;
 };
 

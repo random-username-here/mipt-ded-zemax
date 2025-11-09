@@ -1,6 +1,9 @@
 #ifndef I_DR4_EVENT
 #define I_DR4_EVENT
 
+#include <cstdint>
+#include <string>
+
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
 #include "dr4/mouse_buttons.hpp"
@@ -22,7 +25,8 @@ struct Event {
     };
 
     struct TextEvent {
-        uint32_t unicode;
+        // utf8-encoded
+        std::string unicode;
     };
 
     struct MouseMove {
