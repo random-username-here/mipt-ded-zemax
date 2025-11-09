@@ -17,7 +17,10 @@ struct Rect2f {
     Rect2f(float x, float y, float width, float height)
         :pos(Vec2f(x, y)), size(Vec2f(width, height)) {}
 
-    bool Contains(Vec2f point) const;
+    bool Contains(Vec2f point) const {
+        return this->pos.x <= point.x && point.x <= this->pos.x + this->size.x
+            && this->pos.y <= point.y && point.y <= this->pos.y + this->size.y;
+    }
 };
 
 }; // namespace dr4
