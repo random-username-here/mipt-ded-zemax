@@ -21,19 +21,21 @@ public:
     virtual const std::string &GetTitle() const = 0;
 
     virtual Vec2f GetSize() const = 0;
-    virtual void SetSize(const dr4::Vec2f& size) = 0;
+    virtual void SetSize(Vec2f size) = 0;
 
     virtual void Open() = 0;
     virtual bool IsOpen() const = 0;
     virtual void Close() = 0;
 
-    virtual void Clear(const Color &color) = 0;
-    virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
+    virtual void Clear(Color color) = 0;
+    virtual void Draw(const Texture &texture, Vec2f pos) = 0;
     virtual void Display() = 0;
 
     virtual Texture   *CreateTexture()   = 0;
     virtual Image     *CreateImage()     = 0;
     virtual Font      *CreateFont()      = 0;
+    virtual Line      *CreateLine()      = 0;
+    virtual Circle    *CreateCircle()    = 0;
     virtual Rectangle *CreateRectangle() = 0;
     virtual Text      *CreateText()      = 0;
 
