@@ -44,16 +44,37 @@ protected:
     void SetHidden(bool hidden_) { hidden = hidden_; };
     bool GetHidden() const { return hidden; };
 
-    virtual void Move(float shift_x, float shift_y) {
-        rect.pos.x += shift_x;
-        rect.pos.y += shift_y;
-    };
-
     bool IsInside(dr4::Vec2f relPos) const {
         return ((relPos.x < rect.pos.x + rect.size.x)
              && (relPos.y < rect.pos.y + rect.size.y)
              && (relPos.x > rect.pos.x)
              && (relPos.y > rect.pos.y));
+    };
+
+public:
+
+    Widget(const dr4::Rect2f& rect_, State *state_, Widget *parent_)
+        :rect(rect_), parent(parent_), state(state_), texture(state->window->CreateTexture()) {
+        texture->SetSize(rect.size);
+        texture->SetPos(rect.pos);
+    };
+
+    // REVIEW : move implementations to cpp files?
+
+    dr4::Texture* GetTexture() const {return texture;};
+
+    dr4::Vec2f GetRelPos() const { return rect.pos; };
+    virtual void SetRelPos(dr4::Vec2f pos) { rect.pos = pos; };
+
+    dr4::Vec2f GetSize() const { return texture->GetSize(); }
+    virtual void SetSize(dr4::Vec2f size) { texture->SetSize(size); rect.size = size; }
+
+    virtual Widget *GetParent() const { return parent; };
+    virtual void SetParent(Widget *parent_) { parent = parent_; }
+
+    virtual void Move(float shift_x, float shift_y) {
+        rect.pos.x += shift_x;
+        rect.pos.y += shift_y;
     };
 
     virtual EventResult OnMouseDown(const MouseDownEvent &evt) {
@@ -92,28 +113,19 @@ protected:
 
         return EventResult::UNHANDLED;
     };
-    /// TODO : ... other handlers
 
-public:
-
-    Widget(const dr4::Rect2f& rect_, State *state_, Widget *parent_)
-        :rect(rect_), parent(parent_), state(state_), texture(state->window->CreateTexture()) {
-        texture->SetSize(rect.size);
-        texture->SetPos(rect.pos);
+    virtual EventResult OnKeyPressedEvent( __attribute_maybe_unused__ const KeyPressedEvent& evt) {
+        return EventResult::UNHANDLED;
     };
 
-    // REVIEW : move implementations to cpp files?
+    virtual EventResult OnTextEnterEvent(__attribute_maybe_unused__ const TextEnterEvent& evt) {
+        return EventResult::UNHANDLED;
+    };
 
-    dr4::Texture* GetTexture() const {return texture;};
+    virtual EventResult OnIdleEvent(__attribute_maybe_unused__ const IdleEvent& evt) {
+        return EventResult::UNHANDLED;
+    };
 
-    dr4::Vec2f GetRelPos() const { return rect.pos; };
-    virtual void SetRelPos(dr4::Vec2f pos) { rect.pos = pos; };
-
-    dr4::Vec2f GetSize() const { return texture->GetSize(); }
-    virtual void SetSize(dr4::Vec2f size) { texture->SetSize(size); rect.size = size; }
-
-    virtual Widget *GetParent() const { return parent; };
-    virtual void SetParent(Widget *parent_) { parent = parent_; }
 };
 
 }; // namespace hui
