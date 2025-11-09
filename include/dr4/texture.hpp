@@ -10,24 +10,41 @@
 
 namespace dr4 {
 
-struct Rectangle {
+class Texture;
+
+class Drawable {
+
+public:
+
+    virtual ~Drawable() = default;
+
+    virtual void DrawOn(Texture& texture) const = 0;
+
+    virtual void SetPos(Vec2f pos) = 0;
+
+    virtual Vec2f GetPos() const = 0;
+};
+
+class Rectangle: public Drawable {
 
 public:
 
     virtual ~Rectangle() = default;
 
     virtual void SetRect(const Rect2f &rect) = 0;
-    virtual void SetFill(const Color &color) = 0;
+    virtual void SetFillColor(const Color &color) = 0;
     virtual void SetBorderThickness(float thickness) = 0;
     virtual void SetBorderColor(const Color &color) = 0;
 
-    // NOTE(i-s-d): this probbably should not have getters,
-    //              this thing should only be used for drawing things.
+    virtual const Rect2f &GetRect() const = 0;
+    virtual Color         GetFillColor() const = 0;
+    virtual float         GetBorderThickness() const = 0;
+    virtual Color         GetBorderColor() const = 0;
 };
 
 class Font {
 
-  public:
+public:
 
     virtual ~Font() = default;
 
@@ -38,17 +55,17 @@ class Font {
      * Get distance from the baseline (line on top of which letters are placed)
      * to the tops of the capital letters.
      */
-    virtual float GetAscent(float fontSize) = 0;
+    virtual float GetAscent(float fontSize) const = 0;
 
     /**
      * Get distance from baseline to bottoms of the hanging letters, like `y`.
      * This value is **negative** for most fonts (because letters descend
      * below baseline).
      */
-    virtual float GetDescent(float fontSize) = 0;
+    virtual float GetDescent(float fontSize) const = 0;
 };
 
-class Text {
+class Text: public Drawable {
 
 public:
 
@@ -62,32 +79,39 @@ public:
         BOTTOM
     };
 
-    virtual void SetPos(const Vec2f &pos) = 0;
+    virtual void SetPos(Vec2f pos) = 0;
     virtual void SetText(const std::string &text) = 0;
     virtual void SetColor(const Color &color) = 0;
     virtual void SetFontSize(float size) = 0;
     virtual void SetVAlign(VAlign align) = 0;
     virtual void SetFont(const Font *font) = 0;
 
-    virtual float GetWidth() const = 0;
+    virtual const Rect2f      &GetBounds() const = 0;
+    virtual Vec2f              GetPos() const = 0;
+    virtual const std::string &GetText() const = 0;
+    virtual Color              GetColor() const = 0;
+    virtual float              GetFontSize() const = 0;
+    virtual VAlign             GetVAlign() const = 0;
+    virtual const Font        &GetFont() const = 0;
 };
 
 
-class Image {
+class Image: public Drawable {
 
 public:
     virtual ~Image() = default;
 
-    virtual void SetPixel(unsigned x, unsigned y, const Color &color) = 0;
-    virtual Color GetPixel(unsigned x, unsigned y) const = 0;
+    virtual void SetPixel(size_t x, size_t y, const Color &color) = 0;
+    virtual Color GetPixel(size_t x, size_t y) const = 0;
 
     virtual void SetSize(const Vec2f &size) = 0;
+
     virtual Vec2f GetSize() const = 0;
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
 };
 
-class Texture {
+class Texture: public Drawable {
 
 public:
     virtual ~Texture() = default;
@@ -99,10 +123,9 @@ public:
 
     virtual void Clear(Color color) = 0;
 
-    virtual void Draw(const Rectangle &rect) = 0;
-    virtual void Draw(const Text &text) = 0;
-    virtual void Draw(const Image &img, const Vec2f &pos) = 0;
-    virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
+    virtual void Draw(const Drawable& drawable) {
+        drawable.DrawOn(*this);
+    }
 };
 
 }; // namespace dr4
