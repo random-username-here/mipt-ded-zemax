@@ -28,7 +28,7 @@ public:
     virtual void Close() = 0;
 
     virtual void Clear(const Color &color) = 0;
-    virtual void Draw(const Texture &texture, Vec2f pos) = 0;
+    virtual void Draw(const Texture &texture, const Vec2f &pos) = 0;
     virtual void Display() = 0;
 
     virtual Texture   *CreateTexture()   = 0;

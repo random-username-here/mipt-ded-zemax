@@ -62,7 +62,7 @@ public:
         BOTTOM
     };
 
-    virtual void SetPos(Vec2f pos) = 0;
+    virtual void SetPos(const Vec2f &pos) = 0;
     virtual void SetText(const std::string &text) = 0;
     virtual void SetColor(const Color &color) = 0;
     virtual void SetFontSize(float size) = 0;
@@ -78,10 +78,10 @@ class Image {
 public:
     virtual ~Image() = default;
 
-    virtual void SetPixel(unsigned x, unsigned y, Color color) = 0;
+    virtual void SetPixel(unsigned x, unsigned y, const Color &color) = 0;
     virtual Color GetPixel(unsigned x, unsigned y) const = 0;
 
-    virtual void SetSize(Vec2f size) = 0;
+    virtual void SetSize(const Vec2f &size) = 0;
     virtual Vec2f GetSize() const = 0;
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
