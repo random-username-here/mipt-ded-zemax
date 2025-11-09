@@ -32,29 +32,29 @@ public:
     virtual void SetStart(Vec2f start) = 0;
     virtual void SetEnd(Vec2f end) = 0;
     virtual void SetColor(Color color) = 0;
-    virtual void SetThiсkness(float thiсkness) = 0;
+    virtual void SetThickness(float thickness) = 0;
 
     virtual Vec2f GetStart() const = 0;
     virtual Vec2f GetEnd() const = 0;
     virtual Color GetColor() const = 0;
-    virtual float GetThiсkness() const = 0;
+    virtual float GetThickness() const = 0;
 };
 
 class Circle: public Drawable {
 
-public: 
+public:
 
-    virtual void SetCenter(Vec2f cetner) = 0;
+    virtual void SetCenter(Vec2f center) = 0;
     virtual void SetRadius(float radius) = 0;
     virtual void SetFillColor(Color color) = 0;
     virtual void SetBorderColor(Color color) = 0;
-    virtual void SetBorderThiсkness(float thiсkness) = 0;
+    virtual void SetBorderThickness(float thickness) = 0;
 
     virtual Vec2f GetCenter() const = 0;
     virtual float GetRadius() const = 0;
     virtual Color GetFillColor() const = 0;
     virtual Color GetBorderColor() const = 0;
-    virtual float GetBorderThiсkness() const = 0;
+    virtual float GetBorderThickness() const = 0;
 };
 
 class Rectangle: public Drawable {
@@ -83,7 +83,7 @@ public:
     virtual void LoadFromFile(const std::string &path) = 0;
     virtual void LoadFromBuffer(const void *buffer, size_t size) = 0;
 
-    /** 
+    /**
      * Get distance from the baseline (line on top of which letters are placed)
      * to the tops of the capital letters.
      */
