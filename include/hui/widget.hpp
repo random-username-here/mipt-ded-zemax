@@ -44,13 +44,6 @@ protected:
     void SetHidden(bool hidden_) { hidden = hidden_; };
     bool GetHidden() const { return hidden; };
 
-    bool IsInside(dr4::Vec2f relPos) const {
-        return ((relPos.x < rect.pos.x + rect.size.x)
-             && (relPos.y < rect.pos.y + rect.size.y)
-             && (relPos.x > rect.pos.x)
-             && (relPos.y > rect.pos.y));
-    };
-
 public:
 
     Widget(const dr4::Rect2f &rect_, State *state_, Widget *parent_)
@@ -82,7 +75,7 @@ public:
             return EventResult::UNHANDLED;
         }
 
-        if (IsInside(evt.relPos)) {
+        if (rect.Contains(evt.relPos)) {
             state->focused = this;
             return EventResult::HANDLED;
         }
@@ -94,7 +87,7 @@ public:
             return EventResult::UNHANDLED;
         }
 
-        if (IsInside(evt.relPos)) {
+        if (rect.Contains(evt.relPos)) {
             return EventResult::HANDLED;
         }
 
@@ -106,7 +99,7 @@ public:
             return EventResult::UNHANDLED;
         }
 
-        if (IsInside(evt.relPos)) {
+        if (rect.Contains(evt.relPos)) {
             state->hovered = this;
             return EventResult::HANDLED;
         }
