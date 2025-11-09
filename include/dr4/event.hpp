@@ -32,7 +32,7 @@ struct Event {
     };
 
     struct MouseButton {
-        dr4::MouseButton button;
+        dr4::MouseButtonType button;
         Vec2f pos;
     };
 

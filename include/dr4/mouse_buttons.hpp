@@ -3,7 +3,7 @@
 
 namespace dr4 {
 
-enum class MouseButton {
+enum class MouseButtonType {
     UNKNOWN = 0,
     LEFT,
     MIDDLE,
