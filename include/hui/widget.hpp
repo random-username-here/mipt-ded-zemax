@@ -35,10 +35,9 @@ protected:
         if (hidden) {
             return;
         }
-        // texture->Display();
         if (parent != NULL) {
             parent->GetTexture()->Draw(*texture);
-            texture->Clear(dr4::Color(0, 0, 0, 0));
+            texture->Clear(dr4::Color(0, 0, 0));
         }
     };
 
