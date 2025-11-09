@@ -3,7 +3,7 @@
 
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
-#include "dr4/mousecodes.hpp"
+#include "dr4/mouse_buttons.hpp"
 #include <cstdint>
 
 namespace dr4 {
@@ -22,8 +22,7 @@ struct Event {
         QUIT
     };
 
-    struct TextEvent
-    {
+    struct TextEvent {
         uint32_t unicode;
     };
 
@@ -33,7 +32,7 @@ struct Event {
     };
 
     struct MouseButton {
-        MouseCode button;
+        dr4::MouseButtonType button;
         Vec2f pos;
     };
 
