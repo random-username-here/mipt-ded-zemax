@@ -1,8 +1,6 @@
 #ifndef I_DR4_EVENT
 #define I_DR4_EVENT
 
-#include <cstdint>
-
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
 #include "dr4/mouse_buttons.hpp"
@@ -43,7 +41,7 @@ struct Event {
     };
 
     struct KeyEvent {
-        dr4::KeySym sym;
+        KeyCode sym;
         uint16_t mods;
     };
 
@@ -54,7 +52,7 @@ struct Event {
         MouseMove   mouseMove;
         MouseButton mouseButton;
         MouseWheel  mouseWheel;
-        KeyButton   key;
+        KeyEvent    key;
     };
 
     Event() {}

@@ -1,6 +1,8 @@
 #ifndef I_DR4_KEY_CODE
 #define I_DR4_KEY_CODE
 
+#include <cstdint>
+
 namespace dr4 {
 
 enum KeyCode {
