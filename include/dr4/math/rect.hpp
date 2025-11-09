@@ -9,15 +9,20 @@ struct Rect2f {
 
     Vec2f pos, size;
 
-    inline Rect2f(Vec2f pos, Vec2f size) 
-        :pos(pos), size(size) {}
+    Rect2f() = default;
 
-    inline Rect2f(float x, float y, float width, float height)
+    Rect2f(const Vec2f &pos_, const Vec2f &size_)
+        :pos(pos_), size(size_) {}
+
+    Rect2f(float x, float y, float width, float height)
         :pos(Vec2f(x, y)), size(Vec2f(width, height)) {}
 
-    bool Contains(Vec2f point) const;
+    bool Contains(Vec2f point) const {
+        return this->pos.x <= point.x && point.x <= this->pos.x + this->size.x
+            && this->pos.y <= point.y && point.y <= this->pos.y + this->size.y;
+    }
 };
 
 }; // namespace dr4
 
-#endif // I_DR4_RECT
+#endif // I_DR4_MATH_RECT

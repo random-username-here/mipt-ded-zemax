@@ -7,10 +7,15 @@ namespace dr4 {
 
 struct Color {
 
+    static constexpr uint8_t ColorMaxValue = 255;
+
     uint8_t r, g, b, a;
 
-    inline Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
-        :r(r), g(g), b(b), a(a) {}
+    Color(uint8_t r_, uint8_t g_, uint8_t b_, uint8_t a_=ColorMaxValue)
+        :r(r_), g(g_), b(b_), a(a_) {}
+    
+    Color()
+        :r(0), g(0), b(0), a(ColorMaxValue) {}
 };
 
 }; // namespace dr4
