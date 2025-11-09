@@ -1,8 +1,6 @@
 #ifndef I_DR4_EVENT
 #define I_DR4_EVENT
 
-#include <cstdint>
-
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
 #include "dr4/mouse_buttons.hpp"
