@@ -96,8 +96,6 @@ protected:
 
 public:
 
-    dr4::Texture* GetTexture() const {return texture;};
-
     Widget(const dr4::Rect2f& rect_, State *state_, Widget *parent_)
         :rect(rect_), parent(parent_), state(state_), texture(state->window->CreateTexture()) {
         texture->SetSize(rect.size);
@@ -105,6 +103,8 @@ public:
     };
 
     // REVIEW : move implementations to cpp files?
+
+    dr4::Texture* GetTexture() const {return texture;};
 
     dr4::Vec2f GetRelPos() const { return rect.pos; };
     virtual void SetRelPos(dr4::Vec2f pos) { rect.pos = pos; };
