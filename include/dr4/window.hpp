@@ -31,6 +31,9 @@ public:
     virtual void Draw(const Texture &texture, Vec2f pos) = 0;
     virtual void Display() = 0;
 
+    // Monotonic time
+    virtual double GetTime() = 0;
+
     virtual Texture   *CreateTexture()   = 0;
     virtual Image     *CreateImage()     = 0;
     virtual Font      *CreateFont()      = 0;
