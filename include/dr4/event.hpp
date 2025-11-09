@@ -24,7 +24,7 @@ struct Event {
     };
 
     struct TextEvent {
-        uint32_t unicode;
+        const char *unicode;
     };
 
     struct MouseMove {
