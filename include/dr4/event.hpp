@@ -43,7 +43,7 @@ struct Event {
     };
 
     struct KeyEvent {
-        dr4::KeySym sym;
+        dr4::KeyCode sym;
         uint16_t mods;
     };
 
@@ -54,7 +54,7 @@ struct Event {
         MouseMove   mouseMove;
         MouseButton mouseButton;
         MouseWheel  mouseWheel;
-        KeyButton   key;
+        KeyEvent    key;
     };
 
     Event() {}
