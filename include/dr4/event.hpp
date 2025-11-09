@@ -42,9 +42,9 @@ struct Event {
         Vec2f pos;
     };
 
-    struct KeyButton {
-        KeyCode sym;
-        KeyMode mod;
+    struct KeyEvent {
+        dr4::KeySym sym;
+        uint16_t mods;
     };
 
     Type type;
