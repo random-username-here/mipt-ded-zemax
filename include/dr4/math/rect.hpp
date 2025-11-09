@@ -11,7 +11,7 @@ struct Rect2f {
 
     Rect2f() = default;
 
-    Rect2f(const Vec2f &pos_, const Vec2f &size_)
+    Rect2f(Vec2f pos_, Vec2f size_)
         :pos(pos_), size(size_) {}
 
     Rect2f(float x, float y, float width, float height)

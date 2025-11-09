@@ -31,7 +31,7 @@ struct Event {
     };
 
     struct MouseButton {
-        dr4::MouseButtonType button;
+        MouseButtonType button;
         Vec2f pos;
     };
 
@@ -41,7 +41,7 @@ struct Event {
     };
 
     struct KeyEvent {
-        dr4::KeyCode sym;
+        KeyCode sym;
         uint16_t mods;
     };
 
