@@ -34,6 +34,8 @@ public:
     virtual Texture   *CreateTexture()   = 0;
     virtual Image     *CreateImage()     = 0;
     virtual Font      *CreateFont()      = 0;
+    virtual Line      *CreateLine()      = 0;
+    virtual Circle    *CreateCircle()    = 0;
     virtual Rectangle *CreateRectangle() = 0;
     virtual Text      *CreateText()      = 0;
 
