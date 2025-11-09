@@ -12,7 +12,7 @@ namespace hui {
 
 class Widget;
 
-class State {
+struct State {
     Widget* hovered;
     Widget* focused;
 
@@ -41,7 +41,57 @@ protected:
         }
     };
 
-    EventResult OnMouseDown(MouseDownEvent &evt);
+    void SetHidden(bool hidden_) { hidden = hidden_; };
+    bool GetHidden() const { return hidden; };
+
+    virtual void Move(float shift_x, float shift_y) {
+        rect.pos.x += shift_x;
+        rect.pos.y += shift_y;
+    };
+
+    bool IsInside(dr4::Vec2f relPos) const {
+        return ((relPos.x < rect.pos.x + rect.size.x)
+             && (relPos.y < rect.pos.y + rect.size.y)
+             && (relPos.x > rect.pos.x)
+             && (relPos.y > rect.pos.y));
+    };
+
+    virtual EventResult OnMouseDown(const MouseDownEvent &evt) {
+        if (hidden) {
+            return EventResult::UNHANDLED;
+        }
+
+        if (IsInside(evt.relPos)) {
+            state->focused = this;
+            return EventResult::HANDLED;
+        }
+        return EventResult::UNHANDLED;
+    };
+
+    virtual EventResult OnMouseRelease(const MouseUpEvent& evt) {
+        if (hidden) {
+            return EventResult::UNHANDLED;
+        }
+
+        if (IsInside(evt.relPos)) {
+            return EventResult::HANDLED;
+        }
+
+        return EventResult::UNHANDLED;
+    };
+
+    virtual EventResult OnMouseMove(const MouseMoveEvent& evt) {
+        if (hidden) {
+            return EventResult::UNHANDLED;
+        }
+
+        if (IsInside(evt.relPos)) {
+            state->hovered = this;
+            return EventResult::HANDLED;
+        }
+
+        return EventResult::UNHANDLED;
+    };
     /// TODO : ... other handlers
 
 public:
