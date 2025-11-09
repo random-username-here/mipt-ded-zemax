@@ -41,7 +41,7 @@ struct Event {
     };
 
     struct KeyEvent {
-        KeyCode sym;
+        dr4::KeyCode sym;
         uint16_t mods;
     };
 
