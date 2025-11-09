@@ -53,7 +53,7 @@ protected:
 
 public:
 
-    Widget(const dr4::Rect2f& rect_, State *state_, Widget *parent_)
+    Widget(const dr4::Rect2f &rect_, State *state_, Widget *parent_)
         :rect(rect_), parent(parent_), state(state_), texture(state->window->CreateTexture()) {
         texture->SetSize(rect.size);
         texture->SetPos(rect.pos);
@@ -89,7 +89,7 @@ public:
         return EventResult::UNHANDLED;
     };
 
-    virtual EventResult OnMouseRelease(const MouseUpEvent& evt) {
+    virtual EventResult OnMouseUp(const MouseUpEvent &evt) {
         if (hidden) {
             return EventResult::UNHANDLED;
         }
@@ -101,7 +101,7 @@ public:
         return EventResult::UNHANDLED;
     };
 
-    virtual EventResult OnMouseMove(const MouseMoveEvent& evt) {
+    virtual EventResult OnMouseMove(const MouseMoveEvent &evt) {
         if (hidden) {
             return EventResult::UNHANDLED;
         }
@@ -114,15 +114,15 @@ public:
         return EventResult::UNHANDLED;
     };
 
-    virtual EventResult OnKeyPressedEvent( __attribute_maybe_unused__ const KeyPressedEvent& evt) {
+    virtual EventResult OnKeyPressed( __attribute_maybe_unused__ const KeyPressedEvent &evt) {
         return EventResult::UNHANDLED;
     };
 
-    virtual EventResult OnTextEnterEvent(__attribute_maybe_unused__ const TextEnterEvent& evt) {
+    virtual EventResult OnTextEnter(__attribute_maybe_unused__ const TextEnterEvent &evt) {
         return EventResult::UNHANDLED;
     };
 
-    virtual EventResult OnIdleEvent(__attribute_maybe_unused__ const IdleEvent& evt) {
+    virtual EventResult OnIdle(__attribute_maybe_unused__ const IdleEvent &evt) {
         return EventResult::UNHANDLED;
     };
 
