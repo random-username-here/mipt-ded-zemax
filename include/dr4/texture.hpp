@@ -19,6 +19,7 @@ public:
 
     virtual void DrawOn(Texture& texture) const = 0;
 
+    inline void SetPos(float x, float y) { SetPos(Vec2f(x, y)); };
     virtual void SetPos(Vec2f pos) = 0;
 
     virtual Vec2f GetPos() const = 0;
@@ -146,12 +147,18 @@ class Texture: public Drawable {
 public:
     virtual ~Texture() = default;
 
+    inline void SetSize(float x, float y) { SetSize(Vec2f(x, y)); }
     virtual void SetSize(Vec2f size) = 0;
     virtual Vec2f GetSize() const = 0;
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
 
+    inline void SetZero(float x, float y) { SetZero(Vec2f(x, y)); }
+    virtual void SetZero(Vec2f pos) = 0;
+    virtual Vec2f GetZero() const = 0;
+
     virtual void Clear(Color color) = 0;
+
 
     virtual void Draw(const Drawable& drawable) {
         drawable.DrawOn(*this);
