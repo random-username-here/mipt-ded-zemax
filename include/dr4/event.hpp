@@ -2,7 +2,6 @@
 #define I_DR4_EVENT
 
 #include <cstdint>
-#include <string>
 
 #include "dr4/math/vec2.hpp"
 #include "dr4/keycodes.hpp"
@@ -26,7 +25,7 @@ struct Event {
 
     struct TextEvent {
         // utf8-encoded
-        std::string unicode;
+        const char *unicode;
     };
 
     struct MouseMove {
