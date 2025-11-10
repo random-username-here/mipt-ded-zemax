@@ -31,7 +31,7 @@ public:
     virtual void Draw(const Texture &texture, Vec2f pos) = 0;
     virtual void Display() = 0;
 
-    // Monotonic time in ms
+    // Monotonic time in seconds
     virtual double GetTime() = 0;
 
     virtual Texture   *CreateTexture()   = 0;
