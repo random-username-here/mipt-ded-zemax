@@ -28,7 +28,7 @@ public:
     virtual void Close() = 0;
 
     virtual void Clear(Color color) = 0;
-    virtual void Draw(const Texture &texture, Vec2f pos) = 0;
+    virtual void Draw(const Texture &texture) = 0;
     virtual void Display() = 0;
 
     // Monotonic time in seconds
