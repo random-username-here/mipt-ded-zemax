@@ -154,6 +154,10 @@ public:
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
 
+    virtual void SetZero(Vec2f pos) = 0;
+            void SetZero(float x, float y) { SetZero(Vec2f(x, y)); }
+    virtual Vec2f GetZero() const = 0;
+
     virtual void Clear(Color color) = 0;
 
     virtual void Draw(const Drawable& drawable) {
