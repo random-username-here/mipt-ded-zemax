@@ -1,47 +1,154 @@
 #ifndef I_HUI_WIDGET
 #define I_HUI_WIDGET
 
+#include <memory>
+#include <cassert>
+
 #include "dr4/math/vec2.hpp"
+#include "dr4/mouse_buttons.hpp"
 #include "dr4/texture.hpp"
+#include "dr4/window.hpp"
+
 #include "hui/event.hpp"
 
 namespace hui {
 
-class State;
+class Widget;
 
-class Widget {
+struct State {
+    const hui::Widget* hoveredWidget;
+    const hui::Widget* focusedWidget;
 
-protected:
+    dr4::Window* window;
+};
 
-    dr4::Vec2f relPos; ///< Relative to parent
-    Widget *parent = nullptr;
-    State *const state;
-    dr4::Texture *const texture;
-    bool textureIsInvalid;
+// TODO handle exceptions
 
-    /// Redraws widget's texture
-    virtual void Redraw() = 0;
-
-    EventResult OnMouseDown(MouseDownEvent &evt);
-    /// TODO : ... other handlers
+class Widget: public dr4::Drawable {
 
 public:
 
-    Widget(State *const state);
-    Widget(const std::size_t width, const std::size_t height, 
-           State *state, Widget *parent);
+    Widget(dr4::Vec2f size)
+        :   state_{nullptr},
+            texture_(state_->window->CreateTexture()),
+            rect_{state_->window->CreateRectangle()},
+            parent_{nullptr},
+            textureIsInvalid_{true}
+    {
+        texture_->SetSize(size);
 
-    // REVIEW : move implementations to cpp files?
+        rect_->SetSize(size);
+    }
+
     
-    dr4::Vec2f GetRelPos() const { return relPos; };
-    virtual void SetRelPos(dr4::Vec2f pos) { relPos = pos; };
+    virtual void SetPos(dr4::Vec2f pos) override { 
+        texture_->SetPos(pos);
+    };
+    virtual dr4::Vec2f GetPos() const override { 
+        return texture_->GetPos();
+    };
+    virtual void DrawOn(dr4::Texture& srcTexture) const override {
+        if (isHide_) return;
 
-    dr4::Vec2f GetSize() const { return texture->GetSize(); }
-    virtual void SetSize(dr4::Vec2f size) { texture->SetSize(size); }
+        if (textureIsInvalid_) {
+            Redraw();
+        }
 
-    virtual Widget *GetParent() const { return parent; };
-    virtual void SetParent(Widget *parent_) { parent = parent_; }
+        texture_->DrawOn(srcTexture);
+    }
+
+    virtual void SetTextureIsInvalid() {
+        textureIsInvalid_ = true;
+        if (parent_) {
+            parent_->SetTextureIsInvalid();
+        }
+    }
+    virtual void SetParent(Widget *parent) { 
+        parent_ = parent; 
+    }
+    virtual void SetFillColor(dr4::Color color) {
+        rect_->SetFillColor(color);
+        SetTextureIsInvalid();
+    }
+    virtual void SetBorderThickness(float thickness) {
+        rect_->SetBorderThickness(thickness);
+        SetTextureIsInvalid();
+    }
+    virtual void SetBorderColor(dr4::Color color) {
+        rect_->SetBorderColor(color);
+        SetTextureIsInvalid();
+    }
+    virtual void SetIsFocusable(bool isFocusable) {
+        isFocusable_ = isFocusable;
+    }
+    virtual void SetFocusButton(dr4::MouseButtonType focusButton) {
+        focusButton_ = focusButton;
+    }
+    virtual void SetIsHide(bool isHide) {
+        isHide_ = true;
+        SetTextureIsInvalid();
+    }
+    virtual void SetMusRemoved(bool mustRemoved) {
+        mustRemoved_ = true;
+        SetTextureIsInvalid();
+    }
+    virtual void SetState(State& state) {
+        state_ = &state;
+    }
+
+    const dr4::Rectangle& GetRect() const noexcept {
+        assert(rect_);
+        return *rect_;
+    }
+    const State& GetState() const noexcept {
+        assert(state_);
+        return *state_;
+    }
+    const Widget* GetParent() const noexcept {
+        return parent_;
+    }
+    bool GetTextureIsInvalid() const noexcept {
+        return textureIsInvalid_;
+    }
+    bool GetIsFocusable() const noexcept {
+        return isFocusable_;
+    }
+    dr4::MouseButtonType GetFocusButton() const noexcept {
+        return focusButton_;
+    }
+    bool GetIsHide() const noexcept {
+        return isHide_;
+    }
+    bool GetMustRemoved() const noexcept {
+        return mustRemoved_;
+    }
+
+protected:
+
+    virtual void Redraw() const {
+        rect_->DrawOn(*texture_);
+    }
+
+protected:
+
+    State * state_;
+
+    std::unique_ptr<dr4::Texture> texture_;
+    std::unique_ptr<dr4::Rectangle> rect_;
+
+    Widget *parent_;
+    bool textureIsInvalid_;
+
+    bool isFocusable_;
+    dr4::MouseButtonType focusButton_;
+
+
+    bool isHide_;
+    bool mustRemoved_;
+
 };
+
+
 
 }; // namespace hui
 
