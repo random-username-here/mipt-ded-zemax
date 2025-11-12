@@ -5,7 +5,7 @@
 
 #include "dr4/math/color.hpp"
 #include "dr4/math/vec2.hpp"
-#include "math/color.hpp"
+#include "dr4/math/rect.hpp"
 
 namespace dr4 {
 
@@ -117,7 +117,7 @@ public:
     virtual void SetVAlign(VAlign align) = 0;
     virtual void SetFont(const Font *font) = 0;
 
-    virtual Vec2f              GetBounds() const = 0;
+    virtual Rect2f             GetBounds() const = 0;
     virtual const std::string &GetText() const = 0;
     virtual Color              GetColor() const = 0;
     virtual float              GetFontSize() const = 0;
