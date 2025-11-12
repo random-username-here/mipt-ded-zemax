@@ -20,6 +20,7 @@ public:
     virtual void DrawOn(Texture& texture) const = 0;
 
     virtual void SetPos(Vec2f pos) = 0;
+            void SetPos(float x, float y) { SetPos(Vec2f(x, y)); };
 
     virtual Vec2f GetPos() const = 0;
 };
@@ -147,9 +148,15 @@ public:
     virtual ~Texture() = default;
 
     virtual void SetSize(Vec2f size) = 0;
+            void SetSize(float x, float y) { SetSize(Vec2f(x, y)); }
     virtual Vec2f GetSize() const = 0;
+
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
+
+    virtual void SetZero(Vec2f pos) = 0;
+            void SetZero(float x, float y) { SetZero(Vec2f(x, y)); }
+    virtual Vec2f GetZero() const = 0;
 
     virtual void Clear(Color color) = 0;
 
