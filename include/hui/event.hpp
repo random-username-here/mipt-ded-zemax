@@ -1,7 +1,10 @@
 #ifndef I_HUI_EVENT
 #define I_HUI_EVENT
 
+#include <stdint.h>
+
 #include "dr4/math/vec2.hpp"
+#include "dr4/keycodes.hpp"
 
 namespace hui {
 
@@ -18,6 +21,29 @@ struct Event {
 struct MouseDownEvent : public Event {
 
     dr4::Vec2f relPos;
+    virtual EventResult Apply(Widget &widget) override; // TODO: implement
+
+};
+
+struct MouseUpEvent : public Event {
+
+    dr4::Vec2f relPos;
+    virtual EventResult Apply(Widget &widget) override; // TODO: implement
+
+};
+
+struct MouseMoveEvent : public Event {
+
+    dr4::Vec2f rel;
+    virtual EventResult Apply(Widget &widget) override; // TODO: implement
+
+};
+
+struct KeyPressed : public Event {
+
+    dr4::KeyCode sym;
+    uint16_t mod;
+
     virtual EventResult Apply(Widget &widget) override; // TODO: implement
 
 };
