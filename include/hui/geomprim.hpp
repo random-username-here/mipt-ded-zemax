@@ -7,11 +7,13 @@
 namespace hui {
 
 class GeomPrim: public dr4::Drawable {
+
 public:
+
     virtual EventResult OnMouseMove()    = 0;
     virtual EventResult OnMouseDown()    = 0;
     virtual EventResult OnMouseRelease() = 0;
-}
+};
 
 };
 
