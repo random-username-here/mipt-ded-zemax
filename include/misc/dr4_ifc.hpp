@@ -2,30 +2,29 @@
 #define I_DR4_IFC
 
 #include "dr4/window.hpp"
+#include "cum/plugin.hpp"
 
 namespace dr4 {
 
 /**
  * @brief DR4 backend interface
  *
- * To be rewritten later to use approporiate plugin system.
+ * To be rewritten later to use appropriate plugin system.
  */
-class DR4Backend {
+class DR4Backend : public cum::Plugin {
 
 public:
 
-    virtual const std::string &Name() const = 0;
     virtual dr4::Window *CreateWindow() = 0;
     inline virtual ~DR4Backend() {};
 
 };
 
-
 /**
  * @brief Name of a function all DR4 backend plugins must export
- * 
+ *
  * It's signature is:
- *      
+ *
  *      extern "C" DR4Backend* DR4_BACKEND_FUNCTION(void);
  *
  * Created object must be free'd with `delete` when it is not
