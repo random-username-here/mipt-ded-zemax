@@ -11,7 +11,7 @@ namespace dr4 {
  *
  * To be rewritten later to use appropriate plugin system.
  */
-class DR4Backend : cum::Plugin {
+class DR4Backend : public cum::Plugin {
 
 public:
 
@@ -19,7 +19,6 @@ public:
     inline virtual ~DR4Backend() {};
 
 };
-
 
 /**
  * @brief Name of a function all DR4 backend plugins must export
