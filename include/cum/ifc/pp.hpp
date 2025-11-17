@@ -2,10 +2,10 @@
 #define I_PP_IFC
 
 #include "cum/plugin.hpp"
-#include "hui/geomprim.hpp"
-#include "dr4/window.hpp"
+#include "pp/canvas.hpp"
+#include "pp/tool.hpp"
 
-namespace hui {
+namespace pp {
 
 /**
  * @brief Plugin which provides tools for screenshotter.
@@ -13,10 +13,11 @@ namespace hui {
 class PPToolPlugin: public cum::Plugin {
 
 public:
+	
+    inline virtual ~PPToolPlugin() {};
 
-    // TODO
-	virtual hui::GeomPrim* CreateGeomPrim(size_t geomPrimType, dr4::Window* dr4Window) = 0;
-	inline virtual ~PPToolPlugin() {};
+    /** Create tools which will draw on given canvas */
+    virtual std::vector<pp::Tool*> CreateTools(Canvas *cvs);
 
 };
 
