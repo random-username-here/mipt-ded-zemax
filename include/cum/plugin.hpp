@@ -44,7 +44,7 @@ public:
     virtual std::string_view GetName() const = 0;
 
     /** User-readable info about what this thing does */
-    virtual std::string_view &GetDescription() const = 0;
+    virtual std::string_view GetDescription() const = 0;
 
     /** Vector of plugin identifiers this plugin depends on */
     virtual std::vector<std::string_view> GetDependencies() const = 0;

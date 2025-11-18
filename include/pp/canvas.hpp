@@ -4,6 +4,7 @@
 #include "dr4/math/color.hpp"
 #include "dr4/window.hpp"
 #include "pp/shape.hpp"
+#include "pp/tool.hpp"
 
 namespace pp {
 
@@ -23,10 +24,16 @@ struct ControlsTheme {
                             ///< by which rectangles are resized.
 };
 
+struct State {
+    Shape* selectedShape;
+    Tool* selectedTool;
+};
+
 /** A place to add shapes to */
 class Canvas {
 public:
-    virtual ControlsTheme GetControlsTheme() const;
+    virtual ControlsTheme GetControlsTheme() const = 0;
+    virtual State* GetState() const = 0;
     virtual void AddShape(Shape *shape) = 0;
     virtual void DelShape(Shape *shape) = 0;
     virtual void ShapeChanged(Shape *shape) = 0;
