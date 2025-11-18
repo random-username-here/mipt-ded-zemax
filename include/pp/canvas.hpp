@@ -31,7 +31,9 @@ struct State {
 
 /** A place to add shapes to */
 class Canvas {
+
 public:
+
     virtual ControlsTheme GetControlsTheme() const = 0;
     virtual State* GetState() const = 0;
     virtual void AddShape(Shape *shape) = 0;

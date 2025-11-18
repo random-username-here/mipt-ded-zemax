@@ -17,7 +17,7 @@ public:
     inline virtual ~PPToolPlugin() {};
 
     /** Create tools which will draw on given canvas */
-    virtual std::vector<pp::Tool*> CreateTools(Canvas *cvs);
+    virtual std::vector<std::unique_ptr<::pp::Tool>> CreateTools(Canvas *cvs);
 
 };
 
