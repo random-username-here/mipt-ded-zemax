@@ -36,9 +36,8 @@ public:
 
     virtual ControlsTheme GetControlsTheme() const = 0;
     virtual State* GetState() = 0;
-    virtual void AddShape(Shape *shape) = 0;
-    virtual void DelShape(Shape *shape) = 0;
-    virtual void ShapeChanged(Shape *shape) = 0;
+    virtual size_t AddShape(Shape *shape) = 0;
+    virtual void DelShape(size_t ind) = 0;
     virtual dr4::Window *GetWindow() = 0;
 };
 
