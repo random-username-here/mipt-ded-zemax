@@ -5,7 +5,7 @@
 #include "pp/canvas.hpp"
 #include "pp/tool.hpp"
 
-namespace pp {
+namespace cum {
 
 /**
  * @brief Plugin which provides tools for screenshotter.
@@ -13,7 +13,7 @@ namespace pp {
 class PPToolPlugin: public cum::Plugin {
 
 public:
-	
+
     inline virtual ~PPToolPlugin() {};
 
     /** Create tools which will draw on given canvas */
