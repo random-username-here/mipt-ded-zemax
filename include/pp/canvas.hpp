@@ -35,7 +35,7 @@ class Canvas {
 public:
 
     virtual ControlsTheme GetControlsTheme() const = 0;
-    virtual State* GetState() const = 0;
+    virtual State* GetState() = 0;
     virtual void AddShape(Shape *shape) = 0;
     virtual void DelShape(Shape *shape) = 0;
     virtual void ShapeChanged(Shape *shape) = 0;
