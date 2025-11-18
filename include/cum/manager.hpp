@@ -12,8 +12,8 @@
 namespace cum {
 
 #define CREATE_PLUGIN_FUNC_NAME CreatePlugin
-#define STRINGIFY(x) #x
-#define CREATE_PLUGIN_FUNC_NAME_STR STRINGIFY(CREATE_PLUGIN_FUNC_NAME)
+
+static inline const std::string CreatePluginFuncNameStr = "CreatePlugin";
 
 extern "C" cum::Plugin* CREATE_PLUGIN_FUNC_NAME();
 
@@ -37,9 +37,9 @@ public:
         if (!lib) {
             throw std::runtime_error("Can't open lib '" + std::string(path) + "'");
         }
-        auto* func = reinterpret_cast<cum::Plugin*(*)()>(dlsym(lib, CREATE_PLUGIN_FUNC_NAME_STR));
+        auto* func = reinterpret_cast<cum::Plugin*(*)()>(dlsym(lib, CreatePluginFuncNameStr.c_str()));
         if (!func) {
-            throw std::runtime_error("Can't load sym '" CREATE_PLUGIN_FUNC_NAME_STR "' in lib '" + std::string(path) + "'");
+            throw std::runtime_error("Can't load sym '" + CreatePluginFuncNameStr + "' in lib '" + std::string(path) + "'");
         }
         plugins_.push_back(std::unique_ptr<Plugin>(func()));
         return plugins_.back().get();
