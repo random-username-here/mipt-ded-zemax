@@ -4,6 +4,7 @@
 #include "cum/plugin.hpp"
 #include "pp/canvas.hpp"
 #include "pp/tool.hpp"
+#include <memory>
 
 namespace pp {
 
@@ -17,7 +18,7 @@ public:
     inline virtual ~PPToolPlugin() {};
 
     /** Create tools which will draw on given canvas */
-    virtual std::vector<pp::Tool*> CreateTools(Canvas *cvs);
+    virtual std::vector<std::unique_ptr<pp::Tool>> CreateTools(Canvas *cvs);
 
 };
 
