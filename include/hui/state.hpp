@@ -7,14 +7,11 @@
 namespace hui {
 
 class State {
-
+    dr4::Window *window_;
 public:
-
-    // TODO
-    
+    State(dr4::Window *window): window_(window) {};
     void ReportHover(Widget *w);
-    dr4::Window *GetWindow() const;
-
+    dr4::Window *GetWindow() const { return window_; }
 };
 
 }; // namespace hui

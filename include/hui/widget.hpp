@@ -69,6 +69,7 @@ public:
     void SetSize(dr4::Vec2f size);
     dr4::Vec2f GetSize() const;
 
+    void SetPos(float x, float y) { SetPos(dr4::Vec2f(x, y)); }
     void SetPos(dr4::Vec2f pos) override final;
     dr4::Vec2f GetPos() const override final;
 
@@ -88,7 +89,7 @@ private:
 
     /// If true, Redraw() will be called inside next DrawOn()
     /// Because DrawOn() has const, this must be mutable.
-    mutable bool textureWillRedraw;
+    mutable bool textureWillRedraw = true;
 
     /// How much texture sticks out of the widget
     BorderMapped<float> extents;

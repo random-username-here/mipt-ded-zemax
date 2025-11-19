@@ -1,18 +1,22 @@
+#include <cassert>
+#include <iostream>
+
 #include "dr4/math/vec2.hpp"
 #include "hui/widget.hpp"
 #include "hui/event.hpp"
 #include "hui/state.hpp"
-#include <cassert>
 
 namespace hui {
 
 //------------------------------------------------------------------------------
 // Management
 
-Widget::Widget(State *state_) 
-    :state(state_), rect(0, 0, 0, 0),
-     texture(nullptr /* FIXME */), extents(0) {
-}
+Widget::Widget(State *state_) :
+state(state_), 
+rect(0, 0, 0, 0),
+texture(state->GetWindow()->CreateTexture()),
+extents(0) 
+{ }
 
 Widget::~Widget() {
     delete texture;
@@ -89,6 +93,11 @@ void Widget::ForceRedraw() {
 
 //------------------------------------------------------------------------------
 // Events
+
+void Widget::OnHoverGained() { std::cout << "Widget::OnHoverGained is not implemented\n"; abort();}
+void Widget::OnHoverLost()   { std::cout << "Widget::OnHoverLost is not implemented\n";   abort();}
+void Widget::OnFocusGained() { std::cout << "Widget::OnFocusGained is not implemented\n"; abort();}
+void Widget::OnFocusLost()   { std::cout << "Widget::OnFocusLost is not implemented\n";   abort();}
 
 EventResult Widget::OnMouseDown(MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
 EventResult Widget::OnMouseUp(MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
