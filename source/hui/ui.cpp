@@ -1,5 +1,5 @@
 #include "hui/ui.hpp"
-
+#include <iostream>
 namespace hui {
 
 UI::UI(dr4::Window *window_): window(window_) {}
@@ -8,6 +8,7 @@ UI::~UI() {
 }
 
 void UI::ProcessEvent(dr4::Event &dr4Event) {
+    std::cout << "dr4Event : " << (int) dr4Event.type << "\n";
     switch (dr4Event.type) {
         case dr4::Event::Type::KEY_DOWN:
             {
@@ -52,13 +53,15 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
         case dr4::Event::Type::MOUSE_DOWN:
             {
                 hui::MouseButtonEvent mouseDownEvent = {};
+                mouseDownEvent.button = dr4Event.mouseButton.button;
                 mouseDownEvent.pressed = true;
                 mouseDownEvent.pos = dr4Event.mouseButton.pos;
 
                 hui::Widget *prevFocused = focused;
                 focused = nullptr;
-            
-                if (root) { 
+                
+                std::cout << "UI MOUSE_DOWN \n";
+                if (root) {     
                     if (root->GetRect().Contains(mouseDownEvent.pos))
                         mouseDownEvent.Apply(*root); 
                 }
@@ -71,6 +74,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
         case dr4::Event::Type::MOUSE_UP:
             {
                 hui::MouseButtonEvent mouseUpEvent = {};
+                mouseUpEvent.button = dr4Event.mouseButton.button;
                 mouseUpEvent.pressed = false;
                 mouseUpEvent.pos = dr4Event.mouseButton.pos;
                 if (root) { 

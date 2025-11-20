@@ -3,6 +3,7 @@
 
 #include "dr4/keycodes.hpp"
 #include "dr4/math/vec2.hpp"
+#include "dr4/mouse_buttons.hpp"
 #include <cstdint>
 
 namespace hui {
@@ -19,7 +20,7 @@ struct Event {
 };
 
 struct MouseButtonEvent : public Event {
-
+    dr4::MouseButtonType button;
     bool pressed; 
     dr4::Vec2f pos;
 
@@ -27,7 +28,6 @@ struct MouseButtonEvent : public Event {
 };
 
 struct MouseMoveEvent : public Event {
-
     dr4::Vec2f rel;
     dr4::Vec2f pos;
 
