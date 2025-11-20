@@ -2,10 +2,9 @@
 
 namespace hui {
 
-UI::UI(dr4::Window *window_): window(window_), texture(window_->CreateTexture()) {}
+UI::UI(dr4::Window *window_): window(window_) {}
 UI::~UI() { 
     if (root) delete root;
-    if (texture) delete texture; 
 }
 
 void UI::ProcessEvent(dr4::Event &dr4Event) {
@@ -78,7 +77,6 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                     if (root->GetRect().Contains(mouseUpEvent.pos))
                         mouseUpEvent.Apply(*root); 
                 }
-
                 break;
             }
         case dr4::Event::Type::MOUSE_WHEEL:
@@ -93,7 +91,6 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                     if (focused->GetRect().Contains(mouseWheelEvent.pos))
                         mouseWheelEvent.Apply(*focused); 
                 }
-            
                 break;
             }
         case dr4::Event::Type::TEXT_EVENT:
@@ -112,12 +109,11 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
 }
 
 void UI::DrawOn(dr4::Texture& dstTexture_) const { 
-    root->DrawOn(*texture);
-    texture->DrawOn(dstTexture_); 
+    root->DrawOn(dstTexture_);
 };
 
-void UI::SetPos(dr4::Vec2f pos) { texture->SetPos(pos); }
-dr4::Vec2f UI::GetPos() const { return texture->GetPos(); }
+void UI::SetPos(dr4::Vec2f pos_) { pos = pos_; }
+dr4::Vec2f UI::GetPos() const { return pos; }
 
 void UI::SetRoot(hui::Widget *widget) { root = widget; }
 
@@ -126,7 +122,12 @@ void UI::OnIdle(hui::IdleEvent &evt) { if (root) evt.Apply(*root); }
 void UI::ReportHover(Widget *w) { if (!hovered) hovered = w; }
 void UI::ReportFocus(Widget *w) { if (!focused) focused = w; } 
 
-dr4::Texture *UI::GetTexture() const { return texture; }
+dr4::Texture *UI::GetTexture() const { 
+    if (!root) return nullptr;
+    
+    return &root->GetFreshTexture();
+}
+
 dr4::Window  *UI::GetWindow()  const { return window; } 
 hui::Widget  *UI::GetFocused() const { return focused; }
 hui::Widget  *UI::GetHovered() const { return hovered; }

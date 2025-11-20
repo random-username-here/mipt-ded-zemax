@@ -21,31 +21,47 @@ void Container::UnbecomeParentOf(Widget *child) {
 }
 
 EventResult Container::OnMouseDown(MouseButtonEvent &evt) {
-    if (GetRect().Contains(evt.pos) && PropogateToChildren(evt) == EventResult::HANDLED)
-        return EventResult::HANDLED;
-    else
-        return Widget::OnMouseDown(evt);
+    if (GetRect().Contains(evt.pos)) {
+        evt.pos -= GetPos();
+        if (PropogateToChildren(evt) == EventResult::HANDLED)
+            return EventResult::HANDLED;
+        else
+            return Widget::OnMouseDown(evt);
+    }        
+    return EventResult::UNHANDLED;
 }
+
 EventResult Container::OnMouseUp(MouseButtonEvent &evt) {
-    if (GetRect().Contains(evt.pos) && PropogateToChildren(evt) == EventResult::HANDLED)
-        return EventResult::HANDLED;
-    else
-        return Widget::OnMouseUp(evt);
-   
+    if (GetRect().Contains(evt.pos)) {
+        evt.pos -= GetPos();
+        if (PropogateToChildren(evt) == EventResult::HANDLED)
+            return EventResult::HANDLED;
+        else
+            return Widget::OnMouseUp(evt);
+    }         
+    return EventResult::UNHANDLED;
 }
+
 EventResult Container::OnMouseMove(MouseMoveEvent &evt) {
-    if (GetRect().Contains(evt.pos) && PropogateToChildren(evt) == EventResult::HANDLED)
-        return EventResult::HANDLED;
-    else {
-        std::cout << "Container Self OnMouseMove : " << this->GetSize().x << "\n";
-        return Widget::OnMouseMove(evt);
+    if (GetRect().Contains(evt.pos)) {
+        evt.pos -= GetPos();
+        if (PropogateToChildren(evt) == EventResult::HANDLED)
+            return EventResult::HANDLED;
+        else
+            return Widget::OnMouseMove(evt);
     }
+    return EventResult::UNHANDLED;
 }
+
 EventResult Container::OnMouseWheel(MouseWheelEvent &evt) {
-    if (GetRect().Contains(evt.pos) && PropogateToChildren(evt) == EventResult::HANDLED)
-        return EventResult::HANDLED;
-    else
-        return Widget::OnMouseWheel(evt);   
+    if (GetRect().Contains(evt.pos)) {
+        evt.pos -= GetPos();
+        if (PropogateToChildren(evt) == EventResult::HANDLED)
+            return EventResult::HANDLED;
+        else
+            return Widget::OnMouseWheel(evt);
+    } 
+    return EventResult::UNHANDLED;
 }
 
 EventResult Container::OnIdle(IdleEvent &evt) {

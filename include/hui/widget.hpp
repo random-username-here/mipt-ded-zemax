@@ -108,6 +108,13 @@ protected:
     virtual void Redraw() const;
 
 public:
+    dr4::Texture &GetFreshTexture() {
+        if (textureWillRedraw) {
+            Redraw();
+            textureWillRedraw = false;
+        }
+        return GetTexture();
+    }
 
     void DrawOn(dr4::Texture &texture) const override final;
     void ForceRedraw();

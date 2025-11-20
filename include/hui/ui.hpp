@@ -9,12 +9,13 @@ namespace hui {
 
 class UI : public dr4::Drawable {
     dr4::Window *window;
-    dr4::Texture *texture;
 
     hui::Widget *focused;
     hui::Widget *hovered;
 
     hui::Widget *root;
+
+    dr4::Vec2f pos;
 
 public:
     UI(dr4::Window *window_);

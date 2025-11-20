@@ -103,14 +103,19 @@ EventResult Widget::OnMouseDown  ([[maybe_unused]] MouseButtonEvent &evt) {
     return EventResult::UNHANDLED; 
 }
 EventResult Widget::OnMouseUp    ([[maybe_unused]] MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnMouseWheel ([[maybe_unused]] MouseWheelEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnKeyDown    ([[maybe_unused]] KeyEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnKeyUp      ([[maybe_unused]] KeyEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnText       ([[maybe_unused]] TextEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnIdle       ([[maybe_unused]] IdleEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnMouseMove  ([[maybe_unused]] MouseMoveEvent &evt) {
+EventResult Widget::OnMouseWheel ([[maybe_unused]] MouseWheelEvent &evt)  { return EventResult::UNHANDLED; }
+EventResult Widget::OnKeyUp      ([[maybe_unused]] KeyEvent &evt)         { return EventResult::UNHANDLED; }
+EventResult Widget::OnText       ([[maybe_unused]] TextEvent &evt)        { return EventResult::UNHANDLED; }
+EventResult Widget::OnIdle       ([[maybe_unused]] IdleEvent &evt)        { return EventResult::UNHANDLED; }
+
+EventResult Widget::OnMouseMove ([[maybe_unused]] MouseMoveEvent &evt) {
     GetUI()->ReportHover(this);
     return EventResult::UNHANDLED;
+}
+
+EventResult Widget::OnKeyDown([[maybe_unused]] KeyEvent &evt) { 
+    GetUI()->ReportFocus(this);
+    return EventResult::UNHANDLED; 
 }
 
 }; // namespace hui
