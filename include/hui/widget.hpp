@@ -9,7 +9,7 @@
 
 namespace hui {
 
-class State;
+class UI;
 class Container;
 class Event;
 
@@ -30,10 +30,11 @@ class Widget : public dr4::Drawable {
     /// @{
 
     friend class Container;
+    friend class UI;
 
 private:
     Widget *parent = nullptr;
-    State *const state;
+    UI *const ui;
 
     /// Set this widget's parent
     /// This is used by Container's BecomeParentOf()
@@ -41,11 +42,11 @@ private:
 
 public:
 
-    Widget(State *state_);
+    Widget(UI *ui_);
     virtual ~Widget();
 
     Widget *GetParent() const;
-    State *GetState() const;
+    UI *GetUI() const;
 
     /// @}
     //--------------------------------------------------------------------------
@@ -142,6 +143,7 @@ public:
     friend class KeyEvent;
     friend class TextEvent;
     friend class IdleEvent;
+    friend class HoverEvent;
 
 protected:
 
@@ -157,10 +159,9 @@ protected:
     virtual EventResult OnKeyDown(KeyEvent &evt);
     virtual EventResult OnKeyUp(KeyEvent &evt);
     virtual EventResult OnText(TextEvent &evt);
+
     virtual EventResult OnIdle(IdleEvent &evt);
-
     /// @}
-
 };
 
 }; // namespace hui

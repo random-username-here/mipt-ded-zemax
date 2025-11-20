@@ -34,4 +34,4 @@ EventResult IdleEvent::Apply(Widget &widget) {
     return EventResult::HANDLED;
 }
 
-};
+}; // namespace hui

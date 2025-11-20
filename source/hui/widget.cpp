@@ -4,19 +4,18 @@
 #include "dr4/math/vec2.hpp"
 #include "hui/widget.hpp"
 #include "hui/event.hpp"
-#include "hui/state.hpp"
+#include "hui/ui.hpp"
 
 namespace hui {
 
 //------------------------------------------------------------------------------
 // Management
 
-Widget::Widget(State *state_) :
-state(state_), 
-rect(0, 0, 0, 0),
-texture(state->GetWindow()->CreateTexture()),
-extents(0) 
-{ }
+Widget::Widget(UI *ui_) :
+    ui(ui_), 
+    rect(0, 0, 0, 0),
+    texture(ui_->GetWindow()->CreateTexture()),
+    extents(0) {}
 
 Widget::~Widget() {
     delete texture;
@@ -25,7 +24,7 @@ Widget::~Widget() {
 void Widget::SetParent(Widget *parent_) { parent = parent_; }
 
 Widget *Widget::GetParent() const { return parent; }
-State  *Widget::GetState()  const { return state; }
+UI  *Widget::GetUI() const { return ui; }
 
 //------------------------------------------------------------------------------
 // Positioning
@@ -94,23 +93,24 @@ void Widget::ForceRedraw() {
 //------------------------------------------------------------------------------
 // Events
 
-void Widget::OnHoverGained() { std::cout << "Widget::OnHoverGained is not implemented\n"; abort();}
-void Widget::OnHoverLost()   { std::cout << "Widget::OnHoverLost is not implemented\n";   abort();}
-void Widget::OnFocusGained() { std::cout << "Widget::OnFocusGained is not implemented\n"; abort();}
-void Widget::OnFocusLost()   { std::cout << "Widget::OnFocusLost is not implemented\n";   abort();}
+void Widget::OnHoverGained() { return; }
+void Widget::OnHoverLost()   { return; }
+void Widget::OnFocusGained() { return; }
+void Widget::OnFocusLost()   { return; }
 
-EventResult Widget::OnMouseDown(MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnMouseUp(MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnMouseWheel(MouseWheelEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnKeyDown(KeyEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnKeyUp(KeyEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnText(TextEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnIdle(IdleEvent &evt) { return EventResult::UNHANDLED; }
-
-EventResult Widget::OnMouseMove(MouseMoveEvent &evt) {
-    GetState()->ReportHover(this);
+EventResult Widget::OnMouseDown  ([[maybe_unused]] MouseButtonEvent &evt) { 
+    GetUI()->ReportFocus(this);
+    return EventResult::UNHANDLED; 
+}
+EventResult Widget::OnMouseUp    ([[maybe_unused]] MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
+EventResult Widget::OnMouseWheel ([[maybe_unused]] MouseWheelEvent &evt) { return EventResult::UNHANDLED; }
+EventResult Widget::OnKeyDown    ([[maybe_unused]] KeyEvent &evt) { return EventResult::UNHANDLED; }
+EventResult Widget::OnKeyUp      ([[maybe_unused]] KeyEvent &evt) { return EventResult::UNHANDLED; }
+EventResult Widget::OnText       ([[maybe_unused]] TextEvent &evt) { return EventResult::UNHANDLED; }
+EventResult Widget::OnIdle       ([[maybe_unused]] IdleEvent &evt) { return EventResult::UNHANDLED; }
+EventResult Widget::OnMouseMove  ([[maybe_unused]] MouseMoveEvent &evt) {
+    GetUI()->ReportHover(this);
     return EventResult::UNHANDLED;
 }
 
-
-};
+}; // namespace hui

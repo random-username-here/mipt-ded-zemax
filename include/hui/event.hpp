@@ -16,34 +16,30 @@ class Widget;
 struct Event {
 
     virtual EventResult Apply(Widget &widget) = 0;
-
 };
 
 struct MouseButtonEvent : public Event {
 
     bool pressed; 
-    dr4::Vec2f relPos;
+    dr4::Vec2f pos;
 
     virtual EventResult Apply(Widget &widget) override;
-
 };
 
 struct MouseMoveEvent : public Event {
 
-    dr4::Vec2f relPos;
-    dr4::Vec2f deltaPos;
+    dr4::Vec2f rel;
+    dr4::Vec2f pos;
 
     virtual EventResult Apply(Widget &widget) override;
-
 };
 
 struct MouseWheelEvent : public Event {
 
-    dr4::Vec2f relPos;
-    dr4::Vec2f scroll;
+    dr4::Vec2f delta;
+    dr4::Vec2f pos;
 
     virtual EventResult Apply(Widget &widget) override;
-
 };
 
 struct KeyEvent : public Event {
@@ -53,7 +49,6 @@ struct KeyEvent : public Event {
     uint16_t mods; // combination of dr4::KeyMode
 
     virtual EventResult Apply(Widget &widget) override;
-
 };
 
 struct TextEvent : public Event {
@@ -63,8 +58,8 @@ struct TextEvent : public Event {
     const char *text;
 
     virtual EventResult Apply(Widget &widget) override;
-
 };
+
 
 /**
  * @brief Event sent each frame to update stuff
@@ -94,4 +89,4 @@ struct IdleEvent : public Event {
 
 };
 
-#endif
+#endif // I_HUI_EVENT

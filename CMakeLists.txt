@@ -16,7 +16,7 @@ target_sources(hui PRIVATE
     ${DIR}/source/hui/container.cpp
     ${DIR}/source/hui/event.cpp
     ${DIR}/source/hui/widget.cpp
-    ${DIR}/source/hui/state.cpp
+    ${DIR}/source/hui/ui.cpp
 )
 target_include_directories(hui PRIVATE ${DIR}/include)
 
