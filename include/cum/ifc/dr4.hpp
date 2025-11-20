@@ -4,7 +4,7 @@
 #include "dr4/window.hpp"
 #include "cum/plugin.hpp"
 
-namespace dr4 {
+namespace cum {
 
 /**
  * @brief DR4 backend interface

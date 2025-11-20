@@ -23,21 +23,22 @@ class Tool {
 public:
 
     /** Icon as one character, from NERDFonts */
-    virtual std::string_view Icon() const;
+    virtual std::string_view Icon() const { return "?"; };
     /** Tool name to be used if icons are not supported/in tooltips */
-    virtual std::string_view Name() const;
+    virtual std::string_view Name() const { return "Unnamed tool"; };
     /** If we are constructing some shape or doing nothing */
-    virtual bool IsCurrentlyDrawing() const;
+    virtual bool IsCurrentlyDrawing() const { return false; };
 
     /** This tool was selected */
-    virtual void OnStart();
+    virtual void OnStart() {};
     /** ESC key was pressed during construction. */
-    virtual void OnBreak();
+    virtual void OnBreak() {};
     /** Tool was deselected */
-    virtual void OnEnd();
-    virtual bool OnMouseDown(const dr4::Event::MouseButton &evt);
-    virtual bool OnMouseUp(const dr4::Event::MouseButton &evt);
-    virtual bool OnMouseMove(const dr4::Event::MouseMove &evt);
+    virtual void OnEnd() {};
+
+    virtual bool OnMouseDown(const dr4::Event::MouseButton &evt) { return false; }
+    virtual bool OnMouseUp(const dr4::Event::MouseButton &evt) { return false; }
+    virtual bool OnMouseMove(const dr4::Event::MouseMove &evt) { return false; }
     
 };
 

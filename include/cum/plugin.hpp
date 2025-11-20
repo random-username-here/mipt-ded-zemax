@@ -4,8 +4,12 @@
 #include <string_view>
 #include <vector>
 #include <memory>
+#include <string>
 
 namespace cum {
+
+#define CREATE_PLUGIN_FUNC_NAME CreatePlugin
+static inline const std::string CreatePluginFuncNameStr = "CreatePlugin";
 
 class Manager;
 
@@ -71,7 +75,7 @@ public:
     inline void *GetSOHandle() const { return soHandle.get(); };
 
     /** Identifier used for naming plugin in dependencies */
-    virtual std::string_view GetID() const = 0;
+    virtual std::string_view GetIdentifier() const = 0;
 
     /** User-readable name, to be shown in UI */
     virtual std::string_view GetName() const = 0;

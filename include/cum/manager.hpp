@@ -1,12 +1,12 @@
 #ifndef I_CUM_MANAGER
 #define I_CUM_MANAGER
 
-#include "cum/plugin.hpp"
 #include <memory>
 #include <stdexcept>
 #include <string_view>
 #include <vector>
-
+#include <dlfcn.h>
+#include "cum/plugin.hpp"
 namespace cum {
 
 /**
