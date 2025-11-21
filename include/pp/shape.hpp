@@ -30,6 +30,9 @@ public:
     virtual bool OnMouseDown(const dr4::Event::MouseButton &) { return false; };
     virtual bool OnMouseUp(const dr4::Event::MouseButton &) { return false; };
     virtual bool OnMouseMove(const dr4::Event::MouseMove &) { return false; };
+    virtual bool OnKeyDown(const dr4::Event::KeyEvent &) { return false; }
+    virtual bool OnKeyUp(const dr4::Event::KeyEvent &) { return false; }
+    virtual bool OnText(const dr4::Event::TextEvent &) { return false; }
 
     virtual void OnSelect() {};
     virtual void OnDeselect() {};

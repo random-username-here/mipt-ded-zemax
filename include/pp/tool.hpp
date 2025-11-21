@@ -22,6 +22,8 @@ namespace pp {
 class Tool {
 public:
 
+    virtual ~Tool() = default;
+
     /** Icon as one character, from NERDFonts */
     virtual std::string_view Icon() const { return "?"; };
     /** Tool name to be used if icons are not supported/in tooltips */
@@ -39,6 +41,9 @@ public:
     virtual bool OnMouseDown(const dr4::Event::MouseButton &) { return false; }
     virtual bool OnMouseUp(const dr4::Event::MouseButton &) { return false; }
     virtual bool OnMouseMove(const dr4::Event::MouseMove &) { return false; }
+    virtual bool OnKeyDown(const dr4::Event::KeyEvent &) { return false; }
+    virtual bool OnKeyUp(const dr4::Event::KeyEvent &) { return false; }
+    virtual bool OnText(const dr4::Event::TextEvent &) { return false; }
     
 };
 
