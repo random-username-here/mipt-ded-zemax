@@ -4,8 +4,12 @@
 #include <string_view>
 #include <vector>
 #include <memory>
+#include <string>
 
 namespace cum {
+
+#define CREATE_PLUGIN_FUNC_NAME CreatePlugin
+static inline const std::string CreatePluginFuncNameStr = "CreatePlugin";
 
 class Manager;
 
@@ -43,14 +47,14 @@ class Plugin {
     // when it loads the plugin
 
     /** Handle returned by dlopen() */
-    std::unique_ptr<void, void (*)(void*)> soHandle;
+    void *soHandle;
 
     /** Manager which owns the plugin */
     Manager *manager = nullptr;
     
 
 protected:
-    Plugin() :soHandle(nullptr, nullptr) {}
+    Plugin() {}
 
 public:
 
@@ -68,10 +72,10 @@ public:
      * @brief Get .so handle, obtained with `dlopen()`.
      * May be usefull for something hacky.
      */
-    inline void *GetSOHandle() const { return soHandle.get(); };
+    inline void *GetSOHandle() const { return soHandle; };
 
     /** Identifier used for naming plugin in dependencies */
-    virtual std::string_view GetID() const = 0;
+    virtual std::string_view GetIdentifier() const = 0;
 
     /** User-readable name, to be shown in UI */
     virtual std::string_view GetName() const = 0;

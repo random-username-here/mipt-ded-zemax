@@ -19,16 +19,16 @@ Plugin *Manager::LoadFromFile(const std::string_view path) {
     }
     
     Plugin *plugin = createPlugin();
-    plugin->soHandle = std::unique_ptr<void, void(*)(void*)>(so, [](void* so) {
-        dlclose(so);
-    });
+    soHandles.push_back(std::unique_ptr<void, int(*)(void*)>(so, dlclose));
+    plugin->soHandle = so;
     plugin->manager = this;
+    plugins.push_back(std::unique_ptr<Plugin>(plugin));
     return plugin;
 }
 
 Plugin *Manager::GetById(std::string_view id) const {
     for (auto &plugin : plugins)
-        if (plugin->GetID() == id)
+        if (plugin->GetIdentifier() == id)
             return plugin.get();
     return nullptr;
 }
@@ -41,13 +41,13 @@ void Manager::TriggerAfterLoad() {
     std::unordered_map<std::string_view, Plugin*> names;
 
     for (auto &plugin : plugins)
-        names[plugin->GetID()] = plugin.get();
+        names[plugin->GetIdentifier()] = plugin.get();
 
     for (auto &plugin : plugins) {
         for (auto &dep : plugin->GetDependencies()) {
             if (!names.count(dep)) {
                 std::ostringstream err;
-                err << "Plugin " << plugin->GetID() << " (`" << plugin->GetName() << "`) "
+                err << "Plugin " << plugin->GetIdentifier() << " (`" << plugin->GetName() << "`) "
                     << "is missing a dependency " << dep;
                 throw DependencyError(err.str());
             }
@@ -55,7 +55,7 @@ void Manager::TriggerAfterLoad() {
         for (auto &conf : plugin->GetConflicts()) {
             if (names.count(conf)) {
                 std::ostringstream err;
-                err << "Plugin " << plugin->GetID() << " (`" << plugin->GetName() << "`) "
+                err << "Plugin " << plugin->GetIdentifier() << " (`" << plugin->GetName() << "`) "
                     << "is conflicting with " << conf << " (`" << names[conf]->GetName() << "`)";
                 throw DependencyError(err.str());
             }

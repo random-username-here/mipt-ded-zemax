@@ -39,19 +39,7 @@ struct Event {
     };
 
     struct MouseWheel {
-
-        /**
-         * The amount scrolled horizontally,
-         * positive to the right and negative to the left.
-         */
-        float deltaX;
-
-        /**
-         * The amount scrolled vertically,
-         * positive away from the user and negative toward the user.
-         */
-        float deltaY;
-
+        Vec2f delta;
         Vec2f pos;
     };
 
@@ -69,8 +57,6 @@ struct Event {
         MouseWheel  mouseWheel;
         KeyEvent    key;
     };
-
-    Event() {}
 };
 
 };
