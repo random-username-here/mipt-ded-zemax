@@ -110,7 +110,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
         case dr4::Event::Type::MOUSE_WHEEL:
             {
                 hui::MouseWheelEvent mouseWheelEvent = {};
-                mouseWheelEvent.delta = dr4::Vec2f(dr4Event.mouseWheel.deltaX, dr4Event.mouseWheel.deltaY);
+                mouseWheelEvent.delta = dr4Event.mouseWheel.delta;
                 mouseWheelEvent.pos = dr4Event.mouseWheel.pos;
 
                 if (captured) {
