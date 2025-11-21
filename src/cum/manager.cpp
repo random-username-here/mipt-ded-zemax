@@ -23,6 +23,7 @@ Plugin *Manager::LoadFromFile(const std::string_view path) {
         dlclose(so);
     });
     plugin->manager = this;
+    plugins.push_back(std::unique_ptr<Plugin>(plugin));
     return plugin;
 }
 
