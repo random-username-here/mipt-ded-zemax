@@ -6,7 +6,7 @@
 namespace hui {
 
 UI::UI(dr4::Window *window_): window(window_) {}
-UI::~UI() {}
+UI::~UI() = default;
 
 void UI::ProcessEvent(dr4::Event &dr4Event) {
     switch (dr4Event.type) {

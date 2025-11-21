@@ -44,7 +44,7 @@ protected:
     void BecomeParentOf(Widget *child);
     void UnbecomeParentOf(Widget *child);
 
-    virtual EventResult PropogateToChildren(Event &event) = 0;
+    virtual EventResult PropagateToChildren(Event &event) = 0;
 
     // All those send the event to all children
     EventResult OnMouseDown(MouseButtonEvent &evt) override;

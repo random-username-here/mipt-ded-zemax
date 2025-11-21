@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 
 #include "dr4/math/vec2.hpp"
 #include "hui/widget.hpp"
@@ -18,7 +17,7 @@ Widget::Widget(UI *ui_) :
     extents(0) {}
 
 Widget::~Widget() {
-    delete texture;
+    if (texture) delete texture;
 }
 
 void Widget::SetParent(Widget *parent_) { parent = parent_; }
@@ -46,7 +45,7 @@ void Widget::SetSize(dr4::Vec2f size) {
 
 dr4::Vec2f Widget::GetSize() const { return rect.size; }
 
-void Widget::SetPos(dr4::Vec2f pos) {
+void Widget::SetPos(dr4::Vec2f pos) { // FIXME
     rect.pos = pos;
     texture->SetPos(pos.x - extents.top, pos.y - extents.left);
 }
