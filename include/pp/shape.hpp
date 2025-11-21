@@ -37,7 +37,7 @@ public:
     virtual void OnSelect() {};
     virtual void OnDeselect() {};
 
-    virtual void DrawOn(dr4::Texture &tex) const override {};
+    virtual void DrawOn(dr4::Texture &) const override {};
 };
 
 };

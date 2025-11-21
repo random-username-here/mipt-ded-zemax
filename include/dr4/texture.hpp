@@ -30,13 +30,11 @@ class Line: public Drawable {
 
 public:
 
-    virtual void SetCenter(Vec2f center) = 0;
     virtual void SetStart(Vec2f start) = 0;
     virtual void SetEnd(Vec2f end) = 0;
     virtual void SetColor(Color color) = 0;
     virtual void SetThickness(float thickness) = 0;
 
-    virtual Vec2f GetCenter() const = 0;
     virtual Vec2f GetStart() const = 0;
     virtual Vec2f GetEnd() const = 0;
     virtual Color GetColor() const = 0;
@@ -47,6 +45,7 @@ class Circle: public Drawable {
 
 public:
 
+    virtual void SetCenter(Vec2f center) = 0;
     virtual void SetRadius(Vec2f radius) = 0;
             void SetRadius(float rx, float ry) { SetRadius(Vec2f(rx, ry)); }
             void SetRadius(float r) { SetRadius(Vec2f(r, r)); }
@@ -54,6 +53,7 @@ public:
     virtual void SetBorderColor(Color color) = 0;
     virtual void SetBorderThickness(float thickness) = 0;
 
+    virtual Vec2f GetCenter() const = 0;
     virtual Vec2f GetRadius() const = 0;
     virtual Color GetFillColor() const = 0;
     virtual Color GetBorderColor() const = 0;
