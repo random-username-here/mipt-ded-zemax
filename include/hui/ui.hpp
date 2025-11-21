@@ -12,7 +12,7 @@ class UI : public dr4::Drawable {
 
     hui::Widget *focused = nullptr;
     hui::Widget *hovered = nullptr;
-    hui::Widget *root = nullptr;
+    hui::Widget *root    = nullptr;
     dr4::Vec2f pos{};
 
 public:

@@ -105,9 +105,11 @@ void Widget::OnFocusGained() { return; }
 void Widget::OnFocusLost()   { return; }
 
 EventResult Widget::OnMouseDown  ([[maybe_unused]] MouseButtonEvent &evt) { 
+    if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED; 
     GetUI()->ReportFocus(this);
     return EventResult::UNHANDLED; 
 }
+
 EventResult Widget::OnMouseUp    ([[maybe_unused]] MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
 EventResult Widget::OnMouseWheel ([[maybe_unused]] MouseWheelEvent &evt)  { return EventResult::UNHANDLED; }
 EventResult Widget::OnKeyUp      ([[maybe_unused]] KeyEvent &evt)         { return EventResult::UNHANDLED; }
@@ -115,8 +117,9 @@ EventResult Widget::OnText       ([[maybe_unused]] TextEvent &evt)        { retu
 EventResult Widget::OnIdle       ([[maybe_unused]] IdleEvent &evt)        { return EventResult::UNHANDLED; }
 
 EventResult Widget::OnMouseMove ([[maybe_unused]] MouseMoveEvent &evt) {
+    if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED; 
     GetUI()->ReportHover(this);
-    return EventResult::UNHANDLED;
+    return EventResult::HANDLED;
 }
 
 EventResult Widget::OnKeyDown([[maybe_unused]] KeyEvent &evt) { 

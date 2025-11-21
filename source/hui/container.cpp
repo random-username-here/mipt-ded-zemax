@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 #include "hui/container.hpp"
 #include "hui/event.hpp"
@@ -24,9 +25,10 @@ void Container::UnbecomeParentOf(Widget *child) {
 EventResult Container::OnMouseDown(MouseButtonEvent &evt) {
     if (GetRect().Contains(evt.pos)) {
         evt.pos -= GetPos();
-        if (PropagateToChildren(evt) == EventResult::HANDLED)
+        if (PropagateToChildren(evt) == EventResult::HANDLED) {
+            evt.pos += GetPos();
             return EventResult::HANDLED;
-        else {
+        } else {
             evt.pos += GetPos();
             return Widget::OnMouseDown(evt);
         }
@@ -37,9 +39,10 @@ EventResult Container::OnMouseDown(MouseButtonEvent &evt) {
 EventResult Container::OnMouseUp(MouseButtonEvent &evt) {
     if (GetRect().Contains(evt.pos)) {
         evt.pos -= GetPos();
-        if (PropagateToChildren(evt) == EventResult::HANDLED)
+        if (PropagateToChildren(evt) == EventResult::HANDLED) {
             return EventResult::HANDLED;
-        else {
+            evt.pos += GetPos();
+        } else {
             evt.pos += GetPos();
             return Widget::OnMouseUp(evt);
         }
@@ -50,9 +53,10 @@ EventResult Container::OnMouseUp(MouseButtonEvent &evt) {
 EventResult Container::OnMouseMove(MouseMoveEvent &evt) {
     if (GetRect().Contains(evt.pos)) {
         evt.pos -= GetPos();
-        if (PropagateToChildren(evt) == EventResult::HANDLED)
+        if (PropagateToChildren(evt) == EventResult::HANDLED) {
+            evt.pos += GetPos();
             return EventResult::HANDLED;
-        else {
+        } else {
             evt.pos += GetPos();
             return Widget::OnMouseMove(evt);
         }
@@ -63,9 +67,10 @@ EventResult Container::OnMouseMove(MouseMoveEvent &evt) {
 EventResult Container::OnMouseWheel(MouseWheelEvent &evt) {
     if (GetRect().Contains(evt.pos)) {
         evt.pos -= GetPos();
-        if (PropagateToChildren(evt) == EventResult::HANDLED)
+        if (PropagateToChildren(evt) == EventResult::HANDLED) {
+            evt.pos += GetPos();
             return EventResult::HANDLED;
-        else {
+        } else {
             evt.pos += GetPos();
             return Widget::OnMouseWheel(evt);
         }
