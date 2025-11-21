@@ -19,9 +19,8 @@ Plugin *Manager::LoadFromFile(const std::string_view path) {
     }
     
     Plugin *plugin = createPlugin();
-    plugin->soHandle = std::unique_ptr<void, void(*)(void*)>(so, [](void* so) {
-        dlclose(so);
-    });
+    soHandles.push_back(std::unique_ptr<void, int(*)(void*)>(so, dlclose));
+    plugin->soHandle = so;
     plugin->manager = this;
     plugins.push_back(std::unique_ptr<Plugin>(plugin));
     return plugin;

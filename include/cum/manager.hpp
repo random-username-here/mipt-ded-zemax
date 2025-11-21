@@ -17,7 +17,13 @@ namespace cum {
  * is not in a plugin.
  */
 class Manager {
+
+    // DO NOT REORDER!
+    // Otherwise .so handles will be destroyed before plugins,
+    // and nonexistent destructors will be called.
+    std::vector<std::unique_ptr<void, int (*)(void*)>> soHandles;
     std::vector<std::unique_ptr<Plugin>> plugins;
+
     typedef Plugin *(*CreatePluginFn)();
 
 public:
