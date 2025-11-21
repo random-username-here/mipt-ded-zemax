@@ -27,14 +27,14 @@ public:
 
     virtual ~Shape() = default;
 
-    virtual bool OnMouseDown(const dr4::Event::MouseButton &evt) { return false; };
-    virtual bool OnMouseUp(const dr4::Event::MouseButton &evt) { return false; };
-    virtual bool OnMouseMove(const dr4::Event::MouseMove &evt) { return false; };
+    virtual bool OnMouseDown(const dr4::Event::MouseButton &) { return false; };
+    virtual bool OnMouseUp(const dr4::Event::MouseButton &) { return false; };
+    virtual bool OnMouseMove(const dr4::Event::MouseMove &) { return false; };
 
     virtual void OnSelect() {};
     virtual void OnDeselect() {};
 
-    virtual void DrawOn(dr4::Texture &tex) const {};
+    virtual void DrawOn(dr4::Texture &tex) const override {};
 };
 
 };

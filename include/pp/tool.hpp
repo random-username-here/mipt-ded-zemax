@@ -36,9 +36,9 @@ public:
     /** Tool was deselected */
     virtual void OnEnd() {};
 
-    virtual bool OnMouseDown(const dr4::Event::MouseButton &evt) { return false; }
-    virtual bool OnMouseUp(const dr4::Event::MouseButton &evt) { return false; }
-    virtual bool OnMouseMove(const dr4::Event::MouseMove &evt) { return false; }
+    virtual bool OnMouseDown(const dr4::Event::MouseButton &) { return false; }
+    virtual bool OnMouseUp(const dr4::Event::MouseButton &) { return false; }
+    virtual bool OnMouseMove(const dr4::Event::MouseMove &) { return false; }
     
 };
 

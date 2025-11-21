@@ -47,12 +47,14 @@ class Circle: public Drawable {
 
 public:
 
-    virtual void SetRadius(float radius) = 0;
+    virtual void SetRadius(Vec2f radius) = 0;
+            void SetRadius(float rx, float ry) { SetRadius(Vec2f(rx, ry)); }
+            void SetRadius(float r) { SetRadius(Vec2f(r, r)); }
     virtual void SetFillColor(Color color) = 0;
     virtual void SetBorderColor(Color color) = 0;
     virtual void SetBorderThickness(float thickness) = 0;
 
-    virtual float GetRadius() const = 0;
+    virtual Vec2f GetRadius() const = 0;
     virtual Color GetFillColor() const = 0;
     virtual Color GetBorderColor() const = 0;
     virtual float GetBorderThickness() const = 0;
