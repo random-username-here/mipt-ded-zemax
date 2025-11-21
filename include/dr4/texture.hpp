@@ -30,11 +30,13 @@ class Line: public Drawable {
 
 public:
 
+    virtual void SetCenter(Vec2f center) = 0;
     virtual void SetStart(Vec2f start) = 0;
     virtual void SetEnd(Vec2f end) = 0;
     virtual void SetColor(Color color) = 0;
     virtual void SetThickness(float thickness) = 0;
 
+    virtual Vec2f GetCenter() const = 0;
     virtual Vec2f GetStart() const = 0;
     virtual Vec2f GetEnd() const = 0;
     virtual Color GetColor() const = 0;
