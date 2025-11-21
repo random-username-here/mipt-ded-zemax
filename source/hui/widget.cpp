@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 #include "dr4/math/vec2.hpp"
 #include "hui/widget.hpp"
@@ -119,7 +120,6 @@ EventResult Widget::OnMouseMove ([[maybe_unused]] MouseMoveEvent &evt) {
 }
 
 EventResult Widget::OnKeyDown([[maybe_unused]] KeyEvent &evt) { 
-    GetUI()->ReportFocus(this);
     return EventResult::UNHANDLED; 
 }
 

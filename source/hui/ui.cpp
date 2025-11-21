@@ -35,7 +35,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 hui::MouseMoveEvent mouseMoveEvent = {};
                 mouseMoveEvent.rel = dr4Event.mouseMove.rel;
                 mouseMoveEvent.pos = dr4Event.mouseMove.pos;
-
+            
                 hui::Widget *prevHovered = hovered;
                 hovered = nullptr;
                 
@@ -44,9 +44,12 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                         mouseMoveEvent.Apply(*root); 
                     }
                 }
-
+  
                 if (prevHovered == hovered) break;
-                if (prevHovered) prevHovered->OnHoverLost();
+                if (prevHovered) {
+                    prevHovered->OnHoverLost();
+                }
+                
                 if (hovered) hovered->OnHoverGained(); 
                 break;
             }

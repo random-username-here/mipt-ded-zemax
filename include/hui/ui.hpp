@@ -8,14 +8,12 @@
 namespace hui {
 
 class UI : public dr4::Drawable {
-    dr4::Window *window;
+    dr4::Window *window = nullptr;
 
-    hui::Widget *focused;
-    hui::Widget *hovered;
-
-    hui::Widget *root;
-
-    dr4::Vec2f pos;
+    hui::Widget *focused = nullptr;
+    hui::Widget *hovered = nullptr;
+    hui::Widget *root = nullptr;
+    dr4::Vec2f pos{};
 
 public:
     UI(dr4::Window *window_);
