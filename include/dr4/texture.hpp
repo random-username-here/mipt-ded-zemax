@@ -26,7 +26,6 @@ public:
     virtual Vec2f GetPos() const = 0;
 };
 
-
 class Line: public Drawable {
 
 public:
