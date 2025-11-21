@@ -47,22 +47,14 @@ class Plugin {
     // when it loads the plugin
 
     /** Handle returned by dlopen() */
-<<<<<<< HEAD
     void *soHandle;
-=======
-    std::unique_ptr<void, void (*)(void*)> soHandle;
->>>>>>> origin/draft2
 
     /** Manager which owns the plugin */
     Manager *manager = nullptr;
     
 
 protected:
-<<<<<<< HEAD
     Plugin() {}
-=======
-    Plugin() :soHandle(nullptr, nullptr) {}
->>>>>>> origin/draft2
 
 public:
 
