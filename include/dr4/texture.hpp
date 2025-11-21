@@ -161,8 +161,8 @@ public:
     virtual Vec2f GetZero() const = 0;
 
     virtual void SetClipRect(Rect2f rect) = 0;
-    virtual void GetClipRect(Rect2f rect) = 0;
     virtual void RemoveClipRect() = 0;
+    virtual Rect2f GetClipRect() const = 0;
 
     virtual void Clear(Color color) = 0;
 

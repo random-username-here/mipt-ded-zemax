@@ -34,7 +34,7 @@ public:
     // Monotonic time in seconds
     virtual double GetTime() = 0;
     // Sleep for some time, in seconds
-    virtual double Sleep(double time) = 0;
+    virtual void Sleep(double time) = 0;
 
     virtual Texture   *CreateTexture()   = 0;
     virtual Image     *CreateImage()     = 0;
