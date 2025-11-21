@@ -4,8 +4,14 @@
 #include <string_view>
 #include <vector>
 #include <memory>
+#include <string>
 
 namespace cum {
+
+#define CREATE_PLUGIN_FUNC_NAME CreatePlugin
+static inline const std::string CreatePluginFuncNameStr = "CreatePlugin";
+
+class Manager;
 
 /**
  * @brief A plugin, loaded by Manager.
@@ -34,8 +40,39 @@ namespace cum {
  * @endcode
  */
 class Plugin {
+
+    friend class Manager;
+
+    // Those fields are initialized by manager
+    // when it loads the plugin
+
+    /** Handle returned by dlopen() */
+    void *soHandle;
+
+    /** Manager which owns the plugin */
+    Manager *manager = nullptr;
+    
+
+protected:
+    Plugin() {}
+
 public:
+
+    /** Unload .so */
     virtual ~Plugin() = default;
+
+    /** 
+     * @brief Obtain manager who loaded this plugin.
+     * Can be used in `AfterLoad()` to get vector of
+     * other plugins to find dependencies.
+     */
+    virtual Manager *GetManager() const { return manager; }
+
+    /** 
+     * @brief Get .so handle, obtained with `dlopen()`.
+     * May be usefull for something hacky.
+     */
+    inline void *GetSOHandle() const { return soHandle; };
 
     /** Identifier used for naming plugin in dependencies */
     virtual std::string_view GetIdentifier() const = 0;
@@ -64,8 +101,6 @@ public:
      */
     virtual void AfterLoad() = 0;
 };
-
-using PluginPtr = std::unique_ptr<Plugin>;
 
 } // namespace cum
 

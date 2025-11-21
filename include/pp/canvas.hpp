@@ -4,7 +4,6 @@
 #include "dr4/math/color.hpp"
 #include "dr4/window.hpp"
 #include "pp/shape.hpp"
-#include "pp/tool.hpp"
 
 namespace pp {
 
@@ -19,25 +18,22 @@ struct ControlsTheme {
     dr4::Color shapeColor;  ///< Default color for shapes
     dr4::Color lineColor;   ///< Color of selection borders, etc.
     dr4::Color textColor;   ///< Color for text without background
-    float baseFontSize;     ///< Size of the font to use for normal tex
+    float baseFontSize;     ///< Size of the font to use for normal text
     dr4::Color handleColor; ///< Color for things like corner dots,
                             ///< by which rectangles are resized.
 };
 
-struct State {
-    Shape* selectedShape;
-    Tool* selectedTool;
-};
-
-/** A place to add shapes to */
+/** 
+ * @brief A place to add shapes to.
+ */
 class Canvas {
-
 public:
-
     virtual ControlsTheme GetControlsTheme() const = 0;
-    virtual State* GetState() = 0;
-    virtual size_t AddShape(Shape *shape) = 0;
-    virtual void DelShape(size_t ind) = 0;
+    virtual void AddShape(Shape *shape) = 0;
+    virtual void DelShape(Shape *shape) = 0;
+    virtual void SetSelectedShape(Shape *shape) = 0; // nullptr to deselect
+    virtual Shape *GetSelectedShape() const = 0;
+    virtual void ShapeChanged(Shape *shape) = 0;
     virtual dr4::Window *GetWindow() = 0;
 };
 

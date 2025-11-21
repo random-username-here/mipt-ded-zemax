@@ -45,13 +45,11 @@ class Circle: public Drawable {
 
 public:
 
-    virtual void SetCenter(Vec2f center) = 0;
     virtual void SetRadius(float radius) = 0;
     virtual void SetFillColor(Color color) = 0;
     virtual void SetBorderColor(Color color) = 0;
     virtual void SetBorderThickness(float thickness) = 0;
 
-    virtual Vec2f GetCenter() const = 0;
     virtual float GetRadius() const = 0;
     virtual Color GetFillColor() const = 0;
     virtual Color GetBorderColor() const = 0;
@@ -123,7 +121,7 @@ public:
     virtual Color              GetColor() const = 0;
     virtual float              GetFontSize() const = 0;
     virtual VAlign             GetVAlign() const = 0;
-    virtual const Font        &GetFont() const = 0;
+    virtual const Font        *GetFont() const = 0;
 };
 
 

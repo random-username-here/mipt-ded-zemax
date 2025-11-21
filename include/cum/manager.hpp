@@ -6,16 +6,8 @@
 #include <string_view>
 #include <vector>
 #include <dlfcn.h>
-
 #include "cum/plugin.hpp"
-
 namespace cum {
-
-#define CREATE_PLUGIN_FUNC_NAME CreatePlugin
-
-static inline const std::string CreatePluginFuncNameStr = "CreatePlugin";
-
-extern "C" cum::Plugin* CREATE_PLUGIN_FUNC_NAME();
 
 /**
  * A manager is a class which loads plugins, owns them, and provides
@@ -26,56 +18,75 @@ extern "C" cum::Plugin* CREATE_PLUGIN_FUNC_NAME();
  */
 class Manager {
 
-private:
+    // DO NOT REORDER!
+    // Otherwise .so handles will be destroyed before plugins,
+    // and nonexistent destructors will be called.
+    std::vector<std::unique_ptr<void, int (*)(void*)>> soHandles;
+    std::vector<std::unique_ptr<Plugin>> plugins;
 
-    std::vector<std::unique_ptr<Plugin>> plugins_;
+    typedef Plugin *(*CreatePluginFn)();
 
 public:
- 
-    Plugin *LoadFromFile(const std::string_view path) {
-        auto* lib = dlopen(path.data(), RTLD_LAZY);
-        if (!lib) {
-            throw std::runtime_error("Can't open lib '" + std::string(path) + "'");
-        }
-        auto* func = reinterpret_cast<cum::Plugin*(*)()>(dlsym(lib, CreatePluginFuncNameStr.c_str()));
-        if (!func) {
-            throw std::runtime_error("Can't load sym '" + CreatePluginFuncNameStr + "' in lib '" + std::string(path) + "'");
-        }
-        plugins_.push_back(std::unique_ptr<Plugin>(func()));
-        return plugins_.back().get();
-    }
 
-    Plugin *GetById(std::string_view id) const {
-        for (const auto& plugin : plugins_) {
-            if (plugin->GetIdentifier() == id) {
-                return plugin.get();
-            }
-        }
-        return nullptr;
-    }
+    /** Exception thrown when `LoadFromFile()` fails. */
+    class LoadError : public std::runtime_error {
+        using std::runtime_error::runtime_error; // same constructor
+    };
 
+    /** Exception thrown when there is unmet dependency. */
+    class DependencyError : public std::runtime_error {
+        using std::runtime_error::runtime_error; // same constructor
+    };
+
+    /**
+     * @brief Load a plugin from file. 
+     * If file loading fails, will throw `LoadError`.
+     */
+    Plugin *LoadFromFile(const std::string_view path);
+
+    /** 
+     * @brief Find plugin by its identifier.
+     * Will return NULL if such plugin was not found.
+     */
+    Plugin *GetById(std::string_view id) const;
+
+    /**
+     * @brief Get plugin which implements given interface.
+     */
     template<typename Interface>
     Interface *GetAnyOfType() const {
-        for (auto& plugin : plugins_) {
+        for (auto &plugin : plugins) {
             Interface *impl = dynamic_cast<Interface*>(plugin.get());
             if (impl) return impl;
         }
         return NULL;
     }
 
+    /**
+     * @brief Get all plugins implementing given interface.
+     * Creates a vector of plugins, so do not call this in a loop. 
+     */
     template<typename Interface>
     std::vector<Interface*> GetAllOfType() const {
-        std::vector<Interface*> res = {};
-        for (auto& plugin : plugins_) {
+        std::vector<Interface*> res;
+        for (auto &plugin : plugins) {
             Interface *impl = dynamic_cast<Interface*>(plugin.get());
             if (impl) res.push_back(impl);
         }
         return res;
     }
 
-    const std::vector<std::unique_ptr<Plugin>>& GetAll() const {
-        return plugins_;
-    }
+    /**
+     * Get all the plugins
+     */
+    const std::vector<std::unique_ptr<Plugin>> &GetAll() const;
+
+    /**
+     * All plugins which we want are now loaded.
+     * Check dependencies, runs `AfterLoad()`.
+     * If a dependency is missing, will throw `DependencyError`.
+     */
+    void TriggerAfterLoad();
 };
 
 };
