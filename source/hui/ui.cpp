@@ -36,6 +36,13 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 mouseMoveEvent.rel = dr4Event.mouseMove.rel;
                 mouseMoveEvent.pos = dr4Event.mouseMove.pos;
             
+                if (captured) {
+                    if (captured->GetParent())
+                        mouseMoveEvent.pos -= captured->GetParent()->GetAbsolutePos();
+                    mouseMoveEvent.Apply(*captured);
+                    break;
+                }
+
                 hui::Widget *prevHovered = hovered;
                 hovered = nullptr;
                 
@@ -60,6 +67,13 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 mouseDownEvent.pressed = true;
                 mouseDownEvent.pos = dr4Event.mouseButton.pos;
 
+                if (captured) {
+                    if (captured->GetParent())
+                        mouseDownEvent.pos -= captured->GetParent()->GetAbsolutePos();
+                    mouseDownEvent.Apply(*captured);
+                    break;
+                }
+
                 hui::Widget *prevFocused = focused;
                 focused = nullptr;
                 
@@ -79,6 +93,14 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 mouseUpEvent.button = dr4Event.mouseButton.button;
                 mouseUpEvent.pressed = false;
                 mouseUpEvent.pos = dr4Event.mouseButton.pos;
+
+                if (captured) {
+                    if (captured->GetParent())
+                        mouseUpEvent.pos -= captured->GetParent()->GetAbsolutePos();
+                    mouseUpEvent.Apply(*captured);
+                    break;
+                }
+
                 if (root) { 
                     if (root->GetRect().Contains(mouseUpEvent.pos))
                         mouseUpEvent.Apply(*root); 
@@ -91,11 +113,16 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 mouseWheelEvent.delta = dr4::Vec2f(dr4Event.mouseWheel.deltaX, dr4Event.mouseWheel.deltaY);
                 mouseWheelEvent.pos = dr4Event.mouseWheel.pos;
 
-                if (focused) { 
-                    if (focused->GetParent() != nullptr)
-                        mouseWheelEvent.pos -= focused->GetParent()->GetAbsolutePos();
-                    if (focused->GetRect().Contains(mouseWheelEvent.pos))
-                        mouseWheelEvent.Apply(*focused); 
+                if (captured) {
+                    if (captured->GetParent())
+                        mouseWheelEvent.pos -= captured->GetParent()->GetAbsolutePos();
+                    mouseWheelEvent.Apply(*captured);
+                    break;
+                }
+
+                if (root) { 
+                    if (root->GetRect().Contains(mouseWheelEvent.pos))
+                        mouseWheelEvent.Apply(*root); 
                 }
                 break;
             }
@@ -118,11 +145,22 @@ void UI::DrawOn(dr4::Texture& dstTexture_) const {
         root->DrawOn(dstTexture_);
 }
 
-void UI::SetPos(dr4::Vec2f pos_) { pos = pos_; }
-dr4::Vec2f UI::GetPos() const { return pos; }
+void UI::SetPos(dr4::Vec2f pos_) { 
+    if (root) root->SetPos(pos_);
+}
+
+
+dr4::Vec2f UI::GetPos() const {
+    if (root) return root->GetPos();
+    return {0.0, 0.0};
+}
 
 void UI::SetRoot(hui::Widget *widget) { 
-    root = widget; 
+    root.reset(widget); 
+}
+
+void UI::SetCaptured(hui::Widget *widget) {
+    captured = widget;
 }
 
 void UI::OnIdle(hui::IdleEvent &evt) { if (root) evt.Apply(*root); }
@@ -130,15 +168,20 @@ void UI::OnIdle(hui::IdleEvent &evt) { if (root) evt.Apply(*root); }
 void UI::ReportHover(Widget *w) { if (!hovered) hovered = w; }
 void UI::ReportFocus(Widget *w) { if (!focused) focused = w; } 
 
-dr4::Texture *UI::GetTexture() const { 
+dr4::Texture *UI::GetTexture() { 
     if (!root) return nullptr;
     
     return &root->GetFreshTexture();
 }
 
-dr4::Window  *UI::GetWindow()  const { return window; } 
-hui::Widget  *UI::GetFocused() const { return focused; }
-hui::Widget  *UI::GetHovered() const { return hovered; }
-hui::Widget  *UI::GetRoot()    const { return root;}
+const dr4::Window  *UI::GetWindow()  const { return window; } 
+const hui::Widget  *UI::GetFocused() const { return focused; }
+const hui::Widget  *UI::GetHovered() const { return hovered; }
+const hui::Widget  *UI::GetRoot()    const { return root.get();}
+
+dr4::Window  *UI::GetWindow()  { return window; } 
+hui::Widget  *UI::GetFocused() { return focused; }
+hui::Widget  *UI::GetHovered() { return hovered; }
+hui::Widget  *UI::GetRoot()    { return root.get();}
 
 }; // namespace hui

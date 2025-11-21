@@ -17,9 +17,7 @@ Widget::Widget(UI *ui_) :
     texture(ui_->GetWindow()->CreateTexture()),
     extents(0) {}
 
-Widget::~Widget() {
-    if (texture) delete texture;
-}
+Widget::~Widget() = default;
 
 void Widget::SetParent(Widget *parent_) { parent = parent_; }
 
@@ -48,7 +46,7 @@ dr4::Vec2f Widget::GetSize() const { return rect.size; }
 
 void Widget::SetPos(dr4::Vec2f pos) { // FIXME
     rect.pos = pos;
-    texture->SetPos(pos.x - extents.top, pos.y - extents.left);
+    texture->SetPos(pos.x - extents.left, pos.y - extents.top);
 }
 
 dr4::Vec2f Widget::GetPos() const { return rect.pos; }
@@ -64,6 +62,18 @@ dr4::Vec2f Widget::GetAbsolutePos() const {
     dr4::Vec2f pos = GetPos();
     if (auto p = GetParent()) pos += p->GetAbsolutePos();
     return pos;
+}
+
+const BorderMapped<float> &Widget::GetTextureExtents() const {
+    return extents;
+}
+
+dr4::Texture &Widget::GetFreshTexture() {
+    if (textureWillRedraw) {
+        Redraw();
+        textureWillRedraw = false;
+    }
+    return GetTexture();
 }
 
 //------------------------------------------------------------------------------
@@ -104,25 +114,25 @@ void Widget::OnHoverLost()   { return; }
 void Widget::OnFocusGained() { return; }
 void Widget::OnFocusLost()   { return; }
 
-EventResult Widget::OnMouseDown  ([[maybe_unused]] MouseButtonEvent &evt) { 
+EventResult Widget::OnMouseDown  (MouseButtonEvent &evt) { 
     if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED; 
     GetUI()->ReportFocus(this);
     return EventResult::UNHANDLED; 
 }
 
-EventResult Widget::OnMouseUp    ([[maybe_unused]] MouseButtonEvent &evt) { return EventResult::UNHANDLED; }
-EventResult Widget::OnMouseWheel ([[maybe_unused]] MouseWheelEvent &evt)  { return EventResult::UNHANDLED; }
-EventResult Widget::OnKeyUp      ([[maybe_unused]] KeyEvent &evt)         { return EventResult::UNHANDLED; }
-EventResult Widget::OnText       ([[maybe_unused]] TextEvent &evt)        { return EventResult::UNHANDLED; }
-EventResult Widget::OnIdle       ([[maybe_unused]] IdleEvent &evt)        { return EventResult::UNHANDLED; }
+EventResult Widget::OnMouseUp    (MouseButtonEvent &) { return EventResult::UNHANDLED; }
+EventResult Widget::OnMouseWheel (MouseWheelEvent &)  { return EventResult::UNHANDLED; }
+EventResult Widget::OnKeyUp      (KeyEvent &)         { return EventResult::UNHANDLED; }
+EventResult Widget::OnText       (TextEvent &)        { return EventResult::UNHANDLED; }
+EventResult Widget::OnIdle       (IdleEvent &)        { return EventResult::UNHANDLED; }
 
-EventResult Widget::OnMouseMove ([[maybe_unused]] MouseMoveEvent &evt) {
+EventResult Widget::OnMouseMove (MouseMoveEvent &evt) {
     if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED; 
     GetUI()->ReportHover(this);
     return EventResult::HANDLED;
 }
 
-EventResult Widget::OnKeyDown([[maybe_unused]] KeyEvent &evt) { 
+EventResult Widget::OnKeyDown(KeyEvent &) { 
     return EventResult::UNHANDLED; 
 }
 

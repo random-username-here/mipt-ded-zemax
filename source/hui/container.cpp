@@ -79,10 +79,8 @@ EventResult Container::OnMouseWheel(MouseWheelEvent &evt) {
 }
 
 EventResult Container::OnIdle(IdleEvent &evt) {
-    if (PropagateToChildren(evt) == EventResult::HANDLED ||
-        Widget::OnIdle(evt) == EventResult::HANDLED)
-            return EventResult::HANDLED;
-    
+    PropagateToChildren(evt);
+    Widget::OnIdle(evt);
     return EventResult::UNHANDLED;
 }
 

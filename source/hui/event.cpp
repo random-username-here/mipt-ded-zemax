@@ -30,8 +30,7 @@ EventResult TextEvent::Apply(Widget &widget) {
 }
 
 EventResult IdleEvent::Apply(Widget &widget) {
-    if (widget.OnIdle(*this) == EventResult::HANDLED) return EventResult::HANDLED;
-    return EventResult::UNHANDLED;
+    return widget.OnIdle(*this);
 }
 
 }; // namespace hui
