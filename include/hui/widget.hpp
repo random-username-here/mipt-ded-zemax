@@ -77,6 +77,10 @@ public:
     void SetRect(dr4::Rect2f rect);
     dr4::Rect2f GetRect() const;
 
+
+    virtual dr4::Vec2f GetAbsolutePos() const;
+
+
     /// @}
     //--------------------------------------------------------------------------
     /** 

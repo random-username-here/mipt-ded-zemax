@@ -1,14 +1,14 @@
-#include "hui/ui.hpp"
 #include <iostream>
+
+#include "hui/ui.hpp"
+#include "cassert"
+
 namespace hui {
 
 UI::UI(dr4::Window *window_): window(window_) {}
-UI::~UI() { 
-    if (root) delete root;
-}
+UI::~UI() {}
 
 void UI::ProcessEvent(dr4::Event &dr4Event) {
-    std::cout << "dr4Event : " << (int) dr4Event.type << "\n";
     switch (dr4Event.type) {
         case dr4::Event::Type::KEY_DOWN:
             {
@@ -60,7 +60,6 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 hui::Widget *prevFocused = focused;
                 focused = nullptr;
                 
-                std::cout << "UI MOUSE_DOWN \n";
                 if (root) {     
                     if (root->GetRect().Contains(mouseDownEvent.pos))
                         mouseDownEvent.Apply(*root); 
@@ -91,7 +90,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
 
                 if (focused) { 
                     if (focused->GetParent() != nullptr)
-                        mouseWheelEvent.pos -= focused->GetParent()->GetPos();
+                        mouseWheelEvent.pos -= focused->GetParent()->GetAbsolutePos();
                     if (focused->GetRect().Contains(mouseWheelEvent.pos))
                         mouseWheelEvent.Apply(*focused); 
                 }
@@ -107,19 +106,21 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
             }
         case dr4::Event::Type::QUIT: break;
         default:
-            throw HUIException(std::string("Unknown event : ")
-                                + std::to_string(static_cast<int>(dr4Event.type)));
+            std::cerr << "unknown event : " << static_cast<int>(dr4Event.type) << "\n";
     }
 }
 
 void UI::DrawOn(dr4::Texture& dstTexture_) const { 
-    root->DrawOn(dstTexture_);
-};
+    if (root)
+        root->DrawOn(dstTexture_);
+}
 
 void UI::SetPos(dr4::Vec2f pos_) { pos = pos_; }
 dr4::Vec2f UI::GetPos() const { return pos; }
 
-void UI::SetRoot(hui::Widget *widget) { root = widget; }
+void UI::SetRoot(hui::Widget *widget) { 
+    root = widget; 
+}
 
 void UI::OnIdle(hui::IdleEvent &evt) { if (root) evt.Apply(*root); }
 

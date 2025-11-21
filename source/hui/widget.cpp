@@ -60,6 +60,12 @@ void Widget::SetRect(dr4::Rect2f rect_) {
 
 dr4::Rect2f Widget::GetRect() const { return rect; }
 
+dr4::Vec2f Widget::GetAbsolutePos() const {
+    dr4::Vec2f pos = GetPos();
+    if (auto p = GetParent()) pos += p->GetAbsolutePos();
+    return pos;
+}
+
 //------------------------------------------------------------------------------
 // Drawing
 
