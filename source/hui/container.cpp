@@ -31,7 +31,7 @@ EventResult Container::OnMouseDown(MouseButtonEvent &evt) {
             evt.pos += GetPos();
             return Widget::OnMouseDown(evt);
         }
-    }        
+    }
     return EventResult::UNHANDLED;
 }
 
@@ -45,7 +45,7 @@ EventResult Container::OnMouseUp(MouseButtonEvent &evt) {
             evt.pos += GetPos();
             return Widget::OnMouseUp(evt);
         }
-    }         
+    }
     return EventResult::UNHANDLED;
 }
 
@@ -73,7 +73,34 @@ EventResult Container::OnMouseWheel(MouseWheelEvent &evt) {
             evt.pos += GetPos();
             return Widget::OnMouseWheel(evt);
         }
-    } 
+    }
+    return EventResult::UNHANDLED;
+}
+
+EventResult Container::OnKeyDown(KeyEvent &evt) {
+    if (PropagateToChildren(evt) == EventResult::HANDLED) {
+        return EventResult::HANDLED;
+    } else {
+        return Widget::OnKeyDown(evt);
+    }
+    return EventResult::UNHANDLED;
+}
+
+EventResult Container::OnKeyUp(KeyEvent &evt) {
+    if (PropagateToChildren(evt) == EventResult::HANDLED) {
+        return EventResult::HANDLED;
+    } else {
+        return Widget::OnKeyUp(evt);
+    }
+    return EventResult::UNHANDLED;
+}
+
+EventResult Container::OnText(TextEvent &evt) {
+    if (PropagateToChildren(evt) == EventResult::HANDLED) {
+        return EventResult::HANDLED;
+    } else {
+        return Widget::OnText(evt);
+    }
     return EventResult::UNHANDLED;
 }
 

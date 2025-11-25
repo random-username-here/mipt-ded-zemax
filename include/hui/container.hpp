@@ -12,7 +12,7 @@ namespace hui {
  * This class can become/unbecome parent of other widgets.
  * Being parent of given widget means that widget has it's
  * GetParent() returning the container. Child's memory is NOT
- * MADE MANAGED by the container. 
+ * MADE MANAGED by the container.
  *
  * Also this class sends only mouse and idle events down the tree.
  * Mouse events sent down are the ones where pointer is inside
@@ -51,6 +51,10 @@ protected:
     EventResult OnMouseUp(MouseButtonEvent &evt) override;
     EventResult OnMouseMove(MouseMoveEvent &evt) override;
     EventResult OnMouseWheel(MouseWheelEvent &evt) override;
+    EventResult OnKeyDown(KeyEvent &evt) override;
+    EventResult OnKeyUp(KeyEvent &evt) override;
+    EventResult OnText(TextEvent &evt) override;
+
     EventResult OnIdle(IdleEvent &evt) override;
 };
 
