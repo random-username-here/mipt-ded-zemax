@@ -116,7 +116,7 @@ void Widget::OnFocusLost()   { return; }
 EventResult Widget::OnMouseDown  (MouseButtonEvent &evt) { 
     if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED; 
     GetUI()->ReportFocus(this);
-    return EventResult::UNHANDLED; 
+    return EventResult::HANDLED;
 }
 
 EventResult Widget::OnMouseUp    (MouseButtonEvent &) { return EventResult::UNHANDLED; }
