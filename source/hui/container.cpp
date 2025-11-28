@@ -83,4 +83,22 @@ EventResult Container::OnIdle(IdleEvent &evt) {
     return EventResult::UNHANDLED;
 }
 
+EventResult Container::OnKeyDown(KeyEvent &evt) {
+    if (PropagateToChildren(evt) == EventResult::HANDLED)
+        return EventResult::HANDLED;
+    return Widget::OnKeyDown(evt);
+}
+
+EventResult Container::OnKeyUp(KeyEvent &evt) {
+    if (PropagateToChildren(evt) == EventResult::HANDLED)
+        return EventResult::HANDLED;
+    return Widget::OnKeyUp(evt);
+}
+
+EventResult Container::OnText(TextEvent &evt) {
+    if (PropagateToChildren(evt) == EventResult::HANDLED)
+        return EventResult::HANDLED;
+    return Widget::OnText(evt);
+}
+
 }; // namespace hui

@@ -17,7 +17,8 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 keyEvent.mods = dr4Event.key.mods;
                 keyEvent.pressed = true;
 
-                if (focused) { keyEvent.Apply(*focused); }
+                if (focused) { keyEvent.Apply(*focused); break; }
+                if (root) keyEvent.Apply(*root);
                 break;
             } 
         case dr4::Event::Type::KEY_UP:
@@ -28,6 +29,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 keyEvent.pressed = false;
 
                 if (focused) { keyEvent.Apply(*focused); }
+                if (root) keyEvent.Apply(*root);
                 break;
             }
         case dr4::Event::Type::MOUSE_MOVE:
@@ -45,13 +47,9 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
 
                 hui::Widget *prevHovered = hovered;
                 hovered = nullptr;
-                
-                if (root) { 
-                    if (root->GetRect().Contains(mouseMoveEvent.pos)) {
-                        mouseMoveEvent.Apply(*root); 
-                    }
-                }
-  
+
+                if (root) mouseMoveEvent.Apply(*root);
+
                 if (prevHovered == hovered) break;
                 if (prevHovered) {
                     prevHovered->OnHoverLost();
@@ -76,11 +74,8 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
 
                 hui::Widget *prevFocused = focused;
                 focused = nullptr;
-                
-                if (root) {     
-                    if (root->GetRect().Contains(mouseDownEvent.pos))
-                        mouseDownEvent.Apply(*root); 
-                }
+
+                if (root) mouseDownEvent.Apply(*root);
 
                 if (prevFocused == focused) break;
                 if (prevFocused) prevFocused->OnFocusLost();
@@ -101,10 +96,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                     break;
                 }
 
-                if (root) { 
-                    if (root->GetRect().Contains(mouseUpEvent.pos))
-                        mouseUpEvent.Apply(*root); 
-                }
+                if (root) mouseUpEvent.Apply(*root);
                 break;
             }
         case dr4::Event::Type::MOUSE_WHEEL:
@@ -120,10 +112,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                     break;
                 }
 
-                if (root) { 
-                    if (root->GetRect().Contains(mouseWheelEvent.pos))
-                        mouseWheelEvent.Apply(*root); 
-                }
+                if (root) mouseWheelEvent.Apply(*root);
                 break;
             }
         case dr4::Event::Type::TEXT_EVENT:
@@ -132,6 +121,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 textEvent.text = dr4Event.text.unicode;
 
                 if (focused) { textEvent.Apply(*focused); }
+                if (root) textEvent.Apply(*root);
                 break;
             }
         case dr4::Event::Type::QUIT: break;

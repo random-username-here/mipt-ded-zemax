@@ -47,11 +47,15 @@ protected:
     virtual EventResult PropagateToChildren(Event &event) = 0;
 
     // All those send the event to all children
-    EventResult OnMouseDown(MouseButtonEvent &evt) override;
-    EventResult OnMouseUp(MouseButtonEvent &evt) override;
-    EventResult OnMouseMove(MouseMoveEvent &evt) override;
-    EventResult OnMouseWheel(MouseWheelEvent &evt) override;
-    EventResult OnIdle(IdleEvent &evt) override;
+    virtual EventResult OnMouseDown(MouseButtonEvent &evt) override;
+    virtual EventResult OnMouseUp(MouseButtonEvent &evt) override;
+    virtual EventResult OnMouseMove(MouseMoveEvent &evt) override;
+    virtual EventResult OnMouseWheel(MouseWheelEvent &evt) override;
+    virtual EventResult OnIdle(IdleEvent &evt) override;
+
+    virtual EventResult OnKeyDown(KeyEvent &evt) override;
+    virtual EventResult OnKeyUp(KeyEvent &evt) override;
+    virtual EventResult OnText(TextEvent &evt) override;
 };
 
 }; // namespace hui
