@@ -38,7 +38,6 @@ void Widget::SetSize(dr4::Vec2f size) {
         std::max(0.0f, size.x + extents.left + extents.right),
         std::max(0.0f, size.y + extents.top + extents.bottom)
     );
-    texture->SetZero(extents.left, extents.top);
     OnSizeChanged();
 }
 
