@@ -21,7 +21,7 @@ struct Event {
 
 struct MouseButtonEvent : public Event {
     dr4::MouseButtonType button;
-    bool pressed; 
+    bool pressed;
     dr4::Vec2f pos;
 
     virtual EventResult Apply(Widget &widget) override;
@@ -54,7 +54,6 @@ struct KeyEvent : public Event {
 struct TextEvent : public Event {
 
     /// A С-string with utf8-encoded text
-    /// TODO: string_view?
     const char *text;
 
     virtual EventResult Apply(Widget &widget) override;
@@ -63,7 +62,7 @@ struct TextEvent : public Event {
 
 /**
  * @brief Event sent each frame to update stuff
- * 
+ *
  * This one ignores event grabbing mechanism, because it
  * seems like that would be a weird thing to do. All OnIdle()
  * handlers should just return HANDLED.
@@ -84,7 +83,7 @@ struct IdleEvent : public Event {
      */
     double deltaTime;
 
-    virtual EventResult Apply(Widget &widget) override; // TODO: implement
+    virtual EventResult Apply(Widget &widget) override;
 };
 
 };

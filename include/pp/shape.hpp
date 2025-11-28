@@ -5,7 +5,7 @@
 
 namespace pp {
 
-/** 
+/**
  * @brief A shape, drawn on the canvas.
  *
  * Shapes are responsible for their editing, so things like

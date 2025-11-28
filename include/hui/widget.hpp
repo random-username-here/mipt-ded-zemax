@@ -84,7 +84,7 @@ public:
 
     /// @}
     //--------------------------------------------------------------------------
-    /** 
+    /**
      * @name Drawing
      */
     /// @{
@@ -109,6 +109,7 @@ protected:
     /**
      * @brief Redraw what is on the texture.
      * There is no guarantee what image drawn previous time survived.
+     * Don't forget to call `ForceRedraw()` when you're done.
      */
     virtual void Redraw() const;
 

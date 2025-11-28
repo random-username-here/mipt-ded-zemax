@@ -17,7 +17,7 @@ Plugin *Manager::LoadFromFile(const std::string_view path) {
         dlclose(so);
         throw LoadError("CreatePlugin() function missing in the plugin");
     }
-    
+
     Plugin *plugin = createPlugin();
     soHandles.push_back(std::unique_ptr<void, int(*)(void*)>(so, dlclose));
     plugin->soHandle = so;
@@ -32,7 +32,7 @@ Plugin *Manager::GetById(std::string_view id) const {
             return plugin.get();
     return nullptr;
 }
-    
+
 const std::vector<std::unique_ptr<Plugin>> &Manager::GetAll() const {
     return plugins;
 }

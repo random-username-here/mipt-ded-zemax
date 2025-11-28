@@ -29,7 +29,7 @@ class Manager;
  *      class MyColorScheme : public ColorSchemePlugin {
  *          ...
  *      };
- *      Plugin *CreatePlugin() { return new MyColorScheme; } 
+ *      Plugin *CreatePlugin() { return new MyColorScheme; }
  *
  *      // in app
  *      int main() {
@@ -51,7 +51,7 @@ class Plugin {
 
     /** Manager which owns the plugin */
     Manager *manager = nullptr;
-    
+
 
 protected:
     Plugin() {}
@@ -61,14 +61,14 @@ public:
     /** Unload .so */
     virtual ~Plugin() = default;
 
-    /** 
+    /**
      * @brief Obtain manager who loaded this plugin.
      * Can be used in `AfterLoad()` to get vector of
      * other plugins to find dependencies.
      */
     virtual Manager *GetManager() const { return manager; }
 
-    /** 
+    /**
      * @brief Get .so handle, obtained with `dlopen()`.
      * May be usefull for something hacky.
      */
@@ -85,7 +85,7 @@ public:
 
     /** Vector of plugin identifiers this plugin depends on */
     virtual std::vector<std::string_view> GetDependencies() const = 0;
-    
+
     /**
      * Vector of plugins this conflicts with.
      * (so they both cannot be enabled at same time). Note what things

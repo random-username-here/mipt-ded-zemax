@@ -1,5 +1,4 @@
 #include <cassert>
-#include <iostream>
 
 #include "dr4/math/vec2.hpp"
 #include "hui/widget.hpp"
@@ -12,7 +11,7 @@ namespace hui {
 // Management
 
 Widget::Widget(UI *ui_) :
-    ui(ui_), 
+    ui(ui_),
     rect(0, 0, 0, 0),
     texture(ui_->GetWindow()->CreateTexture()),
     extents(0) {}
@@ -113,8 +112,8 @@ void Widget::OnHoverLost()   { return; }
 void Widget::OnFocusGained() { return; }
 void Widget::OnFocusLost()   { return; }
 
-EventResult Widget::OnMouseDown  (MouseButtonEvent &evt) { 
-    if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED; 
+EventResult Widget::OnMouseDown  (MouseButtonEvent &evt) {
+    if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED;
     GetUI()->ReportFocus(this);
     return EventResult::HANDLED;
 }
@@ -126,13 +125,13 @@ EventResult Widget::OnText       (TextEvent &)        { return EventResult::UNHA
 EventResult Widget::OnIdle       (IdleEvent &)        { return EventResult::UNHANDLED; }
 
 EventResult Widget::OnMouseMove (MouseMoveEvent &evt) {
-    if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED; 
+    if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED;
     GetUI()->ReportHover(this);
     return EventResult::HANDLED;
 }
 
-EventResult Widget::OnKeyDown(KeyEvent &) { 
-    return EventResult::UNHANDLED; 
+EventResult Widget::OnKeyDown(KeyEvent &) {
+    return EventResult::UNHANDLED;
 }
 
 }; // namespace hui

@@ -39,12 +39,12 @@ public:
     };
 
     /**
-     * @brief Load a plugin from file. 
+     * @brief Load a plugin from file.
      * If file loading fails, will throw `LoadError`.
      */
     Plugin *LoadFromFile(const std::string_view path);
 
-    /** 
+    /**
      * @brief Find plugin by its identifier.
      * Will return NULL if such plugin was not found.
      */
@@ -64,7 +64,7 @@ public:
 
     /**
      * @brief Get all plugins implementing given interface.
-     * Creates a vector of plugins, so do not call this in a loop. 
+     * Creates a vector of plugins, so do not call this in a loop.
      */
     template<typename Interface>
     std::vector<Interface*> GetAllOfType() const {

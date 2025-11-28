@@ -21,11 +21,11 @@ struct ControlsTheme {
     float baseFontSize;                 ///< Size of the font to use for normal text
     dr4::Color handleColor;             ///< Color for things like corner dots,
                                         ///< by which rectangles are resized.
-    dr4::Color handleHoverColor; 
-    dr4::Color handleActiveColor; 
+    dr4::Color handleHoverColor;
+    dr4::Color handleActiveColor;
 };
 
-/** 
+/**
  * @brief A place to add shapes to.
  */
 class Canvas {

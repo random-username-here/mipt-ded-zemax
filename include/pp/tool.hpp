@@ -17,7 +17,7 @@ namespace pp {
  * `OnBreak()` is called. If we are not drawing something,
  * then the system probbably will switch back to default tool,
  * (select tool or something like that), calling `OnEnd()`.
- * 
+ *
  */
 class Tool {
 public:
@@ -44,7 +44,7 @@ public:
     virtual bool OnKeyDown(const dr4::Event::KeyEvent &) { return false; }
     virtual bool OnKeyUp(const dr4::Event::KeyEvent &) { return false; }
     virtual bool OnText(const dr4::Event::TextEvent &) { return false; }
-    
+
 };
 
 };

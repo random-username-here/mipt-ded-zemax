@@ -17,7 +17,7 @@ struct BorderMapped {
     // In clockwise order
     T top, right, bottom, left;
 
-    BorderMapped(T top_, T right_, T left_, T bottom_) 
+    BorderMapped(T top_, T right_, T left_, T bottom_)
         :top(top_), right(right_), bottom(bottom_), left(left_) {}
 
     BorderMapped(T vert, T horz)

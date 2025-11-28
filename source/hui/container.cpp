@@ -31,7 +31,7 @@ EventResult Container::OnMouseDown(MouseButtonEvent &evt) {
             evt.pos += GetPos();
             return Widget::OnMouseDown(evt);
         }
-    }        
+    }
     return EventResult::UNHANDLED;
 }
 
@@ -45,7 +45,7 @@ EventResult Container::OnMouseUp(MouseButtonEvent &evt) {
             evt.pos += GetPos();
             return Widget::OnMouseUp(evt);
         }
-    }         
+    }
     return EventResult::UNHANDLED;
 }
 
@@ -73,7 +73,7 @@ EventResult Container::OnMouseWheel(MouseWheelEvent &evt) {
             evt.pos += GetPos();
             return Widget::OnMouseWheel(evt);
         }
-    } 
+    }
     return EventResult::UNHANDLED;
 }
 
