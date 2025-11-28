@@ -6,7 +6,7 @@
 
 namespace hui {
 
-class UI : public dr4::Drawable {
+class UI {
     dr4::Window *window  = nullptr;
 
     hui::Widget *focused       = nullptr;
@@ -21,10 +21,6 @@ public:
     ~UI();
 
     void ProcessEvent(dr4::Event &dr4Event);
-    void DrawOn(dr4::Texture& dstTexture_) const override;
-
-    void SetPos(dr4::Vec2f pos) override;
-    dr4::Vec2f GetPos() const override;
 
     void SetRoot(hui::Widget *widget);
     void SetCaptured(hui::Widget *widget);
