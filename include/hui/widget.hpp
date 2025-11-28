@@ -149,7 +149,6 @@ public:
     friend class KeyEvent;
     friend class TextEvent;
     friend class IdleEvent;
-    friend class HoverEvent;
 
 protected:
 
