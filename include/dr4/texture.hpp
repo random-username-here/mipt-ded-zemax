@@ -142,6 +142,8 @@ public:
     virtual Vec2f GetSize() const = 0;
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
+
+    virtual void DrawOn(const Texture& texture) = 0;
 };
 
 class Texture: public Drawable {
