@@ -3,6 +3,7 @@
 #include "hui/container.hpp"
 #include "hui/event.hpp"
 #include "hui/ui.hpp"
+#include <iostream>
 
 namespace hui {
 
@@ -39,8 +40,8 @@ EventResult Container::OnMouseUp(MouseButtonEvent &evt) {
     if (GetRect().Contains(evt.pos)) {
         evt.pos -= GetPos();
         if (PropagateToChildren(evt) == EventResult::HANDLED) {
-            return EventResult::HANDLED;
             evt.pos += GetPos();
+            return EventResult::HANDLED;
         } else {
             evt.pos += GetPos();
             return Widget::OnMouseUp(evt);

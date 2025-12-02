@@ -34,10 +34,12 @@ public:
     dr4::Window  *GetWindow();
     hui::Widget  *GetFocused();
     hui::Widget  *GetHovered();
+    hui::Widget  *GetCaptured();
     hui::Widget  *GetRoot();
     const dr4::Window  *GetWindow()  const;
     const hui::Widget  *GetFocused() const;
     const hui::Widget  *GetHovered() const;
+    const hui::Widget  *GetCaptured() const;
     const hui::Widget  *GetRoot()    const;
 };
 

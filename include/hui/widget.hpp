@@ -64,6 +64,7 @@ protected:
 
     /// Called when someone set's widget's size
     virtual void OnSizeChanged();
+    virtual void OnPosChanged();
 
 public:
 
