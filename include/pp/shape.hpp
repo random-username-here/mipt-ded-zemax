@@ -2,6 +2,7 @@
 #define I_PP_SHAPE
 #include "dr4/event.hpp"
 #include "dr4/texture.hpp"
+#include "pp/tool.hpp"
 
 namespace pp {
 
@@ -33,6 +34,7 @@ public:
     virtual bool OnKeyDown(const dr4::Event::KeyEvent &) { return false; }
     virtual bool OnKeyUp(const dr4::Event::KeyEvent &) { return false; }
     virtual bool OnText(const dr4::Event::TextEvent &) { return false; }
+    virtual bool OnIdle(const pp::IdleEvent &) { return false; }
 
     virtual void OnSelect() {};
     virtual void OnDeselect() {};

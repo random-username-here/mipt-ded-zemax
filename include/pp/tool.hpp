@@ -6,6 +6,21 @@
 
 namespace pp {
 
+struct IdleEvent {
+
+    /**
+     * @brief Time from some point of reference.
+     * Usefull for animations. In seconds.
+     */
+    double absTime;
+
+    /**
+     * @brief Time since previous IdleEvent was fired.
+     * In seconds.
+     */
+    double deltaTime;
+};
+
 /**
  * @brief A tool is a thing which constructs new shapes.
  *
@@ -44,6 +59,7 @@ public:
     virtual bool OnKeyDown(const dr4::Event::KeyEvent &) { return false; }
     virtual bool OnKeyUp(const dr4::Event::KeyEvent &) { return false; }
     virtual bool OnText(const dr4::Event::TextEvent &) { return false; }
+    virtual bool OnIdle(const IdleEvent &) { return false; }
 
 };
 
