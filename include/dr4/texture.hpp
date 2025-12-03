@@ -166,6 +166,8 @@ public:
 
     virtual void Clear(Color color) = 0;
 
+    virtual dr4::Image* GetImage() const = 0;
+
     virtual void Draw(const Drawable& drawable) {
         drawable.DrawOn(*this);
     }
