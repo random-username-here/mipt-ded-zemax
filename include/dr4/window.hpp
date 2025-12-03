@@ -44,6 +44,9 @@ public:
     virtual Rectangle *CreateRectangle() = 0;
     virtual Text      *CreateText()      = 0;
 
+    virtual void SetDefaultFont( const dr4::Font* font ) = 0;
+    virtual const dr4::Font* GetDefaultFont() = 0;
+
     /**
      * Start receiving utf8-encoded input.
      * This is for optimization purposes: if implementation doesn't support
