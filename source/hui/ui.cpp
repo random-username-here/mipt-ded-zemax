@@ -120,7 +120,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 hui::TextEvent textEvent = {};
                 textEvent.text = dr4Event.text.unicode;
 
-                if (focused) { textEvent.Apply(*focused); }
+                if (focused) { textEvent.Apply(*focused); break; }
                 if (root) textEvent.Apply(*root);
                 break;
             }
@@ -149,14 +149,16 @@ dr4::Texture *UI::GetTexture() {
     return &root->GetFreshTexture();
 }
 
-const dr4::Window  *UI::GetWindow()  const { return window; }
-const hui::Widget  *UI::GetFocused() const { return focused; }
-const hui::Widget  *UI::GetHovered() const { return hovered; }
-const hui::Widget  *UI::GetRoot()    const { return root.get();}
+const dr4::Window  *UI::GetWindow()   const { return window; }
+const hui::Widget  *UI::GetFocused()  const { return focused; }
+const hui::Widget  *UI::GetHovered()  const { return hovered; }
+const hui::Widget  *UI::GetCaptured() const { return captured; }
+const hui::Widget  *UI::GetRoot()     const { return root.get();}
 
-dr4::Window  *UI::GetWindow()  { return window; }
-hui::Widget  *UI::GetFocused() { return focused; }
-hui::Widget  *UI::GetHovered() { return hovered; }
-hui::Widget  *UI::GetRoot()    { return root.get();}
+dr4::Window  *UI::GetWindow()   { return window; }
+hui::Widget  *UI::GetFocused()  { return focused; }
+hui::Widget  *UI::GetHovered()  { return hovered; }
+hui::Widget  *UI::GetCaptured() { return captured; }
+hui::Widget  *UI::GetRoot()     { return root.get();}
 
 }; // namespace hui

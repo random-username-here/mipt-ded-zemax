@@ -27,6 +27,7 @@ UI  *Widget::GetUI() const { return ui; }
 // Positioning
 
 void Widget::OnSizeChanged() {}
+void Widget::OnPosChanged() {}
 
 void Widget::SetSize(dr4::Vec2f size) {
     assert(size.x >= 0);
@@ -42,9 +43,11 @@ void Widget::SetSize(dr4::Vec2f size) {
 
 dr4::Vec2f Widget::GetSize() const { return rect.size; }
 
-void Widget::SetPos(dr4::Vec2f pos) { // FIXME
+void Widget::SetPos(dr4::Vec2f pos) {
     rect.pos = pos;
     texture->SetPos(pos.x - extents.left, pos.y - extents.top);
+
+    OnPosChanged();
 }
 
 dr4::Vec2f Widget::GetPos() const { return rect.pos; }
