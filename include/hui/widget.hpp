@@ -102,8 +102,8 @@ private:
     BorderMapped<float> extents;
 
 protected:
-
     dr4::Texture &GetTexture() const;
+    
     void SetTextureExtents(BorderMapped<float> extents_);
     const BorderMapped<float> &GetTextureExtents() const;
 
