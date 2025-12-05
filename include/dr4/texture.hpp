@@ -4,6 +4,7 @@
 #include <string>
 
 #include "dr4/math/color.hpp"
+#include "dr4/math/rect.hpp"
 #include "dr4/math/vec2.hpp"
 #include "math/color.hpp"
 
@@ -25,7 +26,6 @@ public:
     virtual Vec2f GetPos() const = 0;
 };
 
-
 class Line: public Drawable {
 
 public:
@@ -46,13 +46,15 @@ class Circle: public Drawable {
 public:
 
     virtual void SetCenter(Vec2f center) = 0;
-    virtual void SetRadius(float radius) = 0;
+    virtual void SetRadius(Vec2f radius) = 0;
+            void SetRadius(float rx, float ry) { SetRadius(Vec2f(rx, ry)); }
+            void SetRadius(float r) { SetRadius(Vec2f(r, r)); }
     virtual void SetFillColor(Color color) = 0;
     virtual void SetBorderColor(Color color) = 0;
     virtual void SetBorderThickness(float thickness) = 0;
 
     virtual Vec2f GetCenter() const = 0;
-    virtual float GetRadius() const = 0;
+    virtual Vec2f GetRadius() const = 0;
     virtual Color GetFillColor() const = 0;
     virtual Color GetBorderColor() const = 0;
     virtual float GetBorderThickness() const = 0;
@@ -123,7 +125,7 @@ public:
     virtual Color              GetColor() const = 0;
     virtual float              GetFontSize() const = 0;
     virtual VAlign             GetVAlign() const = 0;
-    virtual const Font        &GetFont() const = 0;
+    virtual const Font        *GetFont() const = 0;
 };
 
 
@@ -158,7 +160,13 @@ public:
             void SetZero(float x, float y) { SetZero(Vec2f(x, y)); }
     virtual Vec2f GetZero() const = 0;
 
+    virtual void SetClipRect(Rect2f rect) = 0;
+    virtual void RemoveClipRect() = 0;
+    virtual Rect2f GetClipRect() const = 0;
+
     virtual void Clear(Color color) = 0;
+
+    virtual dr4::Image* GetImage() const = 0;
 
     virtual void Draw(const Drawable& drawable) {
         drawable.DrawOn(*this);

@@ -33,6 +33,8 @@ public:
 
     // Monotonic time in seconds
     virtual double GetTime() = 0;
+    // Sleep for some time, in seconds
+    virtual void Sleep(double time) = 0;
 
     virtual Texture   *CreateTexture()   = 0;
     virtual Image     *CreateImage()     = 0;
@@ -41,6 +43,12 @@ public:
     virtual Circle    *CreateCircle()    = 0;
     virtual Rectangle *CreateRectangle() = 0;
     virtual Text      *CreateText()      = 0;
+
+    virtual void SetDefaultFont( const dr4::Font* font ) = 0;
+    virtual const dr4::Font* GetDefaultFont() = 0;
+
+    virtual void SetClipboard( const std::string& string ) = 0;
+    virtual std::string GetClipboard() = 0;
 
     /**
      * Start receiving utf8-encoded input.
