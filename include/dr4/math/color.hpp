@@ -1,7 +1,8 @@
 #ifndef I_DR4_MATH_COLOR
 #define I_DR4_MATH_COLOR
-
+#include <iostream>
 #include <cstdint>
+
 
 namespace dr4 {
 
@@ -17,6 +18,11 @@ struct Color {
     Color()
         :r(0), g(0), b(0), a(ColorMaxValue) {}
 };
+
+inline std::ostream& operator<<(std::ostream& os, const Color& c) {
+    return os << "Color(" << int(c.r) << ", " << int(c.g)
+              << ", " << int(c.b) << ", " << int(c.a) << ")";
+}
 
 }; // namespace dr4
 

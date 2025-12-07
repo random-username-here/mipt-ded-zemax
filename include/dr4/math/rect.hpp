@@ -1,6 +1,6 @@
 #ifndef I_DR4_MATH_RECT
 #define I_DR4_MATH_RECT
-
+#include <iostream>
 #include "dr4/math/vec2.hpp"
 
 namespace dr4 {
@@ -22,6 +22,10 @@ struct Rect2f {
             && this->pos.y <= point.y && point.y <= this->pos.y + this->size.y;
     }
 };
+
+inline std::ostream& operator<<(std::ostream& os, const Rect2f& r) {
+    return os << "Rect2f(pos=" << r.pos << ", size=" << r.size << ")";
+}
 
 }; // namespace dr4
 

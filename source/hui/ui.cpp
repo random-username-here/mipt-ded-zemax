@@ -51,10 +51,7 @@ void UI::ProcessEvent(dr4::Event &dr4Event) {
                 if (root) mouseMoveEvent.Apply(*root);
 
                 if (prevHovered == hovered) break;
-                if (prevHovered) {
-                    prevHovered->OnHoverLost();
-                }
-
+                if (prevHovered) prevHovered->OnHoverLost();
                 if (hovered) hovered->OnHoverGained();
                 break;
             }

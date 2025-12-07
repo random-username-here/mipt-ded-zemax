@@ -1,4 +1,5 @@
 #include <cassert>
+#include <iostream>
 
 #include "dr4/math/vec2.hpp"
 #include "hui/widget.hpp"
@@ -127,7 +128,7 @@ EventResult Widget::OnKeyUp      (KeyEvent &)         { return EventResult::UNHA
 EventResult Widget::OnText       (TextEvent &)        { return EventResult::UNHANDLED; }
 EventResult Widget::OnIdle       (IdleEvent &)        { return EventResult::UNHANDLED; }
 
-EventResult Widget::OnMouseMove (MouseMoveEvent &evt) {
+EventResult Widget::OnMouseMove(MouseMoveEvent &evt) {
     if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED;
     GetUI()->ReportHover(this);
     return EventResult::HANDLED;

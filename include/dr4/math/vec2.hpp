@@ -1,6 +1,6 @@
 #ifndef I_DR4_MATH_VEC2
 #define I_DR4_MATH_VEC2
-
+#include <iostream>
 #include <algorithm>
 
 namespace dr4 {
@@ -32,6 +32,10 @@ struct Vec2f {
 
 inline Vec2f operator*(float k, Vec2f vec) {
     return Vec2f(vec.x * k, vec.y * k);
+}
+
+inline std::ostream& operator<<(std::ostream& os, const Vec2f& v) {
+    return os << "Vec2f(" << v.x << ", " << v.y << ")";
 }
 
 }; // namespace dr4
