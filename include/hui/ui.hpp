@@ -41,6 +41,9 @@ public:
     const hui::Widget  *GetHovered() const;
     const hui::Widget  *GetCaptured() const;
     const hui::Widget  *GetRoot()    const;
+
+    void RemoveWidgetFromState(hui::Widget *);
+
 };
 
 }; // namespace hui

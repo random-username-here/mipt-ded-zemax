@@ -158,4 +158,16 @@ hui::Widget  *UI::GetHovered()  { return hovered; }
 hui::Widget  *UI::GetCaptured() { return captured; }
 hui::Widget  *UI::GetRoot()     { return root.get();}
 
+void UI::RemoveWidgetFromState(hui::Widget *wgt) {
+    if (focused == wgt) {
+        focused = nullptr;
+    }
+    if (captured == wgt) {
+        captured = nullptr;
+    }
+    if (hovered == wgt) {
+        hovered = nullptr;
+    }
+}
+
 }; // namespace hui

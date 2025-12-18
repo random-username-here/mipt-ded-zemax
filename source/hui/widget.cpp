@@ -17,7 +17,9 @@ Widget::Widget(UI *ui_) :
     texture(ui_->GetWindow()->CreateTexture()),
     extents(0) {}
 
-Widget::~Widget() = default;
+Widget::~Widget() {
+    if (GetUI()) GetUI()->RemoveWidgetFromState(this);
+}
 
 void Widget::SetParent(Widget *parent_) { parent = parent_; }
 
@@ -130,6 +132,7 @@ EventResult Widget::OnIdle       (IdleEvent &)        { return EventResult::UNHA
 
 EventResult Widget::OnMouseMove(MouseMoveEvent &evt) {
     if (!GetRect().Contains(evt.pos)) return EventResult::UNHANDLED;
+    
     GetUI()->ReportHover(this);
     return EventResult::HANDLED;
 }
